@@ -144,9 +144,12 @@ nav ul li a:hover {
     background: linear-gradient(to right, #660a0e, #70060c);
 }
 
+
 .caixa-proposito {
     color: var(--main-branco);
-    padding: 2vh 7vw;
+    padding: 6vw 8vh 6vw 8vh;
+    border-radius: 5px;
+    border: 1px rgba(255,255,255, 0.3) solid;
 }
 
 .caixa-proposito h2 {
@@ -156,4 +159,25 @@ nav ul li a:hover {
 
 .caixa-proposito span {
     color: var(--main-vermelho-primario);
+}
+
+.container-proposito {
+    padding: 1.8vh 5vw;
+}
+
+.box-imgs {
+    display: flex;
+    flex-direction: row;
+    padding-top: 5vh;
+    gap: 4vw;
+}
+
+.box-imgs div {
+    text-align: center;
+}
+
+.texto-final-proposito {
+    display: flex;
+    justify-content: center;
+    padding-top: 12vh;
 }
