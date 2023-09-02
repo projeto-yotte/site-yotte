@@ -57,7 +57,7 @@ nav ul {
     font-size: 13px;
 }
 
-nav ul li a{
+nav ul li a {
     color: var(--main-branco);
     margin: 5px;
     padding: 5px;
@@ -91,8 +91,8 @@ nav ul li a:hover {
     size: 15px;
     border: none;
     color: var(--main-branco);
-    width:84px;
-    height:32px;
+    width: 84px;
+    height: 32px;
     background: linear-gradient(to right, #650d11, #930e15);
 }
 
@@ -111,22 +111,22 @@ nav ul li a:hover {
 
 .caixa-h1 h1 {
     font-size: 48px;
-    line-height: 6vh;
+    line-height: 8vh;
     text-align: center;
     font-weight: 500;
-    letter-spacing: -2px;
+    letter-spacing: -1px;
 }
 
 .caixa-h1 p {
     padding-top: 1vh;
-    color: rgba(255,255,255, 0.6);
+    color: rgba(255, 255, 255, 0.6);
     font-size: 14px;
     font-weight: 300;
     text-align: center;
 }
 
 .button-landing {
-    padding-top: 5vh;
+    padding-top: 9vh;
     display: flex;
     justify-content: center;
 }
@@ -152,7 +152,7 @@ nav ul li a:hover {
     color: var(--main-branco);
     padding: 6vw 8vh 6vw 8vh;
     border-radius: 5px;
-    border: 1px rgba(255,255,255, 0.1) solid;
+    border: 1px rgba(255, 255, 255, 0.1) solid;
 }
 
 .caixa-proposito h2 {
@@ -177,13 +177,13 @@ nav ul li a:hover {
 
 .box-imgs img {
     height: auto;
-    width: 260px;
+    width: 300px;
     border-radius: 30px;
 }
 
 .box-imgs h3 {
-    color: #a7aaaf;
-    font-size: 20px;
+    color: #909297;
+    font-size: 25px;
     font-weight: 600;
     margin-top: 1.2vh;
 }
@@ -202,8 +202,8 @@ nav ul li a:hover {
 .texto-final-proposito {
     display: flex;
     justify-content: center;
-    padding-top: 6vh;
-    font-size: 14px;
+    padding-top: 12vh;
+    font-size: 16px;
 }
 
 /* Section sobre o Nosso Compromisso */
@@ -224,6 +224,11 @@ nav ul li a:hover {
     width: 480px;
 }
 
+.content-compromisso {
+    padding: 3vw;
+    margin-top: 18vh;
+}
+
 .content-compromisso h3 {
     font-size: 30px;
     font-weight: 600;
@@ -239,11 +244,6 @@ nav ul li a:hover {
     font-weight: 300;
 }
 
-.content-compromisso {
-    padding: 3vw;
-    margin-top: 11vh;
-}
-
 .content-compromisso img {
     height: auto;
     width: 150px;
@@ -253,7 +253,7 @@ nav ul li a:hover {
 /* Section Sobre Nós */
 
 .container-sobrenos {
-    padding: 5vw;
+    padding: 4vw;
 }
 
 .container-sobrenos h2 {
@@ -275,15 +275,12 @@ nav ul li a:hover {
     color: var(--main-branco);
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .content-sobrenos img {
     height: auto;
-    width: 600px;
-}
-
-.texto-left {
-    margin-top: 8vh;
+    width: 680px;
 }
 
 .texto-left p {
@@ -295,10 +292,6 @@ nav ul li a:hover {
 .texto-left span {
     color: var(--main-vermelho-primario);
     font-weight: 600;
-}
-
-.texto-right {
-    margin-top: 8vh;
 }
 
 .texto-right p {
@@ -318,4 +311,62 @@ nav ul li a:hover {
     font-size: 16.5px;
     font-weight: 400;
     line-height: 3vh;
+}
+
+/* Fale Conosco */
+
+.container-faleconosco {
+    margin: 45vh 15vw;
+}
+
+.content-faleconosco {
+    display: flex;
+    justify-content: space-between;
+}
+
+.content-faleconosco img {
+    height: auto;
+    width: 420px;
+}
+
+.box-form {
+    color: var(--main-branco);
+    background-color: rgb(10, 10, 10);
+    border-radius: 25px;
+    padding: 4vh 7vw;
+    align-items: center;
+}
+
+.box-form h1 {
+    font-size: 28px;
+}
+
+.box-form input {
+    color: var(--main-branco);
+    background-color: #2E2E2E;
+    border-radius: 5px;
+    width: 100%;
+    padding: 6px 10px;
+    margin: 2vh 0;
+    box-sizing: border-box;
+}
+
+.box-form .input-msg {
+    padding: 55px 10px;
+}
+
+.btn-faleconosco {
+    cursor: pointer;
+    border-radius: 8px;
+    size: 18px;
+    border: none;
+    color: var(--main-branco);
+    width: 12vw;
+    height: 6vh;
+    background: linear-gradient(to right, #650d11, #930e15);
+    position: relative;
+}
+
+.btn-faleconosco:hover {
+    background: linear-gradient(to right, #5f090d, #70060c);
 }
