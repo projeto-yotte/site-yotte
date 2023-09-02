@@ -7,6 +7,9 @@
     /*background-color: var(--main-background);
     */
     font-family: var(--main-font-full);
+}
+
+body {
     background-color: #000;
 }
 
@@ -369,4 +372,55 @@ nav ul li a:hover {
 
 .btn-faleconosco:hover {
     background: linear-gradient(to right, #5f090d, #70060c);
+}
+
+/* Footer */
+    
+
+.footer-content{
+    color: var(--main-branco);
+    display: flex;
+    justify-content: space-between;
+    padding: 6vw;
+    background: rgb(0,0,0);
+    background: linear-gradient(180deg, rgba(0,0,0,1) 52%, rgba(17,2,3,1) 77%, rgba(38,5,7,1) 94%, rgba(56,7,9,0.7030461842940301) 100%);
+}
+
+.footer-descriçao p {
+    font-size: 13px;
+    font-weight: 300;
+}
+
+.footer-links {
+    margin-right: 4vw;
+    line-height: 2.5vh;
+    margin-top: 6vh;
+}
+
+.footer-links p {
+    font-size: 13px;
+    font-weight: 300;
+}
+
+.footer-contato {
+    margin-right: 5vw;
+    margin-top: 3vh;
+}
+
+.footer-contato p {
+    font-size: 13px;
+    font-weight: 300;
+}
+
+.footer-contato h5 {
+    font-size: 15px;
+    text-align: center;
+}
+
+.copyright {
+    font-size: 11px;
+    text-align: left;
+    font-weight: 300;
+    color: var(--main-branco);
+    background-color: #260507;
 }
