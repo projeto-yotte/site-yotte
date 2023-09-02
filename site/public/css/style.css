@@ -1,0 +1,151 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    /*background-color: var(--main-background);
+    */
+    font-family: var(--main-font-full);
+}
+
+
+section {
+    background-color: var(--main-background);
+}
+
+
+#home {
+    width: 99vw;
+    height: 100vh;
+    background-color: var(--main-background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    /* max-width: 1024px; */
+    height: 100%;
+}
+
+/* Navigation Bar */
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.8vh 5vw;
+}
+
+img {
+    width: 100px;
+    height: auto;
+}
+
+nav ul {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 6vw;
+    font-weight: 300;
+    font-size: 13px;
+}
+
+nav ul li a{
+    color: var(--main-branco);
+    margin: 5px;
+    padding: 5px;
+}
+
+nav ul li a:hover {
+    color: #a3060e;
+    transition: 1s;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-content: space-between;
+}
+
+.btn-login {
+    cursor: pointer;
+    border-radius: 8px;
+    size: 12px;
+    border: none;
+    color: var(--main-branco);
+    background-color: #000;
+    margin-right: 2vw;
+}
+
+.btn-signup {
+    cursor: pointer;
+    border-radius: 8px;
+    size: 15px;
+    border: none;
+    color: var(--main-branco);
+    width:84px;
+    height:32px;
+    background: linear-gradient(to right, #650d11, #930e15);
+}
+
+/* Landing Page */
+
+.caixa-h1 {
+    display: flex;
+    justify-content: center;
+    color: var(--main-branco);
+    padding-top: 17vh;
+}
+
+.caixa-h1 h1 {
+    font-size: 45px;
+    line-height: 8vh;
+    text-align: center;
+    font-weight: 600;
+}
+
+.caixa-h1 p {
+    padding-top: 1vh;
+    color: rgba(255,255,255, 0.6);
+    font-size: 14px;
+    font-weight: 300;
+    text-align: center;
+}
+
+.button-landing {
+    padding-top: 5vh;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-saiba {
+    cursor: pointer;
+    font-size: 13px;
+    padding: 1.5vh 1.8vw;
+    border-radius: 11px;
+    text-decoration: none;
+    font-weight: 500;
+    color: var(--main-branco);
+    background: linear-gradient(to right, #650d11, #930e15);
+}
+
+.caixa-proposito {
+    color: var(--main-branco);
+    padding: 2vh 7vw;
+}
+
+.caixa-proposito h2 {
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.caixa-proposito span {
+    color: var(--main-vermelho-primario);
+}
