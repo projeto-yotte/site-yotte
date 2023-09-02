@@ -1,28 +1,14 @@
-<h1 align="center">YOTTE</h1>
+<h1 align="center">YOTTE - Monitoramento de máquinas.</h1>
 
-<p align="center">Projeto de monitoramento de computadores de programadores. Desenvolvido com intuito de conclusão segundo semestre da faculdade SPTECH, curso ADS</p>
+<p>A Yotte é um projeto criado pelo Grupo 9 do 2 ADSA, que visa monitorar o desempenho de hardware das máquinas utilizadas pelos desenvolvedores que trabalham no regime de Home Office.</p>
 
-<hr>
+<div>
+  <h3> Linguagens utilizadas no projeto </h3>
+  <img align="center" alt="HTML" alt="HTML" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg">
+  <img align="center" alt="CSS" alt="CSS" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg">
+  <img align="center" alt="JavaScript" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-plain.svg">
+</div>
 
-# Como usar
+<br>
 
-1. Clone este repositório em sua máquina.
-
-
-1. Crie, no Banco de Dados, as tabelas necessárias para o funcionamento deste projeto.
-- Siga as instruções no arquivo **/site/src/database/script-tabelas.sql**
-
-
-3. Acesse o arquivo **/site/app.js** e parametrize o ambiente.
-- Se você estiver utilizando o Ambiente de Produção (SQL Server na nuvem Azure, remoto), comente a linha 1 e deixe habilitada a linha 2 onde está o valor **process.env.AMBIENTE_PROCESSO = "producao";**
-- Se você estiver utilizando o Ambiente de Desenvolvimento (MySQL Workbench, local), comente a linha 2 e deixe habilitada a linha 1 onde está o valor **process.env.AMBIENTE_PROCESSO = "desenvolvimento";**
-
-4. Adicione as credenciais de Banco de Dados no arquivo **/site/src/database/config.js**, seguindo as instruções neste.
-
-5. Acesse o local do diretório **/site** presente neste repositório no seu terminal (GitBash ou VSCode) e execute os comandos abaixo:
-
-```
-npm i
-```
-
-
+ <h3 align="center"> Status do projeto: <b> Em andamento </b> </h3>
