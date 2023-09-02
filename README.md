@@ -19,4 +19,8 @@
 <br>
 <br>
 
- <h4 align="center"> Status do projeto: <b> Em andamento </b> </h4>
+ <h3 align="center"> Status do projeto: <b> Em andamento </b> </h3>
+ <br>
+<div align="center">
+<p>Projeto produzido por: Brian Guimarães (@eusoubrian), Daniel Rocha (@Danielr194),<br> Igor Viera, Julia Hown (@JuliaHown), Matheus Trindade (@MatheussTrindade)<br> e Victor Lira (@VicLira)</p>
+</div>
