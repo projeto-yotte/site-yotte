@@ -95,6 +95,10 @@ nav ul li a:hover {
     background: linear-gradient(to right, #650d11, #930e15);
 }
 
+.btn-signup:hover {
+    background: linear-gradient(to right, #5f090d, #70060c);
+}
+
 /* Landing Page */
 
 .caixa-h1 {
@@ -134,6 +138,10 @@ nav ul li a:hover {
     font-weight: 500;
     color: var(--main-branco);
     background: linear-gradient(to right, #650d11, #930e15);
+}
+
+.btn-saiba:hover {
+    background: linear-gradient(to right, #5f090d, #70060c);
 }
 
 .caixa-proposito {
