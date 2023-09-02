@@ -383,7 +383,7 @@ nav ul li a:hover {
     justify-content: space-between;
     padding: 6vw;
     background: rgb(0,0,0);
-    background: linear-gradient(180deg, rgba(0,0,0,1) 52%, rgba(17,2,3,1) 77%, rgba(38,5,7,1) 94%, rgba(56,7,9,0.7030461842940301) 100%);
+    background: linear-gradient(180deg, rgba(0,0,0,1) 52%, rgba(17,2,3,1) 100%, rgba(38,5,7,1) 100%);
 }
 
 .footer-descriçao p {
@@ -422,5 +422,5 @@ nav ul li a:hover {
     text-align: left;
     font-weight: 300;
     color: var(--main-branco);
-    background-color: #260507;
+    background-color: #110203;
 }
