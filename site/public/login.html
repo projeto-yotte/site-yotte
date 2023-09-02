@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/login.css">
+    <!-- <link rel="stylesheet" href="css/global.css"> -->
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="corpo">
+        <div class="container">
+            <div class="back">
+                <a href="index.html">
+                    <span>
+                        ↤ Voltar
+                    </span>
+                </a>
+            </div>
+            <div class="top-logo">
+                <img class="logo" src="./assets/img/logoCopia.png" alt="">
+            </div>
+            <div class="info-input" onclick="mostrarOcultarSenha()">
+                <div>
+                    <input id="email" class="email-input" type="email" placeholder="Digite seu e-mail">
+                </div>
+                <div>
+                    <input id="senha" class="senha-input" type="password" placeholder="Senha">
+                </div>
+                <input id="mostrarSenha" type="checkbox">
+                <span>Esqueceu a senha?</span>
+            </div>
+            <div class="button-logar">
+                <button onclick="login()" class="button-login">
+                    Fazer Login
+                </button>
+            </div>
+
+
+        </div>
+    </div>
+</body>
+<script>
+
+    function mostrarOcultarSenha() {
+        var senhaInput = document.getElementById("senha");
+        var mostrarSenhaCheckbox = document.getElementById("mostrarSenha");
+
+        if (mostrarSenhaCheckbox.checked) {
+            senhaInput.type = "text";
+        } else {
+            senhaInput.type = "password";
+        }
+    }
+</script>
+
+</html>
