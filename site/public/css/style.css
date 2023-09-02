@@ -7,6 +7,7 @@
     /*background-color: var(--main-background);
     */
     font-family: var(--main-font-full);
+    background-color: #000;
 }
 
 
@@ -144,17 +145,18 @@ nav ul li a:hover {
     background: linear-gradient(to right, #660a0e, #70060c);
 }
 
+/* Section sobre o propósito */
 
 .caixa-proposito {
     color: var(--main-branco);
     padding: 6vw 8vh 6vw 8vh;
     border-radius: 5px;
-    border: 1px rgba(255,255,255, 0.3) solid;
+    border: 1px rgba(255,255,255, 0.1) solid;
 }
 
 .caixa-proposito h2 {
-    font-size: 25px;
-    font-weight: 500;
+    font-size: 28px;
+    font-weight: 600;
 }
 
 .caixa-proposito span {
@@ -172,6 +174,26 @@ nav ul li a:hover {
     gap: 4vw;
 }
 
+.box-imgs img {
+    height: auto;
+    width: 260px;
+    border-radius: 30px;
+}
+
+.box-imgs h3 {
+    color: #a7aaaf;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 1.2vh;
+}
+
+.box-imgs p {
+    color: var(--main-branco);
+    font-weight: 300;
+    font-size: 13px;
+    margin-top: 1.2vh;
+}
+
 .box-imgs div {
     text-align: center;
 }
@@ -179,5 +201,50 @@ nav ul li a:hover {
 .texto-final-proposito {
     display: flex;
     justify-content: center;
-    padding-top: 12vh;
+    padding-top: 6vh;
+    font-size: 14px;
+}
+
+/* Section sobre o Nosso Compromisso */
+
+.container-compromisso {
+    padding: 4vw;
+    margin-top: 18vh;
+}
+
+.caixa-compromisso {
+    display: flex;
+    justify-content: space-between;
+    color: var(--main-branco);
+}
+
+.caixa-compromisso img {
+    height: auto;
+    width: 480px;
+}
+
+.content-compromisso h3 {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.content-compromisso span {
+    color: var(--main-vermelho-primario);
+}
+
+
+.content-compromisso p {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.content-compromisso {
+    padding: 3vw;
+    margin-top: 11vh;
+}
+
+.content-compromisso img {
+    height: auto;
+    width: 150px;
+    margin-right: 3vw;
 }
