@@ -142,6 +142,44 @@ nav ul li a:hover {
     text-align: center;
 }
 
+.caixa-h1 img {
+    height: auto;
+    width: 100px;
+    position: absolute;
+    overflow: clip;
+    overflow-clip-margin: content-box;
+    animation-name: point;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    pointer-events: none;
+}
+
+.caixa-h1 .point1 {
+    height: auto;
+    width: 200px;
+    margin-left: -20vw;
+}
+
+.caixa-h1 .point2 {
+    margin-top: -20vh;
+    margin-left: 14vw;
+    height: auto;
+    width: 150px;
+}
+
+.caixa-h1 .point3 {
+    margin-top: 13vh;
+    margin-left: 44vw;
+    height: auto;
+    width: 200px;
+}
+
+.caixa-h1 .point3 {
+    margin-top: 8vh;
+    margin-left: 50vw;
+}
+
 .button-landing {
     padding-top: 9vh;
     display: flex;
@@ -298,6 +336,13 @@ nav ul li a:hover {
 .content-sobrenos img {
     height: auto;
     width: 680px;
+    overflow: clip;
+    overflow-clip-margin: content-box;
+    animation-name: laptop;
+    animation-duration: 8s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    pointer-events: none;
 }
 
 .texto-left p {
@@ -344,6 +389,11 @@ nav ul li a:hover {
 .content-faleconosco img {
     height: auto;
     width: 420px;
+    animation-name: man-img;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    pointer-events: none;
 }
 
 .box-form {
@@ -475,8 +525,58 @@ nav ul li a:hover {
     line-height: 40px;
     text-align: center;
     transition: background-color 0.3s ease;
-  }
+}
 
-  #scrollUpButton:hover {
+#scrollUpButton:hover {
     background-color: linear-gradient(to right, #650d11, #930e15);
-  }
+}
+
+/* ANIMAÇÕES */
+
+@keyframes point {
+
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 0;
+    }
+
+}
+
+@keyframes man-img {
+
+    0% {
+        transform: translate(0%, 0);
+    }
+
+    50% {
+        transform: translate(0, -25px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+
+}
+
+@keyframes laptop {
+
+    0% {
+        transform: translate(0%, 0);
+    }
+
+    50% {
+        transform: translate(0, -15px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+
+}
