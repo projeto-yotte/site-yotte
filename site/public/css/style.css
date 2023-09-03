@@ -18,6 +18,20 @@ section {
     background-color: var(--main-background);
 }
 
+::-webkit-scrollbar {
+    width: 13px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #5f070c;
+    border-radius: 7px;
+    border: 2px solid #4e0909;
+}
+
 
 #home {
     width: 99vw;
@@ -375,15 +389,15 @@ nav ul li a:hover {
 }
 
 /* Footer */
-    
 
-.footer-content{
+
+.footer-content {
     color: var(--main-branco);
     display: flex;
     justify-content: space-between;
     padding: 6vw;
-    background: rgb(0,0,0);
-    background: linear-gradient(180deg, rgba(0,0,0,1) 52%, rgba(17,2,3,1) 100%, rgba(38,5,7,1) 100%);
+    background: rgb(0, 0, 0);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 1) 52%, rgba(17, 2, 3, 1) 100%, rgba(38, 5, 7, 1) 100%);
 }
 
 .footer-descriçao p {
@@ -397,14 +411,30 @@ nav ul li a:hover {
     margin-top: 6vh;
 }
 
-.footer-links p {
-    font-size: 13px;
+.footer-links li {
+    font-size: 15px;
     font-weight: 300;
+    margin-bottom: 1.5vh;
+}
+
+.footer-links a {
+    color: var(--main-branco);
+}
+
+.footer-links a:hover {
+    color: var(--main-vermelho-primario);
 }
 
 .footer-contato {
     margin-right: 5vw;
     margin-top: 3vh;
+}
+
+.footer-contato img {
+    height: auto;
+    width: 160px;
+    margin-left: 0.7vw;
+    margin-bottom: 1.6vh;
 }
 
 .footer-contato p {
@@ -424,3 +454,29 @@ nav ul li a:hover {
     color: var(--main-branco);
     background-color: #110203;
 }
+
+/* Botão de scroll inferior */
+
+#scrollUpButton {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(to right, #650d11, #930e15);
+    color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 20px;
+    line-height: 40px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+
+  #scrollUpButton:hover {
+    background-color: linear-gradient(to right, #650d11, #930e15);
+  }

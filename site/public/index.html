@@ -21,9 +21,9 @@
                     <nav>
                         <ul>
                             <li><a href="#">Home</a></li>
-                            <li><a href="#">Sobre nós</a></li>
+                            <li><a href="#sobre-nos">Sobre nós</a></li>
                             <li><a href="#section-proposito">Serviços</a></li>
-                            <li><a href="#">Contato</a></li>
+                            <li><a href="#fale-conosco">Contato</a></li>
                         </ul>
                     </nav>
                     <div class="button-group">
@@ -156,19 +156,21 @@
             <div class="footer-content">
                 <div class="footer-descriçao">
                     <img src="./assets/img/logo.png">
-                    <p>Somos uma equipe de especialistas, com experiência em <br> monitoramento de hardware para o ambiente de
-                        trabalho <br> remoto. Fundada com a visão de facilitar a vida dos <br> desenvolvedores e empresas que adotaram
+                    <p>Somos uma equipe de especialistas, com experiência em <br> monitoramento de hardware para o
+                        ambiente de
+                        trabalho <br> remoto. Fundada com a visão de facilitar a vida dos <br> desenvolvedores e
+                        empresas que adotaram
                         o home office, <br> a Yotte se tornou uma referência na indústria.</p>
                 </div>
                 <div class="footer-links">
-                    <p> > Home</p> <br>
-                    <p> > Serviços</p> <br>
-                    <p> > Sobre nós</p> <br>
-                    <p> > Contato</p> <br>
+                    <li><a href="#"> > Home</a></li>
+                    <li><a href="#sobre-nos"> > Sobre nós</a></li>
+                    <li><a href="#section-proposito"> > Serviços</a></li>
+                    <li><a href="#fale-conosco"> > Contato</a></li>
                 </div>
                 <div class="footer-contato">
                     <h5>Acomhanhe a yotte nas <br> redes sociais</h5><br>
-                    <p>(redes sociais aqui)</p> <br>
+                    <img src="./assets/img/icons.svg">
                     <p>(11) 99999-9999</p>
                     <p>atendimento@yotte.com</p>
                 </div>
@@ -176,7 +178,27 @@
             <p class="copyright">© 2023 Copyright - Yotte</p>
         </footer>
 
+        <button id="scrollUpButton" onclick="scrollToTop()">&#8679;</button>
+
     </main>
 </body>
 
 </html>
+
+<script>
+
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    window.onscroll = function () {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById('scrollUpButton').style.display = 'block';
+        } else {
+            document.getElementById('scrollUpButton').style.display = 'none';
+        }
+    };
+</script>
