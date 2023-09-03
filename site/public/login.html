@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- <link rel="stylesheet" href="css/global.css"> -->
     <title>Document</title>
 </head>
@@ -22,14 +23,16 @@
             <div class="top-logo">
                 <img class="logo" src="./assets/img/logoCopia.png" alt="">
             </div>
-            <div class="info-input" onclick="mostrarOcultarSenha()">
+            <div class="info-input">
                 <div>
                     <input id="email" class="email-input" type="email" placeholder="Digite seu e-mail">
                 </div>
                 <div>
                     <input id="senha" class="senha-input" type="password" placeholder="Senha">
                 </div>
-                <input id="mostrarSenha" type="checkbox">
+                <div class="eye">
+                    <i class="bi bi-eye-fill" onclick="mostrarOcultarSenha()" id="mostrarSenha"></i>
+                </div>
                 <span>Esqueceu a senha?</span>
             </div>
             <div class="button-logar">
@@ -45,13 +48,15 @@
 <script>
 
     function mostrarOcultarSenha() {
-        var senhaInput = document.getElementById("senha");
-        var mostrarSenhaCheckbox = document.getElementById("mostrarSenha");
+        var inputPass = document.getElementById("senha");
+        var btnShowPass = document.getElementById("mostrarSenha");
 
-        if (mostrarSenhaCheckbox.checked) {
-            senhaInput.type = "text";
+        if (inputPass.type === 'password') {
+            inputPass.setAttribute('type', 'text');
+            btnShowPass.classList.replace('bi-eye-fill', 'bi-eye-slash-fill')
         } else {
-            senhaInput.type = "password";
+            inputPass.setAttribute('type', 'password');
+            btnShowPass.classList.replace('bi-eye-slash-fill', 'bi-eye-fill')
         }
     }
 </script>
