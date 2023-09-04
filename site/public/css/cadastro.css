@@ -9,6 +9,13 @@
     font-family: var(--main-font-full);
 }
 
+
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+}
+
 .corpo {
     display: flex;
     width: 100%;
@@ -114,5 +121,15 @@ font-size: 20px;
 
 .button-login:hover {
     background: linear-gradient(to right, #660a0e, #70060c);
+}
+
+@media screen and (max-Width: 600px) {
+    
+    .corpo{
+       align-items: center;
+    }
+    .img-login{
+        display: none;
+    }
 }
 
