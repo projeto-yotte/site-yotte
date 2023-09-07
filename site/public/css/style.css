@@ -92,6 +92,10 @@ nav ul li a:hover {
     justify-content: space-between;
 }
 
+.button-group a {
+    color: var(--main-branco);
+}
+
 .btn-login {
     cursor: pointer;
     border-radius: 8px;
