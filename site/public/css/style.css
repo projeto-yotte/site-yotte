@@ -74,6 +74,10 @@ nav ul {
     font-size: 13px;
 }
 
+.nav-icon-bars {
+    display: none;
+}
+
 nav ul li a {
     color: var(--main-branco);
     margin: 5px;
@@ -112,8 +116,6 @@ nav ul li a:hover {
     size: 15px;
     border: none;
     color: var(--main-branco);
-    width: 84px;
-    height: 32px;
     background: linear-gradient(to right, #650d11, #930e15);
 }
 

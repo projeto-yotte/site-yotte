@@ -1,0 +1,121 @@
+.modal-wrapper.open {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.modal {
+    width: 100%;
+    padding: 20px 0;
+    transform: translateY(-100%); 
+    background-color: var(--main-branco);
+}
+
+.modal.close {
+    animation: slideUp 0.5s ease forwards;
+}
+
+.modal.open {
+    animation: slideDown 0.5s ease forwards;
+    animation-delay: 0.3s;
+}
+
+.btn-fechar {
+    background: none;
+    border: none;
+}
+
+.btn-fechar .fa-times {
+    font-size: 24px;
+    padding: 20px;
+    position: absolute;
+    cursor: pointer;
+
+}
+
+/* Criação da animação de keyframe */
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(0%);
+    }
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav {
+        margin-top: 20px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    nav ul {
+        margin: 0;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-menu-item {
+        display: none;
+    }
+
+    .nav-menu-item.mobile,  .nav-menu-item.mobile a{
+        display: flex;
+        color: var(--main-background);
+        font-size: 18px;
+    }
+
+    .nav-menu-item.mobile:hover {
+        opacity: 0.8;
+    }
+
+    .nav-icon-bars {
+        display: flex;
+        background: none;
+        border: none;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .nav-icon-bars .fa-bars {
+        font-size: 24px;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    .button-group {
+        margin-top: 20px;
+        display: none;
+    }
+
+    .button-group.mobile {
+        justify-content: space-around;
+        display: flex;
+    }
+
+    .btn-signup, .btn-login {
+        width: 45%;
+        padding: 10px 0;
+    }
+}
