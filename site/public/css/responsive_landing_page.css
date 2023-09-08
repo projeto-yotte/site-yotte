@@ -142,4 +142,29 @@
     .texto-final-proposito p {
         text-align: center;
     }
+
+    .caixa-compromisso {
+        flex-direction: column;
+    }
+
+    .content-compromisso {
+        width: 90%;
+    }
+
+    .content-sobrenos {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px
+    }
+
+    .content-sobrenos p, .texto-final {
+        width: 90%;
+        text-align: center;
+    }
+
+    .texto-left, .texto-right, .content-compromisso img {
+        display: flex;
+        justify-content: center;
+    }
 }
