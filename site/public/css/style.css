@@ -434,13 +434,24 @@ nav ul li a:hover {
 
 /* Fale Conosco */
 
-.container-faleconosco {
-    margin: 45vh 15vw;
+#section-fale-conosco {
+    width: 100%;
+    height: 100vh;
+    max-height: 1024px;
+    background-color: var(--main-background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+/* .container-faleconosco {
+    margin: 45vh 15vw;
+} */
+
 .content-faleconosco {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .content-faleconosco img {
@@ -454,10 +465,10 @@ nav ul li a:hover {
 }
 
 .box-form {
+    width: 30%;
     color: var(--main-branco);
     background-color: rgb(10, 10, 10);
     border-radius: 25px;
-    padding: 4vh 7vw;
     align-items: center;
 }
 
