@@ -167,4 +167,17 @@
         display: flex;
         justify-content: center;
     }
+
+    .content-faleconosco img {
+        display: none;
+    }
+
+    .box-form {
+        text-align: center;
+        width: 90%;
+    }
+
+    .box-form .btn-faleconosco {
+        width: 100%;
+    }
 }
