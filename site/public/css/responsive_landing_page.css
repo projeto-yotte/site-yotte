@@ -151,6 +151,8 @@
         width: 90%;
     }
 
+    /* SOBRE-NOS =================== */
+
     .content-sobrenos {
         flex-direction: column;
         justify-content: center;
@@ -163,10 +165,14 @@
         text-align: center;
     }
 
+    /* COMPROMISSO =================== */
+
     .texto-left, .texto-right, .content-compromisso img {
         display: flex;
         justify-content: center;
     }
+
+    /* FALE-CONOSCO =================== */
 
     .content-faleconosco img {
         display: none;
@@ -179,5 +185,27 @@
 
     .box-form .btn-faleconosco {
         width: 100%;
+    }
+
+    /* FOOTER =================== */
+
+    .footer-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .footer-descriçao, .footer-descriçao p {
+        align-items: center;
+        width: 100%;
+        max-width: 90%;
+        text-align: center;
+    }
+
+    .footer-links {
+        align-items: center;
+        width: 80%;
+        padding: 15px 0;
+        border-top: 1px solid var(--main-branco);
+        border-bottom: 1px solid var(--main-branco);
     }
 }
