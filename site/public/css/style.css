@@ -184,7 +184,7 @@ nav ul li a:hover {
 .caixa-h1 .point2 {
     position: absolute;
     top: 10%;
-    left: 60%;
+    right: 10%;
     height: auto;
     width: 150px;
 }
