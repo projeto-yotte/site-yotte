@@ -9,11 +9,6 @@
     font-family: var(--main-font-full);
 }
 
-body {
-    background-color: #000;
-}
-
-
 section {
     background-color: var(--main-background);
 }
@@ -181,19 +176,23 @@ nav ul li a:hover {
 .caixa-h1 .point1 {
     height: auto;
     width: 200px;
-    margin-left: -20vw;
+    position: absolute;
+    top: 50%;
+    left: 10%;
 }
 
 .caixa-h1 .point2 {
-    margin-top: -20vh;
-    margin-left: 14vw;
+    position: absolute;
+    top: 10%;
+    left: 60%;
     height: auto;
     width: 150px;
 }
 
 .caixa-h1 .point3 {
-    margin-top: 13vh;
-    margin-left: 44vw;
+    position: absolute;
+    top: 45%;
+    right: 5%;
     height: auto;
     width: 200px;
 }
@@ -323,8 +322,9 @@ nav ul li a:hover {
 }
 
 .caixa-compromisso img {
-    height: auto;
-    width: 480px;
+    /* height: auto; */
+    width: 95%;
+    max-width: 480px;
 }
 
 .content-compromisso {
@@ -385,6 +385,7 @@ nav ul li a:hover {
 
 
 .content-sobrenos {
+    width: 100%;
     color: var(--main-branco);
     display: flex;
     justify-content: space-between;
@@ -392,8 +393,9 @@ nav ul li a:hover {
 }
 
 .content-sobrenos img {
-    height: auto;
-    width: 680px;
+    /* height: auto; */
+    width: 95%;
+    max-width: 680px;
     overflow: clip;
     overflow-clip-margin: content-box;
     animation-name: laptop;
@@ -404,6 +406,7 @@ nav ul li a:hover {
 }
 
 .texto-left p {
+    width: 100%;
     font-size: 16.5px;
     /* line-height: 3vh; */
     font-weight: 400;
@@ -458,7 +461,8 @@ nav ul li a:hover {
 
 .content-faleconosco img {
     height: auto;
-    width: 420px;
+    width: 90%;
+    max-width: 480px;
     animation-name: man-img;
     animation-duration: 5s;
     animation-iteration-count: infinite;
@@ -512,13 +516,18 @@ nav ul li a:hover {
 
 /* Footer */
 
-#section-fale-conosco {
+#section-footer {
     width: 100%;
     max-height: 700px;
     background-color: var(--main-background);
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#section-footer .container {
+    padding: 40px 0;
+    height: 100%;
 }
 
 .footer-content {
@@ -599,6 +608,10 @@ nav ul li a:hover {
 }
 
 .copyright {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    z-index: 99;
     font-size: 11px;
     text-align: left;
     font-weight: 300;
