@@ -151,6 +151,11 @@
         width: 90%;
     }
 
+    .caixa-h1 .point1 {
+        top: 30%;
+        left: 0%;
+    }
+
     /* SOBRE-NOS =================== */
 
     .content-sobrenos {
