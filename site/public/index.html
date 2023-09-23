@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="./css/responsive_landing_page.css">
     <link rel="icon" href="./assets/img/favicon.png">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 </head>
@@ -21,9 +22,10 @@
             <div class="container">
                 <header class="navbar">
                     <img class="logo" src="./assets/img/logo-navbar.png" alt="">
-                    <nav> 
+                    <nav>
                         <ul>
-                            <button onclick="toggleModal()" class="nav-icon-bars" id="nav-icon-bars"><i style="color: white;" class="fa fa-bars" aria-hidden="true"></i></button>
+                            <button onclick="toggleModal()" class="nav-icon-bars" id="nav-icon-bars"><i
+                                    style="color: white;" class="fa fa-bars" aria-hidden="true"></i></button>
                             <li class="nav-menu-item"><a href="#">Home</a></li>
                             <li class="nav-menu-item"><a href="#sobre-nos">Sobre nós</a></li>
                             <li class="nav-menu-item"><a href="#section-proposito">Serviços</a></li>
@@ -53,7 +55,7 @@
         <section id="section-proposito">
             <div class="container">
                 <div class="caixa-proposito">
-                    
+
 
                     <div class="box-imgs-wrapper">
                         <h2>A <span>yotte</span> tem como propósito</h2>
@@ -62,7 +64,8 @@
                             <div class="card">
                                 <img src="./assets/img/img 1.svg">
                                 <h3>Identificar Problemas</h3>
-                                <p>O monitoramento permite detectar problemas de hardware antes que eles se tornem grandes
+                                <p>O monitoramento permite detectar problemas de hardware antes que eles se tornem
+                                    grandes
                                     empecilhos para o trabalho dos desenvolvedores.</p>
                             </div>
                             <div class="card">
@@ -74,7 +77,8 @@
                             <div class="card">
                                 <img src="./assets/img/img 3.svg">
                                 <h3>Prevenir Falhas</h3>
-                                <p>Com o monitoramento constante, é possível prever falhas antes que elas ocorram, evitando
+                                <p>Com o monitoramento constante, é possível prever falhas antes que elas ocorram,
+                                    evitando
                                     perda de dados e tempo dos desenvolvedores.</p>
                             </div>
                         </div>
@@ -83,7 +87,7 @@
                                 desenvolvedores.</p>
                         </div>
 
-                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -97,21 +101,16 @@
                     </div>
                     <div class="content-compromisso">
                         <h3>A nossa <span>missão</span> com o trabalho remoto</h3>
-                        <p>Nosso compromisso é simples: fornecer soluções de monitoramento de hardware de última
-                            geração,
-                            adaptadas às necessidades específicas de desenvolvedores e equipes home office. Acreditamos
-                            que
-                            a estabilidade do seu ambiente de trabalho é a chave para alcançar o sucesso em seus
-                            projetos.
-                            Portanto, investimos em tecnologia de ponta e em uma equipe dedicada para garantir que seus
-                            recursos de hardware estejam sempre funcionando de maneira eficiente.</p> <br>
-                        <p>Oferecemos serviços abrangentes de monitoramento de hardware, incluindo acompanhamento em
+                        <p>A Yotte é uma empresa especializada em otimizar o trabalho remoto, com expertise em hardware
+                            e soluções para empresas e desenvolvedores. Seu objetivo é facilitar a vida dos clientes que
+                            adotaram o home office, melhorando o desempenho e reduzindo custos.</p> <br>
+                        <!-- <p>Oferecemos serviços abrangentes de monitoramento de hardware, incluindo acompanhamento em
                             tempo
                             real e prevenção proativa de problemas. Sua plataforma avançada proporciona total
                             visibilidade
                             sobre o estado dos dispositivos, assegurando a identificação e resolução de problemas antes
                             que
-                            impactem o trabalho.</p>
+                            impactem o trabalho.</p> -->
                         <img align="right" src="./assets/img/logo.png">
                     </div>
                 </div>
@@ -196,8 +195,9 @@
 
         <div class="modal-wrapper">
             <div class="modal">
-                <button onclick="toggleModal()" class="btn-fechar"><i class="fa fa-times" aria-hidden="true"></i></button>
-                <nav> 
+                <button onclick="toggleModal()" class="btn-fechar"><i class="fa fa-times"
+                        aria-hidden="true"></i></button>
+                <nav>
                     <ul>
                         <li class="nav-menu-item mobile"><a href="#">Home</a></li>
                         <li class="nav-menu-item mobile"><a href="#sobre-nos">Sobre nós</a></li>
@@ -219,14 +219,14 @@
 <script>
 
     // Abrir o modal
-    function toggleModal(){
-        setTimeout(function() {document.querySelector('.modal-wrapper').classList.toggle('open')}, 250);
+    function toggleModal() {
+        setTimeout(function () { document.querySelector('.modal-wrapper').classList.toggle('open') }, 250);
         const modalWrapper = document.querySelector('.modal');
-    
+
         if (modalWrapper.classList.contains('open')) {
             modalWrapper.classList.remove('open');
             modalWrapper.classList.add('close');
-            
+
             // Adicione um ouvinte de evento para detectar quando a animação de fechamento terminar
             modalWrapper.addEventListener('animationend', function () {
                 modalWrapper.classList.remove('close');
@@ -235,7 +235,7 @@
             modalWrapper.classList.add('open');
         }
     }
-    
+
 
     function scrollToTop() {
         window.scrollTo({
