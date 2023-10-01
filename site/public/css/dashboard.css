@@ -1,0 +1,267 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+}
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    height: inherit;
+    width: inherit;
+    overflow: hidden;
+}
+
+.container .lateral {
+    height: 100%;
+    width: 18%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* padding: 25px; */
+    background: #000;
+    box-shadow: -1px 4px 11px rgba(0, 0, 0, 0.13);
+}
+
+.lateral .listaBaixo {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.lista a i {
+    font-size: 30px;
+    color: #FFF;
+}
+
+.lista span {
+    color: #FFF;
+    font-size: 18px;
+}
+
+.lista.destaque .lista {
+    color: rgba(191, 25, 34, 1);
+
+}
+
+.uil-create-dashboard:before {
+    color: rgba(191, 25, 34, 1);
+
+}
+
+.navHeader {
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    width: 70%;
+    padding: 10px;
+}
+
+.navHeader span {
+    font-size: 16px;
+    color: #FFF;
+    padding: 0 0 20px 0;
+}
+
+.navHeader img {
+    width: 105px;
+}
+
+
+.navegacão {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.navegacão ul {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+}
+
+.navegacão ul li {
+    display: flex;
+    align-items: center;
+    height: 65px;
+    list-style: none;
+
+
+}
+
+.navegacão ul li a {
+    display: flex;
+    align-items: center;
+    padding-left: 23px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 25px;
+    gap: 15px;
+    /* letter-spacing: 3px; */
+    width: 100%;
+}
+
+.navegacão ul li a .icone {
+    position: relative;
+    display: block;
+    min-width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 70px;
+}
+/* fim do menu */
+
+.container {
+    background-color: #1a1a1a;
+}
+
+.areaDash{
+    display: flex;
+    width: 82%;
+    flex-direction: column;
+    padding: 30px 35px 0 35px;
+}
+
+.topDash{
+    display: flex;
+    width: 97%;
+    justify-content: space-between;
+    padding: 0 35px 35px 35px;
+}
+
+.nomeNome a{
+    color: rgb(191, 25, 34, 1);
+    font-size: 2.1rem;
+}
+
+.nomeNome span {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 18px ;
+    color: #FFF;
+}
+
+.nomeNome{
+    display: flex;
+    gap: 10px;
+    height: 30px;
+    align-items: center;
+}
+
+.topDash span {
+    font-size: 25px;
+    font-weight: 600;
+    color: #FFF;
+}
+
+ul .loginUsuario {
+    font-size: 18px;
+}
+
+.grafico {
+    height: 300px;
+    width: 600px;
+}
+
+.container-grafico {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 630px;
+    height: 370px;
+    justify-content: center;
+    border: #FFF solid 1px;
+    border-radius: 20px;
+}
+
+.container-grafico span {
+    color: #fff;
+}
+
+.graficos{
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-grafico2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 390px;
+    height: 370px;
+    justify-content: center;
+    border: #FFF solid 1px;
+    border-radius: 20px;
+}
+
+.container-grafico2 span {
+    color: #fff;
+}
+
+
+/* 
+.areaKpi {
+    display: flex;
+    gap: 100px;
+}
+
+.containerKpi {
+    margin-top: 20px;
+    display: flex;
+    width: 260px;
+    height: 115px;
+    align-items: center;
+    border-radius: 20px;
+    border: #FFF solid 1px;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.containerKpi2 {
+    margin-top: 20px;
+    display: flex;
+    width: 260px;
+    height: 115px;
+    align-items: center;
+    border-radius: 20px;
+    border: #FFF solid 1px;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.containerKpi span {
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.containerKpi2 span {
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.bi-pc::before {
+    font-size: 25px;
+    color: #777;
+}
+
+.bi-pc-display::before {
+    font-size: 25px;
+    color: #777;
+}
+
+.top-kpi1 {
+    margin-right: 90px;
+    margin-bottom: 20px;
+} */
