@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./css/area_controle.css">
+    <script src="./js/modals.js"></script>
     <title>Document</title>
 </head>
 
@@ -19,13 +20,13 @@
             </div>
             <div class="caixa-esquerda">
                 <div class="esquerda">
-                    <button class="botao-menu">
+                    <button class="botao-menu" onclick="butaoAdm" id="butao-adm">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-add" viewBox="0 0 16 16">
                             <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
                             <path d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z"/>
                           </svg>
                         Cadastrar novo Admin
-                    </button> <br> <br>
+                    </button > <br> <br> 
                     <button class="botao-menu">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
                             <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
@@ -75,7 +76,37 @@
                 </table>
             </div>
         </div>
+        <dialog id="modal-add-adm" close >
+            <div>
+                <h3>Adicionar novo Adm</h3>
+            </div>
+            <form action="" id="format">
+                <div>
+                    <div>
+                        <label for="nome">Nome</label>
+                        <input type="text" name="" id="" placeholder="Informe o nome da empresa">
+                    </div>
+                    <div>
+                        <label for="area">area</label>
+                        <input type="text"placeholder="Informe sua area">
+                    </div>
+                    <div>
+                        <label for="cargo">Cargo</label>
+                        <input type="text"placeholder="Informe o seu Cargo">
+                    </div>
+                    <div>
+                        <label for="Senha">Senha</label>
+                        <input type="text"placeholder="Informe a senha">
+                    </div>
+
+                </div>
+            </form>
+    
+        </dialog>
+    
     </div>
+
+    
 </body>
 
 </html>
