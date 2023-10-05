@@ -19,7 +19,7 @@ body {
 
 .container .lateral {
     height: 100%;
-    width: 18%;
+    width: 17%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -100,13 +100,11 @@ body {
 .navegacão ul li a {
     display: flex;
     align-items: center;
-    padding-left: 23px;
     text-decoration: none;
     font-weight: 700;
     font-size: 18px;
-    line-height: 25px;
     gap: 15px;
-    /* letter-spacing: 3px; */
+    letter-spacing: 1px;
     width: 100%;
 }
 
@@ -133,7 +131,7 @@ body {
 
 .topDash{
     display: flex;
-    width: 97%;
+    width: 100%;
     justify-content: space-between;
     padding: 0 35px 35px 35px;
 }

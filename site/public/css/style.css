@@ -101,6 +101,53 @@ nav ul li a:hover {
     justify-content: space-between;
 }
 
+.button-group li {
+    position: relative;
+    float: left;
+}
+
+.button-group li a {
+    color: #FFF;
+    text-decoration: none;
+    padding: 5px 10px;
+    display: block;
+}
+
+.button-group li a:hover {
+    background: none;
+    color: #fff;
+    text-shadow: 0px 0px 5px #a3060e;
+}
+
+.button-group li ul {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    display: none;
+}
+
+.button-group li:hover ul,
+.button-group li.over ul {
+    display: block;
+}
+
+.button-group li ul li {
+    margin: 15px 0 0px 0;
+    /* background: linear-gradient(to right, #650d11, #930e15); */
+    background: linear-gradient(to right, #5f090d, #70060c);
+    border-radius: 8px;
+    display: block;
+    width: 200px;
+}
+
+.button-group li ul li:hover {
+    margin: 15px 0 0px 0;
+    background: linear-gradient(to right, #650d11, #930e15);
+    border-radius: 8px;
+    display: block;
+    width: 200px;
+}
+
 .button-group a {
     color: var(--main-branco);
 }
@@ -578,7 +625,7 @@ nav ul li a:hover {
 .footer-links li {
     font-size: 15px;
     font-weight: 300;
-    
+
     /* margin-bottom: 1.5vh; */
 }
 
