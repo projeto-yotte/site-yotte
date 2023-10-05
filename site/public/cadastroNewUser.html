@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/cadastroNewUser.css">
+    <title>Cadastrar Usuário</title>
+</head>
+
+<body>
+    <div class="corpo">
+        <div class="container">
+            <div class="back">
+                <a href="dashboard/dashboard.html">
+                    <span>
+                        ↤
+                    </span>
+                </a>
+            </div>
+            <div class="top-logo">
+                <img class="logo" src="./assets/img/logoCopia.png" alt="">
+            </div>
+            <div class="info-input">
+                <div>
+                    <input id="nomeFuncionario" class="input" type="text" placeholder="Nome do funcionário">
+                </div>
+                <div>
+                    <input id="email" class="input" type="email" placeholder="E-mail">
+                </div>
+                <div>
+                    <input id="area" class="input" type="text" placeholder="Área do funcionário">
+                </div>
+                <div>
+                    <input id="cargo" class="input" type="text" placeholder="Cargo do funcionário">
+                </div>
+                <div class="containerCodigo">
+                    <span id="mensagemCodigo">Código do funcionário</span>
+                </div>
+            </div>
+            <div class="button-logar">
+                <button onclick="gerarCodigoAleatorio()" class="button-login">
+                    Gerar código para funcionário
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+
+
+    function gerarCodigoAleatorio() {
+        const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let codigo = '';
+
+        while (codigo.length <= 20) {
+            const caractere = caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+            if (codigo.indexOf(caractere) === -1) {
+                codigo += caractere;
+            }
+        }
+
+        mensagemCodigo.innerHTML = `${codigo}`
+
+
+    }
+
+
+</script>

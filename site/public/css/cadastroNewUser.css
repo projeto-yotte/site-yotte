@@ -1,0 +1,145 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    /*background-color: var(--main-background);
+    */   
+}
+
+
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    font-family: 'Poppins', sans-serif;
+}
+
+.corpo {
+    display: flex;
+    width: 100%;
+    height: 643px;
+    background-color: #000;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180.03deg, rgba(255, 255, 255, 0.048) 0.03%, rgba(255, 255, 255, 0.0495) 99.97%);
+    width: 345px;
+    height: 480px;
+    border-radius: 20px;
+}
+
+.img-login{
+    height: 480px;
+}
+
+.eye {
+    margin: -35px 0 0 200px;
+}
+
+.eye i {
+    cursor: pointer;
+font-size: 20px;
+    right: 5%;
+}
+
+.back {
+    width: 100%;
+    padding: 20px 0 0 20px;
+}
+
+.back span {
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+}
+
+.top-logo {
+    display: flex;
+    padding: 35px 0 10px 0;
+    justify-content: center;
+}
+
+.top-logo .logo {
+    width: 250px;
+}
+
+.info-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-input span {
+    color: #fff;
+    font-size: 15px;
+}
+
+.info-input a {
+    color: #fff;
+}
+
+.info-input input {
+    background-color: rgba(46, 46, 46, 1);
+    border-radius: 6px;
+    width: 250px;
+    height: 30px;
+    border: none;
+    text-indent: 20px;
+    color: #fff;
+    font-size: 15px;
+}
+
+.containerCodigo {
+    width: 248px;
+    border-radius: 6px;
+    height: 30px;
+    background-color: rgba(46, 46, 46, 1);
+    display: flex;
+    text-indent: 20px;
+    align-items: center;
+}
+
+
+.button-logar{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 35px;
+}
+
+.button-login {
+    width: 250px;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 1.5vh 1.8vw;
+    border-radius: 11px;
+    text-decoration: none;
+    font-weight: 500;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #650d11, #930e15);
+    border: none;
+    font-size: 15px;
+}
+
+.button-login:hover {
+    background: linear-gradient(to right, #660a0e, #70060c);
+}
+
+@media screen and (max-Width: 600px) {
+    
+    .corpo{
+       align-items: center;
+    }
+    .img-login{
+        display: none;
+    }
+}
+
