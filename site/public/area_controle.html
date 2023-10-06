@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./css/area_controle.css">
-    <script src="./js/modals.js"></script>
+    <script src="./js/cadastroADM.js" defer></script>
     <title>Área de Controle</title>
 </head>
 
@@ -20,7 +20,7 @@
             </div>
             <div class="caixa-esquerda">
                 <div class="esquerda">
-                    <button class="botao-menu" onclick="butaoAdm" id="butao-adm">
+                    <button class="botao-menu" onclick="butaoAdm()" >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-add" viewBox="0 0 16 16">
                             <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
                             <path d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z"/>
@@ -80,26 +80,29 @@
             <div>
                 <h3>Adicionar novo Adm</h3>
             </div>
+            <div>
+                <a id="FecharModal">FECHARRRR</a></div>
             <form action="" id="format">
                 <div>
                     <div>
                         <label for="nome">Nome</label>
-                        <input type="text" name="" id="" placeholder="Informe o nome da empresa">
+                        <input type="text" name="" id="NomeAdm" placeholder="Informe o nome da empresa">
                     </div>
                     <div>
                         <label for="area">area</label>
-                        <input type="text"placeholder="Informe sua area">
+                        <input type="text"placeholder="Informe sua area" id="AreaAdm">
                     </div>
                     <div>
                         <label for="cargo">Cargo</label>
-                        <input type="text"placeholder="Informe o seu Cargo">
+                        <input type="text"placeholder="Informe o seu Cargo" id="cargoAdm">
                     </div>
                     <div>
                         <label for="Senha">Senha</label>
-                        <input type="text"placeholder="Informe a senha">
+                        <input type="text"placeholder="Informe a senha" id="senhaAdm" >
                     </div>
 
                 </div>
+                <button onclick="CadastrarAdm()">Adicionar Adm</button>
             </form>
     
         </dialog>

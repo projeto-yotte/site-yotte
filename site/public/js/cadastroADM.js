@@ -1,4 +1,13 @@
-function cadastrar(){
+const modalAdm = document.getElementById("modal-add-adm")
+const fecharModal = document.getElementById("FecharModal")
+
+fecharModal.addEventListener('click', closeModal)
+
+function butaoAdm(){
+    modalAdm.showModal()
+}
+
+function CadastrarAdm(){
     var nomeAdmVar = nomeAdm.value;
     var areaVar = area.value;
     var cargoAdmVar = cargo.value;
@@ -50,7 +59,7 @@ function cadastrar(){
 
 
                 setTimeout(() => {
-                    window.location = "login.html";
+                    // window.location = "login.html";
                 }, 3000)
 
                 limparFormulario();
@@ -63,7 +72,12 @@ function cadastrar(){
             // finalizarAguardar();
         });
 
+        modalAdm.close()
         return false;
     
-
 }
+
+function closeModal(){
+    modalAdm.close()
+}
+
