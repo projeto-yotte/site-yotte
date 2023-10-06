@@ -7,12 +7,9 @@ function cadastrar(){
     var senhaVar = senha.value;
 
 
-
     if (nomeVar == "" || cnpjVar == "" || emailVar == "" || senhaVar == "" ) {
         //cardErro.style.display = "block"
         // swal("Ops", "Preencha todos os campos 😠", "error")
-
-        alert('entrei no if')
         // finalizarAguardar();
         return false;
     } else if (senhaVar.length < 8) {
@@ -50,7 +47,7 @@ function cadastrar(){
 
             if (resposta.ok) {
                 //cardErro.style.display = "block";
-                alert("Parábens", "Cadastro realizado com sucesso redirecionando a tela de login 😄...!", "success");
+                // swal("Parábens", "Cadastro realizado com sucesso redirecionando a tela de login 😄...!", "success");
 
 
                 setTimeout(() => {
