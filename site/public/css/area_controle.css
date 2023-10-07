@@ -101,16 +101,18 @@ img {
 }
 
 table {
-    border: 1px solid white;
-    border-radius: 8px;
+    border-collapse: collapse;
+    width: 100%;
 }
 
 .tabela-adms table {
     padding: 20px;
     width: 100%;
+    border-collapse: collapse;
 }
 
-.tabela-adms td {
+.tabela-adms td, .tabela-adms th {
+    border: 1px solid white;
     padding: 20px;
 }
 
@@ -124,6 +126,13 @@ table {
 .botao-table:hover {
     color: var(--main-vermelho-terciario);
     transition: 0.25s ease-in-out;
+}
+
+td input {
+    border: none;
+    background-color: #191919;
+    pointer-events: none;
+    color: var(--main-branco);
 }
 
 /* Css do modal cadastrar adm */
