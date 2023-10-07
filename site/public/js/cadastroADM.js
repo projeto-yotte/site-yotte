@@ -47,6 +47,9 @@ function habilitarEdicao(button) {
     for (var i = 0; i < inputs.length; i++) {
         inputs[i].removeAttribute('readonly');
         inputs[i].style.pointerEvents = 'all';
+        inputs[i].style.border = '2px #e32832 solid';
+        inputs[i].style.borderRadius = '4px';
+        inputs[i].style.padding = '4px';
 
         // Adiciona eventos de teclado e foco para cada input
         inputs[i].addEventListener('keydown', function(event) {
@@ -87,6 +90,8 @@ function confirmarAlteracao(input) {
         var allInputs = document.getElementsByTagName('input');
         for (var i = 0; i < allInputs.length; i++) {
             allInputs[i].style.pointerEvents = 'none';
+            allInputs.style.border = 'none';
+            allInputs.style.borderRadius = 'none';
         }
     });
 }
