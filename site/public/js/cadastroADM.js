@@ -7,6 +7,10 @@ function butaoAdm(){
     modalAdm.showModal()
 }
 
+function closeModal(){
+    modalAdm.close()
+}
+
 function CadastrarAdm(){
     var nomeAdmVar = nomeAdm.value;
     var areaVar = area.value;
@@ -75,9 +79,5 @@ function CadastrarAdm(){
         modalAdm.close()
         return false;
     
-}
-
-function closeModal(){
-    modalAdm.close()
 }
 
