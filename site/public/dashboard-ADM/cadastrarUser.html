@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/cadastrarUser.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <title>Cadastrar Usuário</title>
+</head>
+
+<body>
+    <!-- PAG MENU -->
+    <div class="container">
+
+        <div class="lateral">
+            <!-- parte de cima -->
+            <div class="listaBaixo">
+                <div class="navegacão">
+
+                    <div class="navHeader">
+                        <img src="../assets/img/logo.png">
+                    </div>
+                    <ul>
+                        <li class="lista">
+                            <a href="">
+                                <i class="uil uil-create-dashboard"></i>
+                                <span class="lista">Página inical</span>
+                            </a>
+                        </li>
+                        <li class="lista">
+                            <a href="VisaoGeral.html">
+                                <i class="bi bi-graph-up"></i>
+                                <!-- <i class="bi bi-bar-chart"></i> -->
+                                <span class="lista">Geral</span>
+                            </a>
+                        </li>
+                        <li class="lista destaque">
+                            <a href="">
+                                <i class="bi bi-person-plus-fill destaque"></i>
+                                <!-- <i class="bi bi-file-earmark-text"></i> -->
+                                <span class="lista">Usuários</span>
+                            </a>
+                        </li>
+                        <li class="lista">
+                            <a href="">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <!-- <i class="bi bi-gear"></i> -->
+                                <span class="lista">Sair</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- FIM DO MENU -->
+
+        <div class="areaDash">
+
+            <div class="topDash">
+                <span class="tittle">Cadastrar Usuários</span>
+                <div class="nomeNome">
+                    <a href="">
+                        <!-- <i class="uil uil-signout"></i> -->
+                    </a>
+
+                    <ul class="ul2">
+                        <span class="loginUsuario" id="loginUsuario">Nome</span>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-input">
+                <div class="spanInput">
+                    <span>Nome</span>
+                    <input id="nomeFuncionario" class="input" type="text" placeholder="Nome do funcionário">
+                </div>
+                <div class="spanInput">
+                    <span>Email</span>
+                    <input id="email" class="input" type="email" placeholder="E-mail">
+                </div>
+                <div class="spanInput">
+                    <span>Área</span>
+                    <input id="area" class="input" type="text" placeholder="Área do funcionário">
+                </div>
+                <div class="spanInput">
+                    <span>Cargo</span>
+                    <input id="cargo" class="input" type="text" placeholder="Cargo do funcionário">
+                </div>
+                <div class="containerCodigo">
+                    <span id="mensagemCodigo">Código do funcionário</span>
+                </div>
+            </div>
+            <div class="button-logar">
+                <button onclick="gerarCodigoAleatorio()" class="button-login">
+                    Gerar código para funcionário
+                </button>
+            </div>
+
+
+        </div>
+
+
+</body>
+
+<script src="../js/cadastrarUser.js"></script>
+</html>

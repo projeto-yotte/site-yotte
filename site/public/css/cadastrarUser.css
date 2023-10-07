@@ -4,6 +4,7 @@
     box-sizing: border-box;
     font-family: 'Nunito', sans-serif;
 }
+
 html,
 body {
     height: 100%;
@@ -50,7 +51,7 @@ body {
 
 }
 
-.uil-create-dashboard:before {
+.destaque:before {
     color: rgba(191, 25, 34, 1);
 
 }
@@ -116,27 +117,28 @@ body {
     text-align: center;
     line-height: 70px;
 }
+
 /* fim do menu */
 
 .container {
     background-color: #1a1a1a;
 }
 
-.areaDash{
+.areaDash {
     display: flex;
     width: 82%;
     flex-direction: column;
     padding: 30px 35px 0 35px;
 }
 
-.topDash{
+.topDash {
     display: flex;
     width: 100%;
     justify-content: space-between;
     padding: 0 35px 35px 35px;
 }
 
-.nomeNome a{
+.nomeNome a {
     color: rgb(191, 25, 34, 1);
     font-size: 2.1rem;
 }
@@ -145,121 +147,100 @@ body {
     display: flex;
     flex-direction: column;
     text-align: center;
-    font-size: 18px ;
+    font-size: 18px;
     color: #FFF;
 }
 
-.nomeNome{
+.nomeNome {
     display: flex;
     gap: 10px;
     height: 30px;
     align-items: center;
 }
 
-.topDash span {
+.topDash .tittle {
     font-size: 25px;
     font-weight: 600;
     color: #FFF;
 }
 
-ul .loginUsuario {
-    font-size: 18px;
-}
-
-.grafico {
-    height: 300px;
-    width: 600px;
-}
-
-.container-grafico {
+.info-input {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 630px;
-    height: 370px;
-    justify-content: center;
-    border: #FFF solid 1px;
-    border-radius: 20px;
+    gap: 20px;
 }
 
-.container-grafico span {
+.info-input span {
+    color: #fff;
+    font-size: 15px;
+    display: flex;
+}
+
+.info-input a {
     color: #fff;
 }
 
-.graficos{
-    display: flex;
-    justify-content: space-between;
-}
-
-.container-grafico2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 390px;
-    height: 370px;
-    justify-content: center;
-    border: #FFF solid 1px;
-    border-radius: 20px;
-}
-
-.container-grafico2 span {
+.info-input input {
+    background-color: rgba(46, 46, 46, 1);
+    border-radius: 6px;
+    width: 500px;
+    height: 30px;
+    border: none;
+    text-indent: 20px;
     color: #fff;
+    font-size: 15px;
 }
 
-
-/* 
-.areaKpi {
+.containerCodigo {
+    width: 500px;
+    border-radius: 6px;
+    height: 30px;
+    background-color: rgba(46, 46, 46, 1);
     display: flex;
-    gap: 100px;
-}
-
-.containerKpi {
-    margin-top: 20px;
-    display: flex;
-    width: 260px;
-    height: 115px;
+    text-indent: 20px;
     align-items: center;
-    border-radius: 20px;
-    border: #FFF solid 1px;
-    justify-content: center;
-    flex-direction: column;
+    margin-top: 10px;
 }
 
-.containerKpi2 {
-    margin-top: 20px;
+.button-logar {
     display: flex;
-    width: 260px;
-    height: 115px;
-    align-items: center;
-    border-radius: 20px;
-    border: #FFF solid 1px;
     justify-content: center;
+    width: 48%;
+    padding: 35px;
+}
+
+.button-login {
+    width: 250px;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 1.5vh 1.8vw;
+    border-radius: 11px;
+    text-decoration: none;
+    font-weight: 500;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #650d11, #930e15);
+    border: none;
+    font-size: 15px;
+}
+
+.button-login:hover {
+    background: linear-gradient(to right, #660a0e, #70060c);
+}
+
+@media screen and (max-Width: 600px) {
+
+    .corpo {
+        align-items: center;
+    }
+
+    .img-login {
+        display: none;
+    }
+}
+
+.spanInput {
+    display: flex;
     flex-direction: column;
+    gap: 10px;
 }
-
-.containerKpi span {
-    color: #FFF;
-    font-size: 16px;
-    font-weight: 500;
-}
-
-.containerKpi2 span {
-    color: #FFF;
-    font-size: 16px;
-    font-weight: 500;
-}
-
-.bi-pc::before {
-    font-size: 25px;
-    color: #777;
-}
-
-.bi-pc-display::before {
-    font-size: 25px;
-    color: #777;
-}
-
-.top-kpi1 {
-    margin-right: 90px;
-    margin-bottom: 20px;
-} */
