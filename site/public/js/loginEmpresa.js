@@ -9,7 +9,7 @@ function login() {
         return false;
     }
     else {
-        alert('Fez cadastro')
+        alert("Parábens", "Login realizado com sucesso redirecionando a tela do seu time 😄se divirta...!", "success");
         setInterval('...', 2000)
     
     
@@ -37,10 +37,13 @@ function login() {
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
+                    sessionStorage.ID_EMPRESA = json.id_empresa;
+
+
     
     
                     setTimeout(function () {
-                       window.location = 'dashboard/dashboard.html'
+                       window.location = 'area_controle.html'
                        
                     }, 3000); // apenas para exibir o loading
     
@@ -52,7 +55,7 @@ function login() {
     
                 resposta.text().then(texto => {
                     console.error(texto);
-                    finalizarAguardar(texto);
+                    // finalizarAguardar(texto);
                 });
             }
     

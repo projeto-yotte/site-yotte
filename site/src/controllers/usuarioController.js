@@ -1,5 +1,7 @@
 var usuarioModel = require("../models/usuarioModel");
 var usuarioModel = require("../models/usuarioModel");
+var usuarioModel = require("../models/usuarioModel");
+var usuarioModel = require("../models/usuarioModel");
 
 function autenticar(req, res) {
         var email = req.body.emailServer;
@@ -80,7 +82,8 @@ function cadastrarAdm(req, res) {
     var nome = req.body.nomeServer;
     var area = req.body.areaServer
     var cargo = req.body.cargoServer;
-    var senha = req.body.senhaAdmServer;
+    var senha = req.body.senhaServer;
+    var fk_empresa = req.body.fk_empresaServer;
 
     // Faça as validações dos valores
     if (nome == undefined) {
@@ -91,10 +94,12 @@ function cadastrarAdm(req, res) {
         res.status(400).send("Sua cargo está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    } else {
+    } else if (fk_empresa == undefined) {
+        res.status(400).send("Sua senha está undefined!");
+    }else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome,area, cargo, senha )
+        usuarioModel.cadastrarAdm(nome,area, cargo, senha, fk_empresa )
             .then(
                 function (resultado) {
                     res.json(resultado);
