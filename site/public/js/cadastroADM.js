@@ -2,6 +2,7 @@ const modalAdm = document.getElementById("modal-add-adm")
 const fecharModal = document.getElementById("FecharModal")
 
 fecharModal.addEventListener('click', closeModal)
+console.log(sessionStorage.ID_EMPRESA)
 
 function butaoAdm(){
     modalAdm.showModal()
@@ -110,10 +111,7 @@ function CadastrarAdm(){
         // finalizarAguardar();
         return false;
     } else if (senhaAdmVar.length < 8) {
-        alert("Ops", "A senha inserida é muito curta. Por favor,insira uma senha com pelo menos 8 caracteres 😠", "warning")
-        return false;
-    }else if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".com") == -1 || emailVar.length < 7) {
-        alert("Ops", "A senha inserida é muito curta. Por favor,insira uma senha com pelo menos 8 caracteres 😠", "warning")
+        alert("Ops senha", "A senha inserida é muito curta. Por favor,insira uma senha com pelo menos 8 caracteres 😠", "warning")
         return false;
     } else {
         setInterval('oi', 5000)
@@ -130,12 +128,13 @@ function CadastrarAdm(){
             body: JSON.stringify({
                 // crie um atributo que recebe o valor recuperado aqui
                 // Agora vá para o arquivo routes/usuario.js
-                nomeAdmServer: nomeAdmVar,
-                areaServe: areaVar,
-                cargoAdmServer: cargoAdmVar,
-                senhaAdmServer: senhaAdmVar,
+                nomeServer: nomeAdmVar,
+                areaServer: areaVar,
+                cargoServer: cargoAdmVar,
+                senhaServer :  senhaAdmVar,
+                fk_empresaServer : sessionStorage.ID_EMPRESA,
                 
-               
+
 
             })
         }).then(function (resposta) {
@@ -160,9 +159,8 @@ function CadastrarAdm(){
             console.log(`#ERRO: ${resposta}`);
             // finalizarAguardar();
         });
-
         modalAdm.close()
+
         return false;
-    
 }
 
