@@ -13,14 +13,13 @@ function cadastrar(){
         // finalizarAguardar();
         return false;
     } else if (senhaVar.length < 8) {
-        alert("Ops", "A senha inserida é muito curta. Por favor,insira uma senha com pelo menos 8 caracteres 😠", "warning")
+        Swal.fire("Ops", "A senha inserida é muito curta. Por favor,insira uma senha com pelo menos 8 caracteres 😠", "warning")
         return false;
     }else if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".com") == -1 || emailVar.length < 7) {
-        alert("Ops", "A senha inserida é muito curta. Por favor,insira uma senha com pelo menos 8 caracteres 😠", "warning")
+        Swal.fire("Ops", "O e-mail cadastrado é inválido. Por favor, insira um e-mail válido 😠 😠", "warning")
         return false;
     } else {
         setInterval('oi', 5000)
-        console.log('cheguei aqui')
 
     }
         
@@ -47,7 +46,7 @@ function cadastrar(){
 
             if (resposta.ok) {
                 //cardErro.style.display = "block";
-                // swal("Parábens", "Cadastro realizado com sucesso redirecionando a tela de login 😄...!", "success");
+                swal.fire("Parábens", "Cadastro realizado com sucesso redirecionando a tela de login 😄...!", "success");
 
 
                 setTimeout(() => {
@@ -57,7 +56,7 @@ function cadastrar(){
                 limparFormulario();
                 // finalizarAguardar();
             } else {
-                alert("Ops", "Mais de um usuário com o mesmo login e senha 😭!")
+                Swal.fire("Ops", "Mais de um usuário com o mesmo login e senha 😭!")
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);

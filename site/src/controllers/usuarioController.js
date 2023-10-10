@@ -82,6 +82,7 @@ function cadastrarAdm(req, res) {
     var nome = req.body.nomeServer;
     var area = req.body.areaServer
     var cargo = req.body.cargoServer;
+    var email = req.body.emailServer;
     var senha = req.body.senhaServer;
     var fk_empresa = req.body.fk_empresaServer;
 
@@ -92,14 +93,16 @@ function cadastrarAdm(req, res) {
         res.status(400).send("Sua area está undefined!");
     } else if (cargo == undefined) {
         res.status(400).send("Sua cargo está undefined!");
-    } else if (senha == undefined) {
+    }else if (cargo == undefined) {
+        res.status(400).send("Sua email está undefined!");
+    }else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
     } else if (fk_empresa == undefined) {
-        res.status(400).send("Sua senha está undefined!");
+        res.status(400).send("Sua fk_empresa está undefined!");
     }else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrarAdm(nome,area, cargo, senha, fk_empresa )
+        usuarioModel.cadastrarAdm(nome,area, cargo,email, senha, fk_empresa )
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -118,8 +121,46 @@ function cadastrarAdm(req, res) {
 }
 
 
+function loginAdm(req, res) {
+    var email = req.body.emailServer;
+    var senha = req.body.senhaServer;
+
+    if (email == undefined) {
+        res.status(400).send("Seu email está undefined!");
+    } else if (senha == undefined) {
+        res.status(400).send("Sua senha está indefinida!");
+    } else {
+        
+        usuarioModel.loginAdm(email, senha)
+            .then(
+                function (resultado) {
+                    console.log(`\nResultados encontrados: ${resultado.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+
+                    if (resultado.length == 1) {
+                        console.log(resultado);
+                        res.json(resultado[0]);
+                    } else if (resultado.length == 0) {
+                        res.status(403).send("Email e/ou senha inválido(s)");
+                    } else {
+                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
+                    }
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+
+}
+
+
 module.exports = {
     autenticar,
     cadastrar,
-    cadastrarAdm
+    cadastrarAdm, 
+    loginAdm
 }

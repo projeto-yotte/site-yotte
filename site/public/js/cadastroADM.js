@@ -1,3 +1,5 @@
+const { default: Swal } = require("sweetalert2")
+
 const modalAdm = document.getElementById("modal-add-adm")
 const fecharModal = document.getElementById("FecharModal")
 
@@ -98,22 +100,26 @@ function confirmarAlteracao(input) {
 }
 
 function CadastrarAdm(){
-    var nomeAdmVar = nomeAdm.value;
-    var areaVar = area.value;
-    var cargoAdmVar = cargo.value;
-    var senhaAdmVar = senha.value;
+    var nomeAdmVar = NomeAdm.value;
+    var areaVar = AreaAdm.value;
+    var cargoAdmVar = cargoAdm.value;
+    var emailAdmVar = emailAdm.value
+    var senhaAdmVar = senhaAdm.value;
 
     if (nomeAdmVar == "" || areaVar == "" || cargoAdmVar == "" || senhaAdmVar == "" ) {
         //cardErro.style.display = "block"
         // swal("Ops", "Preencha todos os campos 😠", "error")
 
-        alert('entrei no if')
+        Swal.fire('entrei no if')
         // finalizarAguardar();
         return false;
     } else if (senhaAdmVar.length < 8) {
-        alert("Ops senha", "A senha inserida é muito curta. Por favor,insira uma senha com pelo menos 8 caracteres 😠", "warning")
+        Swal.fire("Ops senha", "A senha inserida é muito curta. Por favor,insira uma senha com pelo menos 8 caracteres 😠", "warning")
         return false;
-    } else {
+    }else if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".com") == -1 || emailVar.length < 7) {
+        Swal.fire("Ops", "O e-mail cadastrado é inválido. Por favor, insira um e-mail válido 😠 😠", "warning")
+        return false;
+    }else {
         setInterval('oi', 5000)
         console.log('cheguei aqui')
 
@@ -131,6 +137,7 @@ function CadastrarAdm(){
                 nomeServer: nomeAdmVar,
                 areaServer: areaVar,
                 cargoServer: cargoAdmVar,
+                emailServer: emailAdmVar,
                 senhaServer :  senhaAdmVar,
                 fk_empresaServer : sessionStorage.ID_EMPRESA,
                 
@@ -143,7 +150,7 @@ function CadastrarAdm(){
 
             if (resposta.ok) {
                 //cardErro.style.display = "block";
-                alert("Parábens", "Cadastro realizado com sucesso redirecionando a tela de login 😄...!", "success");
+                Swal("Parábens", "Cadastro realizado com sucesso 😄...!", "success");
 
 
                 setTimeout(() => {
@@ -153,7 +160,7 @@ function CadastrarAdm(){
                 limparFormulario();
                 // finalizarAguardar();
             } else {
-                alert("Ops", "Mais de um usuário com o mesmo login e senha 😭!")
+                Swal.fire("Ops", "Mais de um usuário com o mesmo login e senha 😭!")
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
