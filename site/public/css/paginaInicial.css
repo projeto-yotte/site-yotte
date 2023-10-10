@@ -1,0 +1,112 @@
+.chats-group {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.container-chart span {
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 30px 15px;
+}
+
+.KPI span{
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.KPI {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.container-chart {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    width: 330px;
+    height: 278px;
+    justify-content: center;
+    border: #FFF solid 1px;
+    border-radius: 20px;
+}
+
+
+.containerKpi {
+    display: flex;
+    border: #FFF solid 1px;
+    width: 330px;
+    height: 120px;
+    border-radius: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 7px;
+}
+
+.containerKpi2 {
+    display: flex;
+    border: #FFF solid 1px;
+    width: 330px;
+    height: 148px;
+    border-radius: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 7px;
+}
+
+.containerKpi2 span {
+    display: flex;
+    font-size: 16px;
+    font-weight: 600;
+    gap: 20px;
+}
+
+.containerKpi2 .qtdProcessos {
+    font-size: 14px;
+    color: #64748B;
+    letter-spacing: 1px;
+    display: inline-block;
+}
+
+.containerKpi span {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.containerKpi .info {
+    font-size: 20px;
+}
+
+.containerGraphi {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    width: 400px;
+    height: 278px;
+    justify-content: center;
+    border: #FFF solid 1px;
+    border-radius: 20px;
+}
+
+.containerGraphi span{
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.containerGraphi .littleInfo {
+    font-size: 15px;
+    font-weight: normal;
+}
+
+.containerGraphi span {
+    font-size: 16px;
+    margin-left: 15px;
+}

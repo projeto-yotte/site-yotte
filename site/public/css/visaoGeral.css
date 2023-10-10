@@ -4,6 +4,7 @@
     box-sizing: border-box;
     font-family: 'Nunito', sans-serif;
 }
+
 html,
 body {
     height: 100%;
@@ -93,8 +94,6 @@ body {
     align-items: center;
     height: 65px;
     list-style: none;
-
-
 }
 
 .navegacão ul li a {
@@ -116,27 +115,28 @@ body {
     text-align: center;
     line-height: 70px;
 }
+
 /* fim do menu */
 
 .container {
     background-color: #1a1a1a;
 }
 
-.areaDash{
+.areaDash {
     display: flex;
     width: 82%;
     flex-direction: column;
     padding: 30px 35px 0 35px;
 }
 
-.topDash{
+.topDash {
     display: flex;
     width: 100%;
     justify-content: space-between;
     padding: 0 35px 35px 35px;
 }
 
-.nomeNome a{
+.nomeNome a {
     color: rgb(191, 25, 34, 1);
     font-size: 2.1rem;
 }
@@ -145,11 +145,11 @@ body {
     display: flex;
     flex-direction: column;
     text-align: center;
-    font-size: 18px ;
+    font-size: 18px;
     color: #FFF;
 }
 
-.nomeNome{
+.nomeNome {
     display: flex;
     gap: 10px;
     height: 30px;
@@ -186,7 +186,7 @@ ul .loginUsuario {
     color: #fff;
 }
 
-.graficos{
+.graficos {
     display: flex;
     justify-content: space-between;
 }
