@@ -20,7 +20,14 @@ router.post("/loginAdm", function (req, res) {
     usuarioController.loginAdm(req, res);
 });
 
+router.post("/cadastrarUser", function (req, res) {
+    usuarioController.cadastrarUser(req, res);
+})
 
+
+router.post("/cadastrarToken", function (req, res) {
+    usuarioController.cadastrarToken(req, res);
+})
 
 
 

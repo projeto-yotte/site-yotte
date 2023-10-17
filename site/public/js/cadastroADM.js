@@ -1,4 +1,3 @@
-const { default: Swal } = require("sweetalert2")
 
 const modalAdm = document.getElementById("modal-add-adm")
 const fecharModal = document.getElementById("FecharModal")
@@ -106,6 +105,7 @@ function CadastrarAdm(){
     var emailAdmVar = emailAdm.value
     var senhaAdmVar = senhaAdm.value;
 
+
     if (nomeAdmVar == "" || areaVar == "" || cargoAdmVar == "" || senhaAdmVar == "" ) {
         //cardErro.style.display = "block"
         // swal("Ops", "Preencha todos os campos 😠", "error")
@@ -116,7 +116,7 @@ function CadastrarAdm(){
     } else if (senhaAdmVar.length < 8) {
         Swal.fire("Ops senha", "A senha inserida é muito curta. Por favor,insira uma senha com pelo menos 8 caracteres 😠", "warning")
         return false;
-    }else if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".com") == -1 || emailVar.length < 7) {
+    }else if (emailAdmVar.indexOf("@") == -1 || emailAdmVar.indexOf(".com") == -1 || emailAdmVar.length < 7) {
         Swal.fire("Ops", "O e-mail cadastrado é inválido. Por favor, insira um e-mail válido 😠 😠", "warning")
         return false;
     }else {
@@ -140,6 +140,7 @@ function CadastrarAdm(){
                 emailServer: emailAdmVar,
                 senhaServer :  senhaAdmVar,
                 fk_empresaServer : sessionStorage.ID_EMPRESA,
+                tipoUsuarioServer : 1, 
                 
 
 

@@ -11,15 +11,21 @@ email varchar(90) unique,
 senha varchar(90)
 );
 
+
 create table token (
-token int primary key,
-data_criado datetime
+idtoken int primary key auto_increment,
+token VARCHAR(45),
+data_criado datetime DEFAULT CURRENT_TIMESTAMP
 );
 
+SELECT * FROM token;
 create table tipo_usuario (
 id_tipo_usuario int primary key auto_increment,
 tipo int check (tipo in(0, 1, 2))
 );
+
+
+
 
 create table usuario (
 id_usuario int primary key auto_increment,
@@ -37,6 +43,7 @@ fk_tipo_usuario int,
     references tipo_usuario(id_tipo_usuario)
 );
 
+
 create table maquina (
 id_maquina int primary key auto_increment,
 ip varchar(45),
@@ -47,7 +54,7 @@ fk_usuario int,
     references usuario(id_usuario),
 fk_token int,
 	foreign key (fk_token)
-    references token(token)
+    references token(idtoken)
 );
 
 create table info_componente (

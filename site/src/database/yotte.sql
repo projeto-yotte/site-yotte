@@ -1,19 +1,26 @@
 create database yotte;
 use yotte;
 
+
+
 create table empresa (
 id_empresa int primary key auto_increment,
 nome varchar(45),
 nome_fantasia varchar(45),
 cnpj char(14) unique,
 email varchar(90) unique,
-senha varchar(45),
+senha varchar(45),                      
 porte varchar(30) check (porte in('pequeno', 'médio', 'grande'))
 );
-
-create table tipo_usuario (
+ 
+create  table tipo_usuario (
 id_tipo_usuario int primary key auto_increment,
 tipo int check (tipo in(0, 1, 2))
+);
+
+create table token (
+    token int primary key,
+    data_criado datetime
 );
 
 create table usuario (
@@ -24,19 +31,18 @@ senha varchar(45),
 matricula varchar(45),
 area varchar(45),
 cargo varchar(45),
+token int,
 fk_empresa int,
 foreign key (fk_empresa)
     references empresa(id_empresa),
 fk_tipo_usuario int,
 foreign key (fk_tipo_usuario)
-    references tipo_usuario(id_tipo_usuario)
-);
+    references tipo_usuario(id_tipo_usuario),
+    fk_token int,
+foreign key (fk_token)
+    references token(token)
 
-create table token (
-token int primary key,
-data_criado datetime
 );
-
 create table maquina (
 id_maquina int primary key auto_increment,
 ip varchar(45),

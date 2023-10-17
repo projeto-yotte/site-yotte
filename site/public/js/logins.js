@@ -1,4 +1,3 @@
-const { default: Swal } = require("sweetalert2");
 
 
 function login() {
