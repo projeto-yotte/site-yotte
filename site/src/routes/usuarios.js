@@ -40,6 +40,9 @@ router.delete("/deletarUsuario/:id_Usuario", function (req, res) {
 });
 
 
+router.put("/editarUsuario/:id_usuario", function (req, res) {
+    usuarioController.editarUsuario(req, res);
+});
 
 
 

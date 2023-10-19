@@ -263,6 +263,32 @@ function deletarUsuario(req, res) {
             }
         );
 }
+
+
+function editarUsuario(req, res) {
+    
+    var id_Adm = req.params.id_usuario;
+    var nomeAdm = req.body.nomeAdmServer;
+    var areaAdm = req.body.areaAdmServer;
+    var cargoAdm = req.body.cargoAdmServer;
+
+    console.log("controllers");
+    usuarioModel.editarUsuario(id_Adm,nomeAdm, areaAdm, cargoAdm )
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+
+}
+
     
 
 module.exports = {
@@ -273,5 +299,6 @@ module.exports = {
     cadastrarUser,
     cadastrarToken,
     listarUsuario,
-    deletarUsuario
+    deletarUsuario,
+    editarUsuario
 }

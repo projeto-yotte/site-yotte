@@ -5,6 +5,14 @@ const fecharModal = document.getElementById("FecharModal")
 fecharModal.addEventListener('click', closeModal)
 console.log(sessionStorage.ID_EMPRESA)
 
+
+function encerrarSession() {
+    sessionStorage.clear()
+
+    window.location = "../index.html";
+}
+
+
 function butaoAdm(){
     modalAdm.showModal()
 }
@@ -64,7 +72,7 @@ function excluirAdm(id_usuario) {
 
 
 
-function habilitarEdicao(button) {
+function habilitarEdicao(button, id_usuario) {
     var row = button.parentNode.parentNode;
     var inputs = row.getElementsByTagName('input');
 
@@ -80,18 +88,30 @@ function habilitarEdicao(button) {
             // Se a tecla Enter for pressionada
             if (event.keyCode === 13) {
                 event.preventDefault();
-                confirmarAlteracao(this);
+                confirmarAlteracao(this,id_usuario);
             }
         });
 
         inputs[i].addEventListener('blur', function() {
-            confirmarAlteracao(this);
+            confirmarAlteracao(this,id_usuario);
         });
     }
 }
 
-function confirmarAlteracao(input) {
-    // Exibe um alerta ou usa SweetAlert2 para confirmar a alteração
+
+function confirmarAlteracao(input, id_usuario) {
+
+    
+    var inputElementName = document.getElementById("EditInputNome"+id_usuario);
+    var inputElementName = inputElementName.value;
+
+
+    var inputElementArea = document.getElementById("EditInputArea"+id_usuario);
+    var inputElementArea = inputElementArea.value;
+
+    var inputElementCarga = document.getElementById("EditInputCargo"+id_usuario);
+    var inputElementCarga = inputElementCarga.value;
+
     Swal.fire({
         title: 'Confirmar Alteração',
         text: 'Deseja realmente fazer essa alteração?',
@@ -105,20 +125,53 @@ function confirmarAlteracao(input) {
             // Aqui você pode implementar o código para atualizar o banco de dados
             input.setAttribute('readonly', 'readonly');
             input.style.pointerEvents = 'none';
+            
+            fetch(`/usuarios/editarUsuario/${id_usuario}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    
+                    nomeAdmServer : inputElementName,
+                    areaAdmServer : inputElementArea,
+                    cargoAdmServer : inputElementCarga,
+                    
+    
+                })
+            }).then(function (resposta) {
+    
+                if (resposta.ok) {
+                    
+                  window.location = "/area_controle.html"
+    
+                } else if (resposta.status == 404) {
+                    window.alert("Deu 404!");
+                } else {
+                    throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+            var allInputs = document.getElementsByTagName('input');
+        for (var i = 0; i < allInputs.length; i++) {
+            allInputs[i].style.pointerEvents = 'none';
+            allInputs.style.border = 'none';
+            allInputs.style.borderRadius = 'none';
+        }
+
+
         } else {
             // Reverta as alterações se o usuário cancelar
             input.value = input.defaultValue;
         }
 
         // Desabilita o pointer-events para impedir a interação com todas as inputs
-        var allInputs = document.getElementsByTagName('input');
-        for (var i = 0; i < allInputs.length; i++) {
-            allInputs[i].style.pointerEvents = 'none';
-            allInputs.style.border = 'none';
-            allInputs.style.borderRadius = 'none';
-        }
+        
     });
 }
+
 
 function CadastrarAdm(){
     var nomeAdmVar = NomeAdm.value;

@@ -96,6 +96,16 @@ function deletarUsuario(id_Usuario) {
     return database.executar(instrucao);
 }
 
+function editarUsuario(id_Adm,nomeAdm, areaAdm, cargoAdm) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", id_Adm, nomeAdm, areaAdm, cargoAdm);
+    var instrucao = `
+        
+    UPDATE usuario SET nome = '${nomeAdm}',  area = '${areaAdm}', cargo = '${cargoAdm}' WHERE id_usuario = ${id_Adm};
+`;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 
 
 module.exports = {
@@ -106,5 +116,6 @@ module.exports = {
     cadastrarUser,
     cadastrarToken,
     listarUsuarios,
-    deletarUsuario
+    deletarUsuario,
+    editarUsuario
 };
