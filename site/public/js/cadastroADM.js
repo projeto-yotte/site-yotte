@@ -22,7 +22,8 @@ function testeAdm() {
       )
 }
 
-function excluirAdm() {
+
+function excluirAdm(id_usuario) {
     Swal.fire({
         title: 'Deletar Admin',
         text: "Certeza que deseja deletar esse Admin?",
@@ -32,7 +33,26 @@ function excluirAdm() {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Sim'
       }).then((result) => {
+
         if (result.isConfirmed) {
+            fetch(`/usuarios/deletarUsuario/${id_usuario}`, {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json"
+                }
+              }).then(function (resposta) {
+          
+                if (resposta.ok) {  
+                  window.location = "/area_controle.html"
+                } else if (resposta.status == 404) {
+                  window.alert("Deu 404!");
+                } else {
+                  throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                }
+              }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+              });
+            
           Swal.fire(
             'Deletado!',
             'Usuário Admin deletado com sucesso!',
@@ -41,6 +61,8 @@ function excluirAdm() {
         }
       })
 }
+
+
 
 function habilitarEdicao(button) {
     var row = button.parentNode.parentNode;

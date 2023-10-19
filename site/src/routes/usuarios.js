@@ -14,7 +14,8 @@ router.post("/autenticar", function (req, res) {
 
 router.post("/cadastrarAdm", function (req, res) {
     usuarioController.cadastrarAdm(req, res);
-})
+});
+
 
 router.post("/loginAdm", function (req, res) {
     usuarioController.loginAdm(req, res);
@@ -22,12 +23,24 @@ router.post("/loginAdm", function (req, res) {
 
 router.post("/cadastrarUser", function (req, res) {
     usuarioController.cadastrarUser(req, res);
-})
+});
 
 
 router.post("/cadastrarToken", function (req, res) {
     usuarioController.cadastrarToken(req, res);
-})
+});
+
+router.get("/listarUsuarios/:id_empresa", function (req, res) {    
+    usuarioController.listarUsuario(req, res);
+});
+
+
+router.delete("/deletarUsuario/:id_Usuario", function (req, res) {
+    usuarioController.deletarUsuario(req, res);
+});
+
+
+
 
 
 

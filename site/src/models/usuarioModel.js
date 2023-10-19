@@ -73,11 +73,38 @@ function cadastrarToken(token) {
     return database.executar(instrucao);
 }
 
+
+
+function listarUsuarios(id_empresa) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", id_empresa)
+    var instrucao = `
+        
+                    SELECT * FROM empresa JOIN usuario	WHERE
+                    id_empresa = fk_empresa and id_empresa = ${id_empresa};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function deletarUsuario(id_Usuario) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", id_Usuario);
+    var instrucao = `
+    
+        DELETE FROM usuario WHERE id_Usuario = ${id_Usuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+
+
 module.exports = {
     autenticar,
     cadastrar,
     cadastrarAdm,
     loginAdm,
     cadastrarUser,
-    cadastrarToken
+    cadastrarToken,
+    listarUsuarios,
+    deletarUsuario
 };
