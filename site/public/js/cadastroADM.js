@@ -108,9 +108,8 @@ function CadastrarAdm(){
 
     if (nomeAdmVar == "" || areaVar == "" || cargoAdmVar == "" || senhaAdmVar == "" ) {
         //cardErro.style.display = "block"
-        // swal("Ops", "Preencha todos os campos 😠", "error")
+        swal.fire("Ops", "Preencha todos os campos 😠", "error")
 
-        Swal.fire('entrei no if')
         // finalizarAguardar();
         return false;
     } else if (senhaAdmVar.length < 8) {
@@ -140,7 +139,7 @@ function CadastrarAdm(){
                 emailServer: emailAdmVar,
                 senhaServer :  senhaAdmVar,
                 fk_empresaServer : sessionStorage.ID_EMPRESA,
-                tipoUsuarioServer : 1, 
+                tipoUsuarioServer : 2, 
                 
 
 
@@ -162,6 +161,7 @@ function CadastrarAdm(){
                 // finalizarAguardar();
             } else {
                 Swal.fire("Ops", "Mais de um usuário com o mesmo login e senha 😭!")
+                limparFormulario();
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);

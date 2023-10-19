@@ -61,7 +61,7 @@ function cadastrarUser(){
                 emailServer: emailVar,
                 fk_tokenServer : tokenVar,
                 fk_empresaServer : sessionStorage.ID_EMPRESA,
-                tipoUsuarioServer : 2, 
+                tipoUsuarioServer : 3, 
                 
 
 

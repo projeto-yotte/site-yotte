@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./css/area_controle.css">
+    <link rel="icon" href="./assets/img/favicon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <script src="./js/cadastroADM.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <title>Área de Controle</title>
@@ -160,6 +162,9 @@
                         <div>
                             <input id="senhaAdm" class="input" placeholder="Senha">
                         </div>
+                        <div class="eye">
+                            <i class="bi bi-eye-fill" onclick="mostrarOcultarSenha()" id="mostrarSenha"></i>
+                        </div>
                     </div>
                     <div class="button-logar">
                         <button onclick="CadastrarAdm()" class="button-login">
@@ -176,3 +181,18 @@
 </body>
 
 </html>
+
+<script>
+     function mostrarOcultarSenha() {
+        var inputPass = document.getElementById("senhaAdm");
+        var btnShowPass = document.getElementById("mostrarSenha");
+
+        if (inputPass.type === 'password') {
+            inputPass.setAttribute('type', 'text');
+            btnShowPass.classList.replace('bi-eye-fill', 'bi-eye-slash-fill')
+        } else {
+            inputPass.setAttribute('type', 'password');
+            btnShowPass.classList.replace('bi-eye-slash-fill', 'bi-eye-fill')
+        }
+    }
+</script>

@@ -165,7 +165,6 @@ function cadastrarUser(req, res) {
     var area = req.body.areaServer
     var cargo = req.body.cargoServer;
     var email = req.body.emailServer;
-    var token = req.body.fk_tokenServer;
     var fk_empresa = req.body.fk_empresaServer;
     var fk_tipo_usuario = req.body.tipoUsuarioServer;
 
@@ -183,7 +182,7 @@ function cadastrarUser(req, res) {
     }else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrarAdm(nome,area, cargo,email, fk_empresa, fk_tipo_usuario )
+        usuarioModel.cadastrarUser(nome,area, cargo,email, fk_empresa, fk_tipo_usuario )
             .then(
                 function (resultado) {
                     res.json(resultado);

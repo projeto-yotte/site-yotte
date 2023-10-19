@@ -21,11 +21,11 @@ data_criado datetime DEFAULT CURRENT_TIMESTAMP
 SELECT * FROM token;
 create table tipo_usuario (
 id_tipo_usuario int primary key auto_increment,
-tipo int check (tipo in(0, 1, 2))
+tipo int check (tipo in(1, 2, 3))
 );
 
 
-
+INSERT INTO tipo_usuario (tipo) VALUES (1),(2),(3);
 
 create table usuario (
 id_usuario int primary key auto_increment,

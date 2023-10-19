@@ -53,7 +53,7 @@ function cadastrarUser(nome,area, cargo, email , fk_empresa,fk_tipo_usuario) {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-        INSERT INTO usuario (nome, area, cargo, email, fk_empresa, fk_tipo_usuario) VALUES ('${nome}', '${area}', '${cargo}','${email}' , '${fk_empresa}', '${fk_tipo_usuario}');
+        INSERT INTO usuario (nome, area, cargo, email, fk_empresa, fk_tipo_usuario) VALUES ('${nome}', '${area}', '${cargo}','${email}', '${fk_empresa}', '${fk_tipo_usuario}');
     `;
 
     
@@ -67,7 +67,7 @@ function cadastrarToken(token) {
     
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
-    var instrucao = `INSERT INTO token(token, data_criado) VALUES('${token}', ${now()}')`
+    var instrucao = `INSERT INTO token(token, data_criado) VALUES('${token}', now())`
 
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
