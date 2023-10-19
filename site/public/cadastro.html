@@ -9,6 +9,8 @@
     <link rel="icon" href="./assets/img/favicon.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="./js/cadastroEmpresa.js" defer></script>
     <!-- <link rel="stylesheet" href="css/global.css"> -->
     <title>Cadastro Yotte</title>
@@ -35,10 +37,15 @@
                     <input id="nomeEmpresa" class="email-input" type="text" placeholder="Nome da empresa">
                 </div>
                 <div>
-                    <input id="cnpj" class="email-input" type="text" placeholder="CNPJ">
+                    <input type="text" id="cnpj" onkeydown="return ( event.ctrlKey || event.altKey
+                        || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
+                        || (95<event.keyCode && event.keyCode<106)
+                        || (event.keyCode==8) || (event.keyCode==9)
+                        || (event.keyCode>34 && event.keyCode<40)
+                        || (event.keyCode==46) )" onkeypress="$(this).mask('00.000.000/0000-00')" placeholder="00.000.000/0000-00">
                 </div>
                 <div>
-                    <input id="email" class="email-input" type="email" placeholder="E-mail">
+                    <input type="email" id="email" class="email-input" type="email" placeholder="E-mail">
                 </div>
                 <div>
                     <input id="senha" class="senha-input" type="password" placeholder="Senha">
