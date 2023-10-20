@@ -39,7 +39,7 @@ img {
     background-color: black;
 }
 
-.container {
+.caixa_img {
     display: flex;
     width: 90%;
 }
@@ -108,7 +108,7 @@ table {
 
 .tabela-adms table {
     padding: 20px;
-    width: 80git %;
+    width: 80%;
     border-collapse: collapse;
     border-radius: 20px;
     border-radius: 20px;
