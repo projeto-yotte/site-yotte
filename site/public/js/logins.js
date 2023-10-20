@@ -109,7 +109,7 @@ function login() {
                         console.log(json);
  
                         setTimeout(function () {
-                           window.location = './dashboard-ADM/cadastrarUser.html'
+                           window.location = './dashboard-ADM/paginaInicial.html'
                            
                         }, 3000); // apenas para exibir o loading
         

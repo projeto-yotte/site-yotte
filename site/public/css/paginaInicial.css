@@ -171,7 +171,7 @@
     width: 450px;
     height: 225px;
     justify-content: center;
-    border-radius: 10px;
+    border-radius: 1 0px;
     background-color: #161616;
     margin-top: 20px;
 }
