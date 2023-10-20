@@ -7,6 +7,7 @@
     /*background-color: var(--main-background);
     */
     font-family: var(--main-font-full);
+    overflow: hidden;
 }
 
 body {
@@ -86,12 +87,12 @@ img {
     width: 80%;
     height: 100vh;
     padding-top: 5vh;
+    
 }
 
 .caixa-h1-adm {
     display: flex;
-    justify-content: center;
-    padding-bottom: 10vh;
+    padding: 30px;
 }
 
 .caixa-h2-adm {
@@ -107,18 +108,38 @@ table {
 
 .tabela-adms table {
     padding: 20px;
-    width: 100%;
+    width: 80git %;
     border-collapse: collapse;
+    border-radius: 20px;
+    border-radius: 20px;
 }
 
-.tabela-adms td, .tabela-adms th {
-    border: 1px solid white;
-    padding: 20px;
+.tabela-adms td,
+.tabela-adms th {
+    padding: 16px;
+}
+
+tr {
+    background-color: #0F0F0F;
+}
+
+tr .input {
+    background-color: #0F0F0F;
+}
+
+.tabela-adms {
+    display: flex;
+    justify-content: center;
+}
+
+
+.tittle {
+    background-color: #222222;
 }
 
 .botao-table {
     border: none;
-    background-color: #191919;
+    background-color: #0F0F0F;
     color: white;
     cursor: pointer;
 }
@@ -128,11 +149,17 @@ table {
     transition: 0.25s ease-in-out;
 }
 
+tr span {
+    font-size: 18px;
+
+}
+
 td input {
     border: none;
     background-color: #191919;
     pointer-events: none;
     color: var(--main-branco);
+    font-size: 17px;
 }
 
 /* Css do modal cadastrar adm */
@@ -159,7 +186,7 @@ td input {
     border-radius: 20px;
 }
 
-.img-login{
+.img-login {
     height: 480px;
 }
 
@@ -169,7 +196,7 @@ td input {
 
 .eye i {
     cursor: pointer;
-font-size: 20px;
+    font-size: 20px;
     right: 5%;
 }
 
@@ -232,7 +259,7 @@ font-size: 20px;
 }
 
 
-.button-logar{
+.button-logar {
     display: flex;
     justify-content: center;
     width: 100%;
