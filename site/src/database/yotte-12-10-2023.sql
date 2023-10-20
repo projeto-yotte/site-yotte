@@ -18,7 +18,7 @@ token VARCHAR(45),
 data_criado datetime DEFAULT CURRENT_TIMESTAMP
 );
 
-SELECT * FROM token;
+
 create table tipo_usuario (
 id_tipo_usuario int primary key auto_increment,
 tipo int check (tipo in(1, 2, 3))
@@ -59,7 +59,7 @@ fk_token int,
 
 create table info_componente (
 id_info int primary key auto_increment,
-total decimal(5, 2)
+total float
 );
 
 create table componente (
@@ -76,7 +76,7 @@ fk_maquina int,
 
 create table dados_captura (
 id_dados_captura int primary key auto_increment,
-captura decimal(5, 2),
+captura float,
 uso bigint,
 fk_componente int,
 	foreign key (fk_componente)
@@ -98,19 +98,10 @@ fk_maquina int,
 create table processo (
 id_processo int primary key auto_increment,
 pid int,
-uso_cpu decimal(5, 2),
-uso_memoria decimal(5, 2),
+uso_cpu float,
+uso_memoria float,
 bytes_utilizados int,
 fk_janela int,
 	foreign key (fk_janela)
     references janela(id_janela)
 );
-
-
-
-
-
-
-
-
-
