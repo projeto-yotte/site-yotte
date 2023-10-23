@@ -5,7 +5,7 @@
 <h3 align="center"><i>O monitoramento que a sua máquina precisa</i></h3>
 <br>
 <p>A Yotte é uma empresa de monitoramento de hardware com a visão de facilitar a vida dos desenvolvedores e empresas que adotaram o home office, por meio de uma plataforma avançada de monitoramento que permite que o usuário tenha total visibilidade sobre o estado de seus equipamentos, garantindo que qualquer problema seja identificado e resolvido antes que afete algum trabalho.</p>
-<p>Este é um projeto oque vêm sendo produzido para o segundo semestre de 2023 na faculdade São Paulo Tech School.</p>
+<p>Este é um projeto que vêm sendo produzido para o segundo semestre de 2023 na faculdade São Paulo Tech School.</p>
 
 <br>
 <br>
@@ -23,5 +23,5 @@
  <h3 align="center"> Status do projeto: <b> Em andamento </b> </h3>
  <br>
 <div align="center">
-<p>Projeto produzido por: Brian Guimarães (@eusoubrian), Daniel Rocha (@Danielr194),<br> Igor Viera, Julia Hown (@JuliaHown), Matheus Trindade (@MatheussTrindade)<br> e Victor Lira (@VicLira)</p>
+<p>Projeto produzido por: Brian Guimarães (@eusoubrian), Daniel Rocha (@Danielr194),<br> Igor Viera (@igor-vieira-car), Julia Hown (@JuliaHown), Matheus Trindade (@MatheussTrindade)<br> e Victor Lira (@VicLira)</p>
 </div>
