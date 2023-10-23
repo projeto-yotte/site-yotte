@@ -1,22 +1,89 @@
 * {
     margin: 0;
     padding: 0;
-    background-color: #191919;
-    color: #FFFFFF;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Nunito', sans-serif;
+    background-color: #191919;
 }
 
+html,
 body {
     display: flex;
-    min-height: 100vh;
-    min-width: 100vw;
-    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    color: #FFFFFF;
 }
+
+
 
 /* Início da nav bar lateral */ 
 
-nav {
+.lateral {
+    height: 100%;
+    width: 18%;
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #000;
+    box-shadow: -1px 4px 11px rgba(0, 0, 0, 0.13);
+}
+
+.lateral .listaBaixo {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #000;
+}
+
+.lista a i {
+    font-size: 30px;
+    color: #FFF;
+    background-color: #000;
+}
+
+.lista span {
+    color: #FFF;
+    font-size: 18px;
+    background-color: #000;
+}
+
+.lista.destaque .lista {
+    color: rgba(191, 25, 34, 1);
+    background-color: #000;
+
+}
+
+.destaque:before {
+    color: rgba(191, 25, 34, 1);
+    background-color: #000;
+
+}
+
+.navHeader {
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    width: 70%;
+    padding: 10px;
+    background-color: #000;
+}
+
+.navHeader span {
+    font-size: 16px;
+    color: #FFF;
+    padding: 0 0 20px 0;
+    background-color: #000;
+}
+
+.navHeader img {
+    width: 105px;
+    background-color: #000;
+}
+
+
+.navegacão {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -25,57 +92,44 @@ nav {
     position: fixed;
 }
 
-nav .top-navigation {
-    gap: 2.5vw;
-    margin-top: 5vh;
-    display: flex;
-    margin-bottom: 8vh;
-    background-color: #000;
-}
-
-.top-navigation img {
-    height: auto;
-    width: 80px;
-    margin-left: 1.5vw;
-    background-color: #000;
-}
-
-.top-navigation span {
-    font-size: 15px;
-    text-align: left;
-    background-color: #000;
-}
-
-ul {
-    list-style: none;
+.navegacão ul {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 50px 0;
-    margin-left: 3.5vw;
+    padding: 25px;
     background-color: #000;
 }
 
-li.nav-item {
-    margin-bottom: 7vh;
+.navegacão ul li {
     display: flex;
+    align-items: center;
+    height: 65px;
+    list-style: none;
     background-color: #000;
 }
 
-li.nav-item img {
-    height: auto;
-    width: 25px;
-    margin-right: 1vw;
-    background-color: #000;
-}
-
-li.nav-item a {
+.navegacão ul li a {
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    margin-top: 1vh;
-    font-size: 15px;
+    font-weight: 700;
+    font-size: 18px;
+    gap: 15px;
+    letter-spacing: 1px;
+    width: 100%;
     background-color: #000;
 }
 
+.navegacão ul li a .icone {
+    position: relative;
+    display: block;
+    min-width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 70px;
+    background-color: #000;
+}
 
 
 /* FIM DA NAV BAR */

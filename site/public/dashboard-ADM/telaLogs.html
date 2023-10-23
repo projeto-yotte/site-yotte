@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/telaLogs.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../js/cadastroADM.js"></script>
 
@@ -13,22 +15,48 @@
 
 <body>
 
-    <nav class="navbar">
+    <div class="lateral">
+        <!-- parte de cima -->
+        <div class="listaBaixo">
+            <div class="navegacão">
 
-        <div class="top-navigation">
-            <img src="../assets/img/logo-navbar.png" alt="Logo da Empresa">
-            <span>Ambiente de <br> desenvolvimento</span>
+                <div class="navHeader">
+                    <img src="../assets/img/logo.png">
+                </div>
+                <ul>
+                    <li class="lista ">
+                        <a href="paginaInicial.html">
+                            <i class="uil uil-create-dashboard "></i>
+                            <span class="lista">Página inical</span>
+                        </a>
+                    </li>
+                    <li class="lista">
+                        <a href="cadastrarUser.html">
+                            <i class="bi bi-person-plus-fill"></i>
+                            <!-- <i class="bi bi-file-earmark-text"></i> -->
+                            <span class="lista">Usuários</span>
+                        </a>
+                    </li>
+                    <li class="lista destaque">
+                        <a href="telaLogs.html">
+                            <i class="bi bi-clock-history destaque"></i>
+                            <!-- <i class="bi bi-gear"></i> -->
+                            <span class="lista">Tela de Logs</span>
+                        </a>
+                    </li>
+                    <li class="lista">
+                        <a href="" onclick="EncerrarSession()">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <!-- <i class="bi bi-gear"></i> -->
+                            <span class="lista">Sair</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
         </div>
 
-        <ul>
-            <li class="nav-item"><img src="../assets/img/nav-inicial.png" alt="Ícone Página Inicial"><a href="">Página
-                    inicial</a></li>
-            <li class="nav-item"><img src="../assets/img/Chart_Line.png" alt="Ícone Geral"><a href="">Geral</a></li>
-            <li class="nav-item"><img src="../assets/img/New Costumers Icon.png" alt="Ícone Cadastrar Usuário"><a
-                    href="">Cadastrar usuário</a></li>
-            <li class="nav-item"><img src="../assets/img/Sign Out Icon.png" alt="Ícone Sair"><a href="">Sair</a></li>
-        </ul>
-    </nav>
+    </div>
 
 
     <main>
@@ -190,7 +218,7 @@
                     beginAtZero: true
                 }
             }
-        } 
+        }
     });
 
 
