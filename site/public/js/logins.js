@@ -45,7 +45,7 @@ function login() {
     
     
                     setTimeout(function () {
-                       window.location = 'area_controle.html'
+                       window.location = '/telas-empresa/area_controle.html'
                        
                     }, 3000); // apenas para exibir o loading
     

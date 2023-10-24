@@ -30,6 +30,11 @@ router.post("/cadastrarToken", function (req, res) {
     usuarioController.cadastrarToken(req, res);
 });
 
+
+router.get("/dadosDaEmpresa/:id_empresa", function (req, res) {
+    usuarioController.dadosDaEmpresa(req, res);
+});
+
 router.get("/listarUsuarios/:id_empresa", function (req, res) {    
     usuarioController.listarUsuario(req, res);
 });

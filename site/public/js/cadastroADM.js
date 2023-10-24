@@ -31,6 +31,7 @@ function testeAdm() {
 }
 
 
+
 function excluirAdm(id_usuario) {
     Swal.fire({
         title: 'Deletar Admin',
@@ -51,7 +52,7 @@ function excluirAdm(id_usuario) {
               }).then(function (resposta) {
           
                 if (resposta.ok) {  
-                  window.location = "/area_controle.html"
+                  window.location = "area_controle.html"
                 } else if (resposta.status == 404) {
                   window.alert("Deu 404!");
                 } else {
@@ -143,7 +144,7 @@ function confirmarAlteracao(input, id_usuario) {
     
                 if (resposta.ok) {
                     
-                  window.location = "/area_controle.html"
+                  window.location = "area_controle.html"   
     
                 } else if (resposta.status == 404) {
                     window.alert("Deu 404!");
@@ -225,9 +226,11 @@ function CadastrarAdm(){
 
             if (resposta.ok) {
                 //cardErro.style.display = "block";
+                
+                window.location = "area_controle.html";
                 Swal("Parábens", "Cadastro realizado com sucesso 😄...!", "success");
-
-
+                window.location = "area_controle.html";   
+    
                 setTimeout(() => {
                     // window.location = "login.html";
                 }, 3000)

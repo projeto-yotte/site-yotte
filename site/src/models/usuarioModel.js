@@ -74,6 +74,16 @@ function cadastrarToken(token) {
 }
 
 
+function dadosDaEmpresa(id_empresa) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", id_empresa)
+    var instrucao = `
+        
+                    SELECT * FROM empresa WHERE id_empresa = ${id_empresa};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 
 function listarUsuarios(id_empresa) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", id_empresa)
@@ -115,6 +125,7 @@ module.exports = {
     loginAdm,
     cadastrarUser,
     cadastrarToken,
+    dadosDaEmpresa,
     listarUsuarios,
     deletarUsuario,
     editarUsuario

@@ -2,7 +2,7 @@
 function cadastrar(){
 
     var nomeVar = nomeEmpresa.value;
-    var cnpjVar = cnpj.value;
+    var cnpjVar = cnpj.value.replace(/[^\d]/g, ''); // remove todas as caracteres especiais
     var emailVar = email.value;
     var senhaVar = senha.value;
 
