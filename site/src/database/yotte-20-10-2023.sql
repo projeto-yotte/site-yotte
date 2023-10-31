@@ -10,11 +10,6 @@ CREATE TABLE empresa (
     senha VARCHAR(90)
 );
 
-CREATE TABLE token (
-    idtoken INT PRIMARY KEY AUTO_INCREMENT,
-    token VARCHAR(45) UNIQUE,
-    data_criado DATETIME DEFAULT CURRENT_TIMESTAMP
-);
 
 CREATE TABLE tipo_usuario (
     id_tipo_usuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -36,6 +31,12 @@ CREATE TABLE usuario (
     FOREIGN KEY (fk_tipo_usuario) REFERENCES tipo_usuario(id_tipo_usuario)
 );
 
+CREATE TABLE token (
+    idtoken INT PRIMARY KEY AUTO_INCREMENT,
+    token VARCHAR(45) UNIQUE,
+    data_criado DATETIME DEFAULT CURRENT_TIMESTAMP,
+   
+);
 CREATE TABLE maquina (
     id_maquina INT PRIMARY KEY AUTO_INCREMENT,
     ip VARCHAR(45),
@@ -52,7 +53,6 @@ CREATE TABLE info_componente (
     id_info INT PRIMARY KEY AUTO_INCREMENT,
     total FLOAT
 );
-
 CREATE TABLE componente (
     id_componente INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(45),
@@ -106,3 +106,5 @@ VALUES ('jdbc', 'JDBC', '12345678901234', 'empresa@email.com', 'senha123'),
 INSERT INTO token (token)
 VALUES ('12345'),
        ('54321');
+       
+       
