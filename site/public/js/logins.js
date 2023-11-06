@@ -107,6 +107,7 @@ function login() {
         
                     resposta.json().then(json => {
                         console.log(json);
+                        sessionStorage.ID_USUARIO = json.id_usuario;
  
                         setTimeout(function () {
                            window.location = './dashboard-ADM/paginaInicial.html'

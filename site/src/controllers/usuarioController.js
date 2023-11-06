@@ -203,7 +203,8 @@ function cadastrarUser(req, res) {
 
 function cadastrarToken(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-    var token = req.body.fk_tokenServer;
+    var token = req.body.tokenServer;
+    var fk_usuario_token = req.body.fk_usuarioServer
 
 
     // Faça as validações dos valores
@@ -212,7 +213,7 @@ function cadastrarToken(req, res) {
     }
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrarToken(token )
+        usuarioModel.cadastrarToken(token, fk_usuario_token)
             .then(
                 function (resultado) {
                     res.json(resultado);
