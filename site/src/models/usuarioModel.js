@@ -116,6 +116,26 @@ function editarUsuario(id_Adm,nomeAdm, areaAdm, cargoAdm) {
     return database.executar(instrucao);
 }
 
+function editarEmpresa(idEmpresa, nomeEmpresa,nomeFantasiaEmpresa, cpnjEmpresa, emailEmpresa ) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", idEmpresa, nomeEmpresa,nomeFantasiaEmpresa, cpnjEmpresa, emailEmpresa );
+    var instrucao = `
+        
+    UPDATE empresa SET nome = '${nomeEmpresa}',  nome_fantasia = '${nomeFantasiaEmpresa}', cnpj = '${cpnjEmpresa}', email= '${emailEmpresa}' WHERE id_empresa = ${idEmpresa};
+`;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function editarSenhaEmpresa(idEmpresa, novaSenha ) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", idEmpresa, novaSenha );
+    var instrucao = `
+        
+    UPDATE empresa SET senha = '${novaSenha}' WHERE id_empresa = ${idEmpresa};
+`;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 
 
 module.exports = {
@@ -128,5 +148,7 @@ module.exports = {
     dadosDaEmpresa,
     listarUsuarios,
     deletarUsuario,
-    editarUsuario
+    editarUsuario,
+    editarEmpresa,
+    editarSenhaEmpresa
 };

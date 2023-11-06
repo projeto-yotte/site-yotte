@@ -304,7 +304,51 @@ function editarUsuario(req, res) {
 
 }
 
+function editarEmpresa(req, res) {
     
+    var idEmpresa = req.params.id_empresa;
+    var nomeEmpresa = req.body.nomeEmpresaServer;
+    var nomeFantasiaEmpresa = req.body.nomeFantasiaServer;
+    var cpnjEmpresa = req.body.cpnjServer;
+    var emailEmpresa = req.body.emailServer;
+    console.log("controllers");
+    usuarioModel.editarEmpresa(idEmpresa, nomeEmpresa,nomeFantasiaEmpresa, cpnjEmpresa, emailEmpresa )
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+
+}
+
+
+
+function editarSenhaEmpresa(req, res) {
+    
+    var idEmpresa = req.params.id_empresa;
+    var novaSenha = req.body.novaSenhaServer;
+    console.log("controllers");
+    usuarioModel.editarSenhaEmpresa(idEmpresa, novaSenha )
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+    }
 
 module.exports = {
     autenticar,
@@ -316,5 +360,7 @@ module.exports = {
     dadosDaEmpresa,
     listarUsuario,
     deletarUsuario,
-    editarUsuario
+    editarUsuario,
+    editarEmpresa,
+    editarSenhaEmpresa
 }

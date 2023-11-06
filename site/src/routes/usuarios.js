@@ -49,7 +49,13 @@ router.put("/editarUsuario/:id_usuario", function (req, res) {
     usuarioController.editarUsuario(req, res);
 });
 
+router.put("/editarEmpresa/:id_empresa", function (req, res) {
+    usuarioController.editarEmpresa(req, res);
+});
 
+router.put("/editarSenhaEmpresa/:id_empresa", function (req, res) {
+    usuarioController.editarSenhaEmpresa(req, res);
+});
 
 
 module.exports = router;

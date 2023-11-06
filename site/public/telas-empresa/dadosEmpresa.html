@@ -57,14 +57,52 @@
         </div>
         <div class="direita">
             <h1>Dados da empresa</h1>
-            Nome:  <input type="text" id="input_nome"> <br>
-            Nome fantasia:<input type="text" id="input_nomeFantasia"><br>
-            CNPJ:  <input type="text" id="input_cnpj"><br>
-            Email: <input type="text"id="input_email" ><br>
-            Senha: <input type="password" id="input_senha">
-            
+            Nome: <input type="text" id="input_nome" class="inputDados"> <br>
+            Nome fantasia:<input type="text" id="input_nomeFantasia" class="inputDados"><br>
+            CNPJ: <input type="text" id="input_cnpj" class="inputDados"><br>
+            Email: <input type="text" id="input_email" class="inputDados"><br>
+            Senha: <input type="password" id="input_senha" disabled> <br>
+
+            <div id="div_Dados"><button onclick="ativarInput()">Editar</button> <button onclick="butaoAdm()">Trocar
+                    Senha</button></div>
         </div>
-        
+
+
+        <dialog id="modal-add-adm" close>
+            <div class="corpo">
+                <div class="container-modal">
+                    <div class="back">
+                        <a id="FecharModal">
+                            <span id="FecharModal">
+                                ↤
+                            </span>
+                        </a>
+                    </div>
+                    <div class="top-logo">
+                        <img class="logo" src="../assets/img/logoCopia.png" alt="">
+                    </div>
+                    <div class="info-input">
+
+                        <div>
+                            <input id="input_senhaEmpresa" class="input" placeholder="Nova senha" type="password">
+                        </div>
+
+                        <div>
+                            <input id="input_confirmarSenhaEmpresa" class="input" placeholder="Confirmar senha" type="password">
+                        </div>
+                        <div class="eye">
+                            <i class="bi bi-eye-fill" onclick="mostrarOcultarSenha()" id="mostrarSenha"></i>
+                        </div>
+                    </div>
+                    <div class="button-logar">
+                        <button onclick="editarSenha()" class="button-login">
+                            Alterar senha
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </dialog>
+
     </div>
 
 
@@ -73,6 +111,80 @@
 </html>
 
 <script>
+    function ativarInput() {
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].style.border = "#000000 solid 1px";
+            inputs[i].disabled = false;
+            inputs[i].style.backgroundColor = "#ffffff"
+            console.log(inputs[i].value); // seleciona todas as input com a class do inputs
+        }
+
+        div_Dados.innerHTML = "<button onclick='editarDados()'>Salvar </button>"
+    }
+
+    function editarSenha() {
+        var senhaEmpresa = input_senhaEmpresa.value;
+        var confirmar = input_confirmarSenhaEmpresa.value;
+        if (senhaEmpresa == confirmar) {
+            fetch(`../usuarios/editarSenhaEmpresa/${sessionStorage.getItem("ID_EMPRESA")}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    
+                    novaSenhaServer: senhaEmpresa,
+                    
+
+                })
+            }).then(function (resposta) {
+
+                if (resposta.ok) {
+                    window.location = 'dadosEmpresa.html';
+
+                } else if (resposta.status == 404) {
+                    window.alert("Deu 404!");
+                } else {
+                    throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+        }else{
+            window.alert("Senha não coincidem")
+        }
+
+
+    }
+
+    function editarDados() {
+        fetch(`../usuarios/editarEmpresa/${sessionStorage.getItem("ID_EMPRESA")}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+
+                nomeEmpresaServer: input_nome.value,
+                nomeFantasiaServer: input_nomeFantasia.value,
+                cpnjServer: input_cnpj.value,
+                emailServer: input_email.value
+
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.location = 'dadosEmpresa.html';
+
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
 
     fetch(`../usuarios/dadosDaEmpresa/${sessionStorage.getItem("ID_EMPRESA")}`).then(function (resposta) {
         if (resposta.ok) {
@@ -84,21 +196,29 @@
             resposta.json().then(function (resposta) {
                 console.log("Dados recebidos: ", JSON.stringify(resposta));
                 console.log(resposta);
-                
+
                 var empresa = resposta[0];
 
-                if(resposta.nome != undefined){
+                if (resposta.nome != "") {
                     input_nome.value = empresa.nome;
                 }
                 input_nomeFantasia.value = empresa.nome_fantasia;
-                
-                input_cnpj.value = empresa.cnpj;
-                
-                input_email.value = empresa.email;
-                
-                input_senha.value ="**************";
-                
 
+                input_cnpj.value = empresa.cnpj;
+
+                input_email.value = empresa.email;
+
+                input_senha.value = "**************";
+
+
+                inputs = document.getElementsByClassName(`inputDados`);
+
+                for (var i = 0; i < inputs.length; i++) {
+                    inputs[i].style.border = "#000000 solid 1px";
+                    inputs[i].disabled = true;
+                    inputs[i].style.backgroundColor = "#dddddd"
+                    console.log(inputs[i].value); // seleciona todas as input com a class do inputs
+                }
 
             });
         } else {
