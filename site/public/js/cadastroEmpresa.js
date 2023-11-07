@@ -24,7 +24,7 @@ function cadastrar(){
     }
         
         // Enviando o valor da nova input
-        fetch("/usuarios/cadastrar", {
+        fetch("/empresa/cadastrar", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -44,7 +44,7 @@ function excluirAdm(id_usuario) {
       }).then((result) => {
 
         if (result.isConfirmed) {
-            fetch(`/usuarios/deletarUsuario/${id_usuario}`, {
+            fetch(`/empresa/deletarUsuario/${id_usuario}`, {
                 method: "DELETE",
                 headers: {
                   "Content-Type": "application/json"
@@ -127,7 +127,7 @@ function confirmarAlteracao(input, id_usuario) {
             input.setAttribute('readonly', 'readonly');
             input.style.pointerEvents = 'none';
             
-            fetch(`/usuarios/editarUsuario/${id_usuario}`, {
+            fetch(`/empresa/editarUsuario/${id_usuario}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -201,7 +201,7 @@ function CadastrarAdm(){
     }
         
         // Enviando o valor da nova input
-        fetch("/usuarios/cadastrarAdm", {
+        fetch("/admin/cadastrarAdm", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

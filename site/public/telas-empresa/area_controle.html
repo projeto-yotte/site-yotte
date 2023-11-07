@@ -71,12 +71,17 @@
             <div class="caixa-h2-adm">
                 <h2>Lista de usuários Admin</h2>
             </div>
+            <!--
+            <div>
+                <input type="text" placeholder="a" id="pesquisar_input"> <button onclick="pesquisarAdmin()">a</button>
+            </div>
+        -->
             <div class="tabela-adms">
                 <table id="table_usuarios">
                     <tr class="titulos-table">
-                        <td class="tittle"><span>Nome</span></td>
-                        <td class="tittle"><span>Área</span></td>
-                        <td class="tittle"><span>Cargo</span></td>
+                        <td class="tittle"><span onclick="filtrar('nome')">Nome</span></td>
+                        <td class="tittle"><span onclick="filtrar('area')">Área</span></td>
+                        <td class="tittle"><span onclick="filtrar('cargo')">Cargo</span></td>
                         <td class="tittle"><span>Editar</span></td>
                         <td class="tittle"><span>Excluir</span></td>
 
@@ -114,37 +119,6 @@
                 </table>
             </div>
         </div>
-        <!-- <dialog id="modal-add-adm" close >
-            <div>
-                <h3>Adicionar novo Adm</h3>
-            </div>
-            <div>
-                <a id="FecharModal">FECHARRRR</a>
-            </div>
-            <form action="" id="format">
-                <div>
-                    <div>
-                        <label for="nome">Nome</label>
-                        <input type="text" name="" id="NomeAdm" placeholder="Informe o nome da empresa">
-                    </div>
-                    <div>
-                        <label for="area">area</label>
-                        <input type="text"placeholder="Informe sua area" id="AreaAdm">
-                    </div>
-                    <div>
-                        <label for="cargo">Cargo</label>
-                        <input type="text"placeholder="Informe o seu Cargo" id="cargoAdm">
-                    </div>
-                    <div>
-                        <label for="Senha">Senha</label>
-                        <input type="text"placeholder="Informe a senha" id="senhaAdm" >
-                    </div>
-
-                </div>
-                <button onclick="CadastrarAdm()">Adicionar Adm</button>
-            </form>
-    
-        </dialog> -->
         <dialog id="modal-add-adm" close>
             <div class="corpo">
                 <div class="container-modal">
@@ -195,6 +169,8 @@
 </html>
 
 <script>
+
+
     function mostrarOcultarSenha() {
         var inputPass = document.getElementById("senhaAdm");
         var btnShowPass = document.getElementById("mostrarSenha");
@@ -209,7 +185,7 @@
     }
 
 
-    fetch(`../usuarios/listarUsuarios/${sessionStorage.getItem("ID_EMPRESA")}`).then(function (resposta) {
+    fetch(`../empresa/listarUsuarios/${sessionStorage.getItem("ID_EMPRESA")}`).then(function (resposta) {
         if (resposta.ok) {
 
             if (resposta.status == 204) {
@@ -268,5 +244,120 @@
         console.error(resposta);
     });
 
+
+    var select;
+
+    function pesquisarAdmin() {
+        var pesquisarVar = pesquisar_input.value;
+
+        if (pesquisarVar == "") {
+            alert("Campo em branco");
+        } else {
+
+            fetch(`empresa/pesquisarAdmin/${pesquisarVar}/${sessionStorage.getItem("ID_EMPRESA")}`).then(function (resposta) {
+                if (resposta.ok) {
+
+                    if (resposta.status == 204) {
+                        alert("Nenhum resultado encontrado.");
+
+                    }
+
+                    resposta.json().then(function (resposta) {
+                        console.log("Dados recebidos: ", JSON.stringify(resposta));
+                        console.log(resposta);
+
+                        alert(resposta);
+                    });
+                } else {
+                    throw ('Houve um erro na API!');
+                }
+            }).catch(function (resposta) {
+                console.error(resposta);
+            });
+        }
+    }
+
+    /*          FUNÇÃO DE PARAMETRO/*
+    function filtrar(parametro) {
+
+        var descOrBy;
+        if(parametro !=  select){
+            descOrBy = "";
+        }else{
+            descOrBy = "desc";
+            select = parametro;
+        }
+        
+        fetch(`/empresa/parametroEmpresa/${sessionStorage.getItem("ID_EMPRESA")}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    parametroServer : parametro,
+                    descServer: descOrBy
+                        
+                })
+            }).then(function (resposta) {
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                    alert("Nenhum resultado encontrado.");
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    console.log(resposta);
+
+                    for (var i = 0; i < resposta.length; i++) {
+                        var pesquisa = resposta[i];
+
+                        table_usuarios.innerHTML = `
+                    <tr>
+                        <td>
+                            <input value="${pesquisa.nome}" id="EditInputNome${pesquisa.id_usuario}" readonly></input>
+                        </td>
+                        <td>
+                            <input value="${pesquisa.area}" id="EditInputArea${pesquisa.id_usuario}" readonly></input>
+                        </td>
+                        <td>
+                            <input value="${pesquisa.cargo}" id="EditInputCargo${pesquisa.id_usuario}" readonly></input>
+                        </td>
+                        <td>
+                            <button id="" onclick="habilitarEdicao(this, ${pesquisa.id_usuario}) "
+                             class="botao-table">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                    class="bi bi-person-gear" viewBox="0 0 16 16">
+                                    <path
+                                        d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm.256 7a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Zm3.63-4.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382l.045-.148ZM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z" />
+                                </svg>
+                            </button>
+                        </td>
+                        <td>
+                            <button onclick="excluirAdm(${pesquisa.id_usuario})" class="botao-table">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                    class="bi bi-x-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                    <path
+                                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </button>
+                        </td>
+                        
+                    </tr>
+                                  `
+                    }
+
+
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+    }
+    */
 
 </script>

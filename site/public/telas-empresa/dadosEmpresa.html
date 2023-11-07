@@ -126,7 +126,7 @@
         var senhaEmpresa = input_senhaEmpresa.value;
         var confirmar = input_confirmarSenhaEmpresa.value;
         if (senhaEmpresa == confirmar) {
-            fetch(`../usuarios/editarSenhaEmpresa/${sessionStorage.getItem("ID_EMPRESA")}`, {
+            fetch(`../empresa/editarSenhaEmpresa/${sessionStorage.getItem("ID_EMPRESA")}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -158,7 +158,7 @@
     }
 
     function editarDados() {
-        fetch(`../usuarios/editarEmpresa/${sessionStorage.getItem("ID_EMPRESA")}`, {
+        fetch(`../empresa/editarEmpresa/${sessionStorage.getItem("ID_EMPRESA")}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -186,7 +186,7 @@
         });
     }
 
-    fetch(`../usuarios/dadosDaEmpresa/${sessionStorage.getItem("ID_EMPRESA")}`).then(function (resposta) {
+    fetch(`../empresa/dadosDaEmpresa/${sessionStorage.getItem("ID_EMPRESA")}`).then(function (resposta) {
         if (resposta.ok) {
 
             if (resposta.status == 204) {

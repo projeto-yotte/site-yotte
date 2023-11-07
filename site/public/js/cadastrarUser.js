@@ -22,7 +22,7 @@ function gerarCodigoAleatorio() {
         return false;
     }
 
-    fetch("/usuarios/cadastrarToken", {
+    fetch("/admin/cadastrarToken", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

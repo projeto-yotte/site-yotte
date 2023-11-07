@@ -18,7 +18,7 @@ function login() {
         console.log("FORM LOGIN: ", emailVar);
         console.log("FORM SENHA: ", senhaVar);
     
-        fetch("/usuarios/autenticar", {
+        fetch("/empresa/autenticar", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -87,7 +87,7 @@ function login() {
             console.log("FORM LOGIN: ", emailVar);
             console.log("FORM SENHA: ", senhaVar);
         
-            fetch("/usuarios/loginAdm", {
+            fetch("/admin/loginAdm", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
