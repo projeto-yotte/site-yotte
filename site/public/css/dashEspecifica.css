@@ -8,13 +8,13 @@
     color: #FFF;
     font-size: 16px;
     font-weight: 600;
-    margin: 0 0 0 15px;
+    margin: 0 0 30px 15px;
 }
 
 .KPI span {
     color: #FFF;
-    font-size: 18px;
-    /* font-weight: 600; */
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .KPI {
@@ -39,44 +39,8 @@
     display: flex;
     border: #FFF solid 1px;
     width: 330px;
-    height: 280px;
+    height: 120px;
     border-radius: 7px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-    overflow-y: auto;
-}
-
-::-webkit-scrollbar {
-    width: 10px
-}
-
-::-webkit-scrollbar-track {
-    border-radius: 20px;
-    background: #000000;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: #5f070c;
-    border-radius: 20px;
-    border: 2px solid #4e0909;
-}
-
-.caixa {
-    display: flex;
-    flex-direction: column;
-    background-color: #161616;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-.containerKpi2 {
-    display: flex;
-    border: #FFF solid 1px;
-    width: 330px;
-    height: 148px;
-    border-radius: 20px;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -84,9 +48,39 @@
     gap: 7px;
 }
 
+.containerKpi2 {
+    display: flex;
+    border: #FFF solid 1px;
+    width: 330px;
+    height: 148px;
+    border-radius: 7px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 7px;
+    overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+    width: 13px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000000;
+    border-radius: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #5f070c;
+    border-radius: 7px;
+    border: 2px solid #4e0909;
+}
+
 .containerKpi2 span {
     display: flex;
     font-size: 16px;
+    font-weight: 600;
     gap: 20px;
 }
 
@@ -97,17 +91,13 @@
     display: inline-block;
 }
 
-.containerKpi .span {
+.containerKpi span {
     font-size: 16px;
+    font-weight: 600;
 }
 
 .containerKpi .info {
-    font-size: 16px;
-}
-
-.containerKpi .destaque{
-    font-size: 16px;
-    color: #E32832;
+    font-size: 20px;
 }
 
 .containerGraphi {
@@ -146,7 +136,7 @@
     gap: 20px;
     background-color: #161616;
     margin-top: 20px;
-    border-radius: 10px;
+    border-radius: 7px;
 }
 
 .listaMaquinas span {
@@ -222,11 +212,4 @@
     display: flex;
     height: 160px;
     margin: 0 0 0 10px;
-}
-
-.chart{
-    display: flex;
-    justify-content: center;
-    width: 273px;
-    height: 250px;
 }
