@@ -310,6 +310,7 @@ select * from dados_captura;
 select * from componente;
             
 select * From usuario;
+
 select * from maquina;
 
 select * from maquina;
