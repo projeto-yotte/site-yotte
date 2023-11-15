@@ -1,22 +1,21 @@
 SELECT
-    usuario.id_usuario,
-    usuario.nome AS nome_usuario,
-    COUNT(alerta.id_alerta) AS quantidade_alertas
-FROM
-	empresa
+    funcionario.id_usuario id_func,
+    COUNT(alerta.id_alerta) as count_alertas,
+    admin.nome as admins,
+    funcionario.nome as funcionario
+FROM 
+	usuario as admin 
 JOIN 
-	usuario on empresa.id_empresa = usuario.fk_empresa
+	token ON admin.id_usuario = token.fk_usuario
 JOIN
-    maquina ON usuario.id_usuario = maquina.fk_usuario
-LEFT JOIN
-    componente ON maquina.id_maquina = componente.fk_maquina
-LEFT JOIN
-    dados_captura ON componente.id_componente = dados_captura.fk_componente
-LEFT JOIN
-    alerta ON dados_captura.id_dados_captura = alerta.fk_dados_captura
-WHERE
-    empresa.id_empresa = 'xpto'
-GROUP BY
-    usuario.id_usuario
-ORDER BY
-    quantidade_alertas DESC;
+    maquina ON token.idtoken = maquina.fk_token
+JOIN 
+	usuario as funcionario ON funcionario.id_usuario = maquina.fk_usuario
+JOIN 
+	dados_captura 
+JOIN 
+	alerta ON dados_captura.id_dados_captura = alerta.fk_dados_captura
+JOIN 
+	empresa ON funcionario.fk_empresa = id_empresa
+	WHERE admin.id_usuario = 1 AND id_empresa = 1
+    GROUP BY id_func, admins, funcionario;
