@@ -99,24 +99,28 @@
                             <span class="info" id="nomeMaquina">Maquina YH - 62023</span>
                             <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/
                                     ultima captura</span></span>
+                            <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura"> h/</span></span>
                         </div>
                         <div class="caixa">
                             <span class="info" id="nomeMaquina">Maquina YH - 72124
                             </span>
                             <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/
                                     ultima captura</span></span>
+                            <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura"> h/</span></span>
                         </div>
                         <div class="caixa">
                             <span class="info" id="nomeMaquina">Maquina YH - 82225
                             </span>
                             <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/
                                     ultima captura</span></span>
+                            <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura"> h/</span></span>
                         </div>
                         <div class="caixa">
                             <span class="info" id="nomeMaquina">Maquina YH - 92326
                             </span>
                             <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/
                                     ultima captura</span></span>
+                            <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura"> h/ ultima captura</span></span>
                         </div>
                     </div>
 
@@ -262,6 +266,7 @@
         }
     });
 
+    
     window.addEventListener("load", () => {
         listarMaquinas();
     });
@@ -281,20 +286,20 @@
             })
             .then(function (maquinas) {
                 console.log(maquinas);
-                const maquinasContainer = document.getElementById('listaMaquinas'); // Supondo que você tenha um elemento onde quer mostrar as máquinas
+                const maquinasContainer = document.getElementById('listaMaquinas'); 
 
                 maquinasContainer.innerHTML = ''; // Limpa o conteúdo antes de adicionar as máquinas
 
                 maquinas.forEach(maquina => {
                     const maquinaElement = document.createElement('div');
-                    maquinaElement.classList.add('listaMaquinas'); // Adicione uma classe para estilização
-
+                    maquinaElement.classList.add('listaMaquinas'); 
+                    
                     maquinaElement.innerHTML = `
                 <span class="titleMaquina">Lista de Máquinas Cadastradas</span>
                 <a href="dashEspecifica.html">
                     <div class="containerColTittle">
-                        <span>Hostname: <span id="idMaquina">${maquina.hostname}</span></span>
-                        <span id="regiao">${maquina.regiao}</span>
+                        <span>Hostname: <span id="idMaquina">${maquina.id_maquina}</span></span>
+                        <span id="regiao">${maquina.funcionario}</span>
                     </div>
                 </a>
             `;
