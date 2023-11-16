@@ -105,7 +105,7 @@
     font-size: 16px;
 }
 
-.containerKpi .destaque{
+.containerKpi .destaque {
     font-size: 16px;
     color: #E32832;
 }
@@ -153,14 +153,20 @@
     color: #FFF;
 }
 
+.infoLista {
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
 .listaMaquinas .titleMaquina {
     font-size: 19px;
     font-weight: 600;
     display: flex;
-    margin: 0 0 0 15px;
+    margin: 0 0 0 20px;
 }
 
-.containerColTittle{
+.containerColTittle {
     display: flex;
     justify-content: space-between;
     background-color: #0F0F0F;
@@ -170,21 +176,28 @@
     font-size: 18px;
 }
 
-.containerColTittle #regiao {
+.topLista {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 20px;
+}
+
+
+.containerColTittle .fontRed {
     color: #E32832;
 }
 
-.listaMaquinas a{
+.listaMaquinas a {
     text-decoration: none;
 }
 
-.containerColTittle:hover{
+.containerColTittle:hover {
     background-color: #090909;
     transition: .5s;
     /* transform: scale(1.1); */
 }
 
-.chart-bottom{
+.chart-bottom {
     display: flex;
     flex-direction: row;
     gap: 20px;
@@ -224,7 +237,7 @@
     margin: 0 0 0 10px;
 }
 
-.chart{
+.chart {
     display: flex;
     justify-content: center;
     width: 273px;
