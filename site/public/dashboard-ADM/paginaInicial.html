@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="BR-PT">
 
 <head>
     <meta charset="UTF-8">
@@ -97,22 +97,34 @@
                         <span>Colaboradores fora do espediente</span>
                         <div class="caixa">
                             <span class="info" id="nomeMaquina">Maquina YH - 62023</span>
-                            <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/ ultima captura</span></span>
+                            <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/
+                                    ultima captura</span></span>
+                            <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
+                                    h/</span></span>
                         </div>
                         <div class="caixa">
                             <span class="info" id="nomeMaquina">Maquina YH - 72124
                             </span>
-                            <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/ ultima captura</span></span>
+                            <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/
+                                    ultima captura</span></span>
+                            <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
+                                    h/</span></span>
                         </div>
                         <div class="caixa">
                             <span class="info" id="nomeMaquina">Maquina YH - 82225
                             </span>
-                            <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/ ultima captura</span></span>
+                            <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/
+                                    ultima captura</span></span>
+                            <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
+                                    h/</span></span>
                         </div>
                         <div class="caixa">
                             <span class="info" id="nomeMaquina">Maquina YH - 92326
                             </span>
-                            <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/ ultima captura</span></span>
+                            <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/
+                                    ultima captura</span></span>
+                            <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
+                                    h/ ultima captura</span></span>
                         </div>
                     </div>
 
@@ -138,16 +150,22 @@
                 </div>
             </div>
             <div class="chart-bottom">
-                <div class="listaMaquinas">
+                <!-- <div class="listaMaquinas">
                     <Span class="titleMaquina">Lista de Máquinas Cadastradas</Span>
                     <a href="dashEspecifica.html">
                         <div class="containerColTittle">
                             <span>Hostname: <span id="idMaquina">Maquina YH - 62023</span></span>
                             <span id="regiao">SP, Brasil</span>
                         </div>
-                    </a>
-                    <!-- PRÓXIMA DIV ESTÁ SENDO PREENCHIDA PELO BANCO -->
-                    <div id="lista" class="lista"></div>
+                    </a> -->
+                <!-- PRÓXIMA DIV ESTÁ SENDO PREENCHIDA PELO BANCO -->
+                <div class="listaMaquinas">
+                    <Span class="titleMaquina">Lista de Máquinas Cadastradas</Span>
+                    <div class="topLista">
+                        <span class="fontRed">Nome do Funcionário</span>
+                        <span class="fontRed">Ip</span>
+                    </div>
+                    <div id="listaMaquinas" class="infoLista"></div>
                 </div>
                 <div class="containerBarHorizontal">
                     <div class="containerGraphi2">
@@ -160,8 +178,9 @@
                     </div>
                 </div>
             </div>
-
         </div>
+
+    </div>
 
 </body>
 
@@ -257,5 +276,51 @@
             }
         }
     });
+
+
+    window.addEventListener("load", () => {
+        listarMaquinas();
+    });
+
+    function listarMaquinas() {
+        fetch("/maquina", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Erro ao buscar maquinas');
+            })
+            .then(function (maquinas) {
+                console.log(maquinas);
+                const maquinasContainer = document.getElementById('listaMaquinas');
+
+                maquinasContainer.innerHTML = ''; // Limpa o conteúdo antes de adicionar as máquinas
+
+                maquinas.forEach(maquina => {
+                    const maquinaElement = document.createElement('div');
+                    // maquinaElement.classList.add('listaMaquinas'); 
+
+                    maquinaElement.innerHTML += `
+                <a href="dashEspecifica.html">
+                    <div class="containerColTittle">
+                        <span id="funcionario"> ${maquina.funcionario}</span>
+                    <span id="idMaquina"> ${maquina.id_maquina}</span>
+                    </div>
+                </a>
+            `;
+
+                    maquinasContainer.appendChild(maquinaElement); // Adiciona a maquinaElement ao container de maquinas
+                });
+            })
+            .catch(function (error) {
+                console.error('Erro:', error);
+            });
+    }
+
 
 </script>
