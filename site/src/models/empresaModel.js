@@ -98,7 +98,7 @@ function parametroEmpresa(idEmpresa, parametro, desc) {
     console.log("Executando a instrução SQL: \n" + instrucao);
 
     return database.executar(instrucao);
-}
+}   
 
 
 function pesquisarAdmin(pesquisar, idEmpresa) {
