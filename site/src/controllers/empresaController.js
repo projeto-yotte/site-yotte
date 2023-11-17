@@ -202,9 +202,8 @@ function editarSenhaEmpresa(req, res) {
 
 function parametroEmpresa(req, res) {
     var idEmpresa = req.params.id_empresa;
-    var parametro = req.body.parametroServer;
-    var desc = req.body.descServer;
-
+    var parametro = req.query.parametro;
+    var desc = req.query.descOrBy;
 
     empresaModel.parametroEmpresa(idEmpresa, parametro, desc)
         .then(
@@ -212,19 +211,11 @@ function parametroEmpresa(req, res) {
                 console.log(`\nResultados encontrados: ${resultado.length}`);
                 console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
 
-                if (resultado.length == 1) {
-                    console.log(resultado);
-                    res.json(resultado[0]);
-                } else if (resultado.length == 0) {
-                    res.status(403).send("Email e/ou senha inválido(s)");
-                } else {
-                    res.status(403).send("Mais de um usuário com o mesmo login e senha!");
-                }
             }
         ).catch(
             function (erro) {
                 console.log(erro);
-                console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                console.log("\nHouve um erro! Erro: ", erro.sqlMessage);
                 res.status(500).json(erro.sqlMessage);
             }
         );
@@ -233,8 +224,8 @@ function parametroEmpresa(req, res) {
 }
 
 function pesquisarAdmin(req, res) {
-    var pesquisar = req.params.pesquisarVar;
-    var empresa = req.params.idEmpresa;
+    var pesquisar = req.query.pesquisa;
+    var empresa = req.params.id_empresa;
     empresaModel.pesquisarAdmin(pesquisar, empresa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
