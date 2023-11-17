@@ -42,7 +42,7 @@ router.get("/parametroEmpresa/:id_empresa", function (req, res) {
     empresaController.parametroEmpresa(req, res);
 });
 
-router.get("/pesquisarAdmin/pesquisarVar/idEmpresa", function (req, res) {
+router.get("/pesquisarAdmin/:id_empresa", function (req, res) {
     empresaController.pesquisarAdmin(req, res);
 });
 
