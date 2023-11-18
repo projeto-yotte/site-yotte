@@ -9,4 +9,6 @@ router.get('/maquinas', function (req, res) {
     maquinasController.listarMaquinas(req, res);
 });
 
+
+
 module.exports = router;
