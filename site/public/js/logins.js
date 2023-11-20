@@ -94,7 +94,8 @@ function login() {
                 },
                 body: JSON.stringify({
                     emailServer: emailVar,
-                    senhaServer: senhaVar
+                    senhaServer: senhaVar,
+                    idEmpresa : sessionStorage.id_empresa
         
         
                     
@@ -108,6 +109,7 @@ function login() {
                     resposta.json().then(json => {
                         console.log(json);
                         sessionStorage.ID_USUARIO = json.id_usuario;
+                        sessionStorage.ID_EMPRESA = json.fk_empresa;
  
                         setTimeout(function () {
                            window.location = './dashboard-ADM/paginaInicial.html'

@@ -55,11 +55,11 @@
                             </a>
                         </li>
                         <li class="lista">
-                            <a href="" onclick="EncerrarSession()">
+                            <button href="" onclick="encerrarSession()">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <!-- <i class="bi bi-gear"></i> -->
                                 <span class="lista">Sair</span>
-                            </a>
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -98,34 +98,23 @@
                         <span>Colaboradores fora do espediente</span>
                         <div class="caixa">
                             <span class="info" id="nomeMaquina">Maquina YH - 62023</span>
-                            <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/
-                                    ultima captura</span></span>
+                    
                             <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
                                     h/</span></span>
                         </div>
                         <div class="caixa">
                             <span class="info" id="nomeMaquina">Maquina YH - 72124
                             </span>
-                            <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/
-                                    ultima captura</span></span>
+                    
                             <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
                                     h/</span></span>
                         </div>
                         <div class="caixa">
                             <span class="info" id="nomeMaquina">Maquina YH - 82225
                             </span>
-                            <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/
-                                    ultima captura</span></span>
+                    
                             <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
                                     h/</span></span>
-                        </div>
-                        <div class="caixa">
-                            <span class="info" id="nomeMaquina">Maquina YH - 92326
-                            </span>
-                            <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/
-                                    ultima captura</span></span>
-                            <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
-                                    h/ ultima captura</span></span>
                         </div>
                     </div>
 
@@ -155,8 +144,8 @@
                     <Span class="titleMaquina">Lista de Máquinas Cadastradas</Span>
                     <a href="dashEspecifica.html">
                         <div class="containerColTittle">
-                            <span>Hostname: <span id="idMaquina">Maquina YH - 62023</span></span>
-                            <span id="regiao">SP, Brasil</span>
+                            <span id="idMaquina"></span>
+                            <span id="regiao"></span>
                         </div>
                     </a>
                     <!-- PRÓXIMA DIV ESTÁ SENDO PREENCHIDA PELO BANCO -->
@@ -279,14 +268,9 @@
                     maquinaElement.classList.add('listaMaquinas');
 
                     maquinaElement.innerHTML = `
-                <span class="titleMaquina">Lista de Máquinas Cadastradas</span>
-                <a href="dashEspecifica.html">
-                    <div class="containerColTittle">
                         <span>Hostname: <span id="idMaquina">${maquina.id_maquina}</span></span>
                         <span id="regiao">${maquina.funcionario}</span>
-                    </div>
-                </a>
-            `;
+                    `;
 
                     maquinasContainer.appendChild(maquinaElement); // Adiciona a maquinaElement ao container de maquinas
                 });
