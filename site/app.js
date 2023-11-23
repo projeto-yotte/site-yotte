@@ -14,6 +14,9 @@ var usuarioRouter = require("./src/routes/usuarios");
 
 var empresaRouter = require("./src/routes/empresa");
 var adminRouter = require("./src/routes/admin");
+var dashInicialRouter = require("./src/routes/dashInicial");
+var dashEspecificaRouter = require("./src/routes/dashEspecifica");
+
 const { listarMaquinas } = require("./src/controllers/maquinasController");
 
 app.use(express.json());
@@ -27,6 +30,8 @@ app.use("/usuarios", usuarioRouter);
 
 app.use("/empresa", empresaRouter);
 app.use("/admin", adminRouter);
+app.use("/dashInicial", dashInicialRouter);
+app.use("/dashEspecifica", dashEspecificaRouter);
 app.use("/maquina", listarMaquinas)
 
 app.listen(PORTA, function () {

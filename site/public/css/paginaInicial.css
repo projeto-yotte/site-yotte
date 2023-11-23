@@ -143,6 +143,9 @@
     width: 450px;
     height: 225px;
     flex-direction: column;
+    max-height: 270px;
+    overflow-x: hidden;
+    overflow-y: auto;
     gap: 20px;
     background-color: #161616;
     margin-top: 20px;
@@ -163,7 +166,6 @@
     font-size: 19px;
     font-weight: 600;
     display: flex;
-    margin: 0 0 0 20px;
 }
 
 .containerColTittle {

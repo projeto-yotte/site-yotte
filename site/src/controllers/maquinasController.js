@@ -1,5 +1,7 @@
 var maquinaModel = require("../models/maquinaModel");
 
+
+
 function listarMaquinas(req, res) {
     maquinaModel.listarMaquinas()
         .then(function (maquinas) {
@@ -16,6 +18,12 @@ function listarMaquinas(req, res) {
 }
 
 
+
+
+
+
+
 module.exports = {
-    listarMaquinas
+    listarMaquinas,
+   
 }
