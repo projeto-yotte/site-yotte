@@ -140,22 +140,20 @@
                 </div>
             </div>
             <div class="chart-bottom">
+<<<<<<< HEAD
                  <!-- <div class="listaMaquinas">
+=======
+                <div class="listaMaquinas">
+>>>>>>> aa5c2e219cbb16e09e8e7a721e6ca293fd523477
                     <Span class="titleMaquina">Lista de Máquinas Cadastradas</Span>
                     <a href="dashEspecifica.html">
                         <div class="containerColTittle">
-                            <span>Hostname: <span id="idMaquina">Maquina YH - 62023</span></span>
-                            <span id="regiao">SP, Brasil</span>
+                            <span id="idMaquina"></span>
+                            <span id="regiao"></span>
                         </div>
-                    </a> -->
-                <!-- PRÓXIMA DIV ESTÁ SENDO PREENCHIDA PELO BANCO -->
-                <div class="listaMaquinas">
-                    <Span class="titleMaquina">Lista de Máquinas Cadastradas</Span>
-                    <div class="topLista">
-                        <span class="fontRed">Nome do Funcionário</span>
-                        <span class="fontRed">Ip</span>
-                    </div>
-                    <div id="listaMaquinas" class="infoLista"></div>
+                    </a>
+                    <!-- PRÓXIMA DIV ESTÁ SENDO PREENCHIDA PELO BANCO -->
+                    <div id="listaMaquinas" class="lista"></div>
                 </div>
                 </div>
                 <div class="containerBarHorizontal">
@@ -274,14 +272,10 @@
                     const maquinaElement = document.createElement('div');
                     maquinaElement.classList.add('infoLista');
 
-                    maquinaElement.innerHTML += `
-                <a href="dashEspecifica.html">
-                    <div class="containerColTittle">
-                        <span id="funcionario"> ${maquina.funcionario}</span>
-                    <span id="idMaquina"> ${maquina.id_maquina}</span>
-                    </div>
-                </a>
-            `;
+                    maquinaElement.innerHTML = `
+                        <span>Hostname: <span id="idMaquina">${maquina.id_maquina}</span></span>
+                        <span id="regiao">${maquina.funcionario}</span>
+                    `;
 
                     maquinasContainer.appendChild(maquinaElement); // Adiciona a maquinaElement ao container de maquinas
                 });
