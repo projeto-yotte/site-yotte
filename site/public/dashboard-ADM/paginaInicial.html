@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../css/paginaInicial.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../js/cadastroADM.js"></script>
+    <script src="../js/logins.js"></script>
     <title>Página Inicial</title>
 </head>
 
@@ -170,7 +171,7 @@
                 <div class="containerBarHorizontal">
                     <div class="containerGraphi2">
                         <span>Tempo de inatividade<span class="littleInfo">(últimos 7 dias)</span></span>
-    
+
                         <span class="littleInfo">Em horas</span>
                         <div class="chart1">
                             <canvas id="myChart3"></canvas>
@@ -254,29 +255,29 @@
         }
     });
 
-    const ctxxx = document.getElementById('myChart3');
+    // const ctxxx = document.getElementById('myChart3');
 
-    new Chart(ctxxx, {
-        type: 'bar',
-        data: {
-            labels: ['Maquina YH 212', 'Maquina YH 255', 'Maquina B2B 584'],
-            datasets: [{
-                axis: 'y',
-                label: 'Maquina',
-                data: [12, 8, 24],
-                backgroundColor: ['rgba(227, 40, 50)', 'rgba(146, 19, 26)', 'rgba(78, 10, 14)'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            scales: {
-                y: {
-                    beginAtZero: true,
-                }
-            }
-        }
-    });
+    // new Chart(ctxxx, {
+    //     type: 'bar',
+    //     data: {
+    //         labels: ['Maquina YH 212', 'Maquina YH 255', 'Maquina B2B 584'],
+    //         datasets: [{
+    //             axis: 'y',
+    //             label: 'Maquina',
+    //             data: [12, 8, 24],
+    //             backgroundColor: ['rgba(227, 40, 50)', 'rgba(146, 19, 26)', 'rgba(78, 10, 14)'],
+    //             borderWidth: 1
+    //         }]
+    //     },
+    //     options: {
+    //         indexAxis: 'y',
+    //         scales: {
+    //             y: {
+    //                 beginAtZero: true,
+    //             }
+    //         }
+    //     }
+    // });
 
 
     window.addEventListener("load", () => {
@@ -323,5 +324,329 @@
             });
     }
 
+
+    const ctxxx = document.getElementById('myChart3');
+
+
+    new Chart(ctxxx, {
+        type: 'bar',
+        data: {
+            labels: "",
+            datasets: [{
+                axis: 'y',
+                label: 'Maquina',
+                data: [],
+                backgroundColor: ['rgba(227, 40, 50)', 'rgba(146, 19, 26)', 'rgba(78, 10, 14)'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            scales: {
+                y: {
+                    beginAtZero: true,
+                }
+            }
+        }
+    });
+
+    window.addEventListener("load", () => {
+        tempoInatividade();
+    });
+
+
+
+
+    window.addEventListener("load", () => {
+        obterDadosGrafico();
+    });
+
+
+
+
+
+    console.log(sessionStorage.ID_EMPRESA)
+
+
+
+
+
+
+    console.log('iniciando plotagem do gráfico...');
+
+
+
+
+    function obterDadosGrafico(id_empresa) {
+
+        fetch(`/dashInicial/relatorioProblemasUltimas/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGraficoProblemas(resposta, id_empresa);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+
+        fetch(`/dashInicial/tempoInatividadeUltimas/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGraficoInatividade(resposta, id_empresa);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+
+
+    }
+    function plotarGraficoInatividade(resposta, id_empresa) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = ['Máquina'];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Máquina 01',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(227, 40, 50)',
+                tension: 0.1
+            }, {
+                label: 'Máquina 02',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(146, 19, 26)',
+                tension: 0.1
+            }, {
+                label: 'Máquina 03',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(78, 10, 14)',
+                tension: 0.1
+            },]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGraficoProblemas":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            dados.datasets[i].data.push(registro.tempo_inatividade_horas);
+        }
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'bar',
+            data: dados,
+            options: {
+                scales: {
+                    y: {
+                        reverse: true, // Inverte a direção do eixo X
+                        beginAtZero: true
+                    }
+                }
+            }
+
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById('myChart3'),
+
+            config
+        );
+        setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, myChart), 2000);
+    }
+
+    function atualizarGraficoInatividade(id_empresa, dados, myChart) {
+
+        fetch(`/dashInicial/tempoInatividadeUltimas/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+
+                    // alertar(novoRegistro, id_empresa);
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados);
+
+
+                    for (i = 0; i < novoRegistro.length; i++) {
+                        var registro = novoRegistro[i];
+                        dados.datasets[i].data.push(registro.tempo_inatividade_horas);
+                    }
+
+                    // tirando e colocando valores no grá
+
+                    dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+                    dados.datasets[0].data.push(); // incluir uma nova medida de umidade
+
+                    dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
+                    dados.datasets[1].data.push(novoRegistro[0].total_alerta_ram); // incluir uma nova medida de temperatura
+
+
+                    dados.datasets[2].data.shift();  // apagar o primeiro de temperatura
+                    dados.datasets[2].data.push(novoRegistro[0].total_alerta_disco); // incluir uma nova medida de temperatura
+
+
+                    myChart.update();
+
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    proximaAtualizacao = setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, myChart), 10000);
+                });
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+    function plotarGraficoProblemas(resposta, id_empresa) {
+
+        console.log('iniciando plotagem do gráfico...');
+        // Criando estrutura para plotar gráfico - labels
+        let labels = ['Componentes'];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'CPU',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(227, 40, 50, 0.8)',
+                tension: 0.1
+            },
+            {
+                label: 'RAM',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(199, 52, 52)',
+                backgroundColor: 'rgba(227, 40, 50, 0.8)',
+                tension: 0.1
+            },
+            {
+                label: 'DISCO',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(199, 52, 52)',
+                backgroundColor: 'rgba(227, 40, 50, 0.8)',
+                tension: 0.1
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGraficoProblemas":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            dados.datasets[0].data.push(registro.total_alerta_cpu);
+            dados.datasets[1].data.push(registro.total_alerta_ram);
+            dados.datasets[2].data.push(registro.total_alerta_disco);
+        }
+        /*/
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')*/
+
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'bar',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById('myChart2'),
+            config
+        );
+        setTimeout(() => atualizarGraficoRelatorioProblemas(id_empresa, dados, myChart), 2000);
+    }
+
+    function atualizarGraficoRelatorioProblemas(id_empresa, dados, myChart) {
+
+        fetch(`/dashInicial/relatorioProblemasUltimas/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+
+                    /* alertar(novoRegistro, id_empresa);
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados);*/
+
+
+
+
+                    // tirando e colocando valores no grá
+
+                    dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+                    dados.datasets[0].data.push(novoRegistro[0].total_alerta_cpu); // incluir uma nova medida de umidade
+
+                    dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
+                    dados.datasets[1].data.push(novoRegistro[0].total_alerta_ram); // incluir uma nova medida de temperatura
+
+
+                    dados.datasets[2].data.shift();  // apagar o primeiro de temperatura
+                    dados.datasets[2].data.push(novoRegistro[0].total_alerta_disco); // incluir uma nova medida de temperatura
+
+
+                    myChart.update();
+
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    proximaAtualizacao = setTimeout(() => atualizarGraficoRelatorioProblemas(id_empresa, dados, myChart), 10000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                proximaAtualizacao = setTimeout(() => atualizarGraficoRelatorioProblemas(id_empresa, dados, myChart), 10000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
 
 </script>
