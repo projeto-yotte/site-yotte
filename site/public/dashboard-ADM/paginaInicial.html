@@ -233,28 +233,6 @@
 
     const ctxx = document.getElementById('myChart2');
 
-    new Chart(ctxx, {
-        type: 'bar',
-        data: {
-            labels: ['CPU', 'RAM', 'SO', 'GPU', 'HD', 'SSD', 'REDE'],
-            datasets: [{
-                axis: 'y',
-                label: 'Maquina',
-                data: [10, 5, 13, 9, 3, 15, 2],
-                backgroundColor: ['rgba(227, 40, 50)', 'rgba(146, 19, 26)', 'rgba(78, 10, 14)'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            scales: {
-                y: {
-                    beginAtZero: true,
-                }
-            }
-        }
-    });
-
     // const ctxxx = document.getElementById('myChart3');
 
     // new Chart(ctxxx, {
@@ -484,15 +462,15 @@
         };
 
         // Adicionando gráfico criado em div na tela
-        let myChart = new Chart(
+        let graficoInatividade = new Chart(
             document.getElementById('myChart3'),
 
             config
         );
-        setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, myChart), 2000);
+        setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, graficoInatividade), 2000);
     }
 
-    function atualizarGraficoInatividade(id_empresa, dados, myChart) {
+    function atualizarGraficoInatividade(id_empresa, dados, graficoInatividade) {
 
         fetch(`/dashInicial/tempoInatividadeUltimas/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
