@@ -36,7 +36,7 @@ function gerarCodigoAleatorio() {
         })
     }).then(function (resposta) {
     
-        console.log("resposta: ", resposta);
+        console.log("resposta: ", JSON.stringify(resposta));
     
         if (resposta.ok) {
             //cardErro.style.display = "block";
@@ -53,7 +53,7 @@ function gerarCodigoAleatorio() {
             Swal.fire("Ops", "Mais de um usuário com o mesmo login e senha 😭!")
         }
     }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
+        console.log(`#ERRO: ${JSON.stringify(resposta)}`);
         // finalizarAguardar();
     });
     

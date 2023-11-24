@@ -26,12 +26,12 @@ function cadastrarAdm(nome,area, cargo, email ,senha, fk_empresa, fk_tipo_usuari
 }
 
 
-function cadastrarToken(token, fk_usuario_token) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", token, fk_usuario_token);
+function cadastrarToken(token, fk_usuario) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", token, fk_usuario);
     
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
-    var instrucao = `INSERT INTO token(token, data_criado, fk_usuario_token) VALUES('${token}', now(), '${fk_usuario_token}')`
+    var instrucao = `INSERT INTO token(token, data_criado, fk_usuario) VALUES('${token}', now(), '${fk_usuario}')`
 
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
