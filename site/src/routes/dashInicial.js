@@ -7,8 +7,12 @@ router.get("/AtivosInativosUltimas/:id_empresa", function (req, res) {
     dashInicialController.AtivosInativosUltimas(req, res);
 });
 
-router.get("/foraExpedienteUltima/:id_empresa", function (req, res) {
-    dashInicialController.foraExpedienteUltima(req, res);
+router.get("/foraDoEspediente", function (req, res) {
+    dashInicialController.foraDoEspediente(req, res);
+});
+
+router.get("/ativosInativos/:id_empresa", function (req, res) {
+    dashInicialController.AtivosInativos(req, res);
 });
 
 router.get("/relatorioProblemasUltimas/:id_empresa", function (req, res) {

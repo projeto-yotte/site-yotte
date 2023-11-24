@@ -14,7 +14,7 @@
     <title>Página Inicial</title>
 </head>
 
-<body>
+<body onload="obterDadosGrafico()" defer>
     <!-- PAG MENU -->
     <div class="container">
 
@@ -96,26 +96,27 @@
                 <div class="KPI">
                     <div class="containerKpi">
                         <span>Colaboradores fora do espediente</span>
-                        <div class="caixa">
+                        <div class="caixa" >
                             <span class="info" id="nomeMaquina">Maquina YH - 62023</span>
-                    
+
                             <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
                                     h/</span></span>
                         </div>
                         <div class="caixa">
                             <span class="info" id="nomeMaquina">Maquina YH - 72124
                             </span>
-                    
+
                             <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
                                     h/</span></span>
                         </div>
                         <div class="caixa">
                             <span class="info" id="nomeMaquina">Maquina YH - 82225
                             </span>
-                    
+
                             <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
                                     h/</span></span>
                         </div>
+                        <div id="caixaForaEspediente" class="caixa"></div>
                     </div>
 
                     <!-- <div class="containerKpi2">
@@ -172,22 +173,7 @@
 <script>
     console.log(sessionStorage.ID_USUARIO)
 
-    const ctx = document.getElementById('myChart');
 
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Ativos', 'Inativos'],
-            datasets: [{
-                label: '# of Votes',
-                data: [55, 45],
-                backgroundColor: ['rgba(227, 40, 50)', 'rgba(78, 10, 14)'],
-                borderWidth: 1
-
-            }]
-        },
-
-    });
 
     // const ctx = document.getElementById('myChart');
 
@@ -279,8 +265,207 @@
                 console.error('Erro:', error);
             });
     }
+</script>
 
 
+<script>
+
+window.addEventListener("load", () => {
+        obterDadosGraficoInativos();
+    });
+    // const ctx = document.getElementById('myChart');
+
+    // new Chart(ctx, {
+    //     type: 'doughnut',
+    //     data: {
+    //         labels: ['Ativos', 'Inativos'],
+            
+    //     },
+
+    // });
+
+
+    function obterDadosGraficoInativos(id_empresa) {
+
+        fetch(`/dashInicial/ativosInativos/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarGraficoNativosInativos(resposta, id_empresa);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGraficoNativosInativos(resposta, id_empresa) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = ["Ativos"];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Ativos',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(227, 40, 50)',
+                tension: 0.1
+            }, {
+                label: 'Inativos',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(146, 19, 26)',
+                tension: 0.1
+            }]
+        };
+
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            dados.datasets[0].data.push(registro.ativos);
+            dados.datasets[1].data.push(registro.inativos);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {   
+        type: 'doughnut',
+            data: dados,
+            options: {
+                scales: {
+                    y: {
+                        reverse: true, // Inverte a direção do eixo X
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`myChart`),
+            config
+        );
+
+
+        setTimeout(() => atualizarGraficoNativosInativos(id_empresa, dados, myChart), 2000);
+    }
+
+
+    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+    // buscando a última medida inserida em tabela contendo as capturas, 
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    
+
+       function atualizarGraficoNativosInativos(id_empresa, dados, myChart) {
+        fetch(`/dashInicial/ativosInativos/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+
+                    // alertar(novoRegistro, id_empresa);
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados);
+
+
+                        for (i = 0; i < novoRegistro.length; i++) {
+                            var registro = novoRegistro[i];
+                            // tirando e colocando valores no gráfico
+                            dados.labels.shift(); // apagar o primeiro
+                            dados.labels.push(registro.momento_grafico);// incluir um novo momento
+
+                            dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+                            dados.datasets[0].data.push(registro.nativos); // incluir uma nova medida de umidade
+
+                            dados.datasets[1].data.shift();
+                            dados.datasets[1].data.push(registro.inativos);
+                        }
+
+                        myChart.update();
+                    
+
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    proximaAtualizacao = setTimeout(() => atualizarGraficoNativosInativos(id_empresa, dados, myChart), 20000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                proximaAtualizacao = setTimeout(() => atualizarGraficoNativosInativos(id_empresa, dados, myChart), 20000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+        }
+
+        
+
+</script>
+
+
+
+
+<script>
+
+    window.addEventListener("load", () => {
+        foraDoEspediente();
+    });
+
+    function foraDoEspediente() {
+        fetch("/dashInicial/foraDoEspediente", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Erro ao buscar maquinas');
+            })
+            .then(function (maquinas) {
+                console.log(maquinas);
+                const maquinasContainer = document.getElementById('caixaForaEspediente');
+
+                maquinasContainer.innerHTML = ''; // Limpa o conteúdo antes de adicionar as máquinas
+
+                maquinas.forEach(maquina => {
+                    const maquinaElement = document.createElement('div');
+                    maquinaElement.classList.add('caixaForaEspediente');
+
+                    maquinaElement.innerHTML = `
+                        <span>Hostname: <span id="idMaquina">${maquina.id_maquina}</span></span>
+                        <span id="regiao">${maquina.foraDoEspediente}</span>
+                    `;
+
+                    maquinasContainer.appendChild(maquinaElement); // Adiciona a maquinaElement ao container de maquinas
+                });
+            })
+            .catch(function (error) {
+                console.error('Erro:', error);
+            });
+    }
+</script>
 </script>
 
 <script>
@@ -329,7 +514,7 @@
         fetch(`/dashInicial/tempoInatividadeUltimas/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    // console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
 
                     plotarGraficoInatividade(resposta, id_empresa);
@@ -380,9 +565,9 @@
             },]
         };
 
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGraficoProblemas":')
-        console.log(resposta)
+        // console.log('----------------------------------------------')
+        // console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGraficoProblemas":')
+        // console.log(resposta)
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
@@ -390,13 +575,13 @@
             dados.datasets[i].data.push(registro.tempo_inatividade_horas);
         }
 
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(labels)
-        console.log('Dados:')
-        console.log(dados.datasets)
-        console.log('----------------------------------------------')
+        // console.log('----------------------------------------------')
+        // console.log('O gráfico será plotado com os respectivos valores:')
+        // console.log('Labels:')
+        // console.log(labels)
+        // console.log('Dados:')
+        // console.log(dados.datasets)
+        // console.log('----------------------------------------------')
 
         // Criando estrutura para plotar gráfico - config
         const config = {
@@ -455,12 +640,12 @@
                     myChart.update();
 
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, myChart), 10000);
+                    proximaAtualizacao = setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, myChart), 100000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, myChart), 10000);
+                proximaAtualizacao = setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, myChart), 100000);
             }
         })
             .catch(function (error) {
@@ -505,9 +690,9 @@
             }]
         };
 
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGraficoProblemas":')
-        console.log(resposta)
+        // console.log('----------------------------------------------')
+        // console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGraficoProblemas":')
+        // console.log(resposta)
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
@@ -584,13 +769,5 @@
             });
 
     }
-
-
-
-
-
-
-
-
 
 </script>
