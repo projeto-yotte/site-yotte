@@ -55,11 +55,11 @@
                             </a>
                         </li>
                         <li class="lista">
-                            <button href="" onclick="encerrarSession()">
+                            <a href="" onclick="EncerrarSession()">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <!-- <i class="bi bi-gear"></i> -->
                                 <span class="lista">Sair</span>
-                            </button>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -98,25 +98,51 @@
                         <span>Colaboradores fora do espediente</span>
                         <div class="caixa" >
                             <span class="info" id="nomeMaquina">Maquina YH - 62023</span>
+<<<<<<< HEAD
 
+=======
+                            <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/
+                                    ultima captura</span></span>
+>>>>>>> 936c0c75f81f4d867e63e8203800c974fe6ce91a
                             <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
                                     h/</span></span>
                         </div>
                         <div class="caixa">
                             <span class="info" id="nomeMaquina">Maquina YH - 72124
                             </span>
+<<<<<<< HEAD
 
+=======
+                            <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/
+                                    ultima captura</span></span>
+>>>>>>> 936c0c75f81f4d867e63e8203800c974fe6ce91a
                             <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
                                     h/</span></span>
                         </div>
                         <div class="caixa">
                             <span class="info" id="nomeMaquina">Maquina YH - 82225
                             </span>
+<<<<<<< HEAD
 
                             <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
                                     h/</span></span>
                         </div>
                         <div id="caixaForaEspediente" class="caixa"></div>
+=======
+                            <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/
+                                    ultima captura</span></span>
+                            <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
+                                    h/</span></span>
+                        </div>
+                        <div class="caixa">
+                            <span class="info" id="nomeMaquina">Maquina YH - 92326
+                            </span>
+                            <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/
+                                    ultima captura</span></span>
+                            <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
+                                    h/ ultima captura</span></span>
+                        </div>
+>>>>>>> 936c0c75f81f4d867e63e8203800c974fe6ce91a
                     </div>
 
                     <!-- <div class="containerKpi2">
@@ -141,16 +167,22 @@
                 </div>
             </div>
             <div class="chart-bottom">
-                <div class="listaMaquinas">
+                <!-- <div class="listaMaquinas">
                     <Span class="titleMaquina">Lista de Máquinas Cadastradas</Span>
                     <a href="dashEspecifica.html">
                         <div class="containerColTittle">
-                            <span id="idMaquina"></span>
-                            <span id="regiao"></span>
+                            <span>Hostname: <span id="idMaquina">Maquina YH - 62023</span></span>
+                            <span id="regiao">SP, Brasil</span>
                         </div>
-                    </a>
-                    <!-- PRÓXIMA DIV ESTÁ SENDO PREENCHIDA PELO BANCO -->
-                    <div id="listaMaquinas" class="lista"></div>
+                    </a> -->
+                <!-- PRÓXIMA DIV ESTÁ SENDO PREENCHIDA PELO BANCO -->
+                <div class="listaMaquinas">
+                    <Span class="titleMaquina">Lista de Máquinas Cadastradas</Span>
+                    <div class="topLista">
+                        <span class="fontRed">Nome do Funcionário</span>
+                        <span class="fontRed">Ip</span>
+                    </div>
+                    <div id="listaMaquinas" class="infoLista"></div>
                 </div>
                 <div class="containerBarHorizontal">
                     <div class="containerGraphi2">
@@ -163,8 +195,10 @@
                     </div>
                 </div>
             </div>
-
         </div>
+    </div>
+
+    </div>
 
 </body>
 
@@ -198,8 +232,7 @@
     // });
 
 
-
-
+    const ctxx = document.getElementById('myChart2');
 
     // const ctxxx = document.getElementById('myChart3');
 
@@ -251,12 +284,16 @@
 
                 maquinas.forEach(maquina => {
                     const maquinaElement = document.createElement('div');
-                    maquinaElement.classList.add('listaMaquinas');
+                    // maquinaElement.classList.add('listaMaquinas'); 
 
-                    maquinaElement.innerHTML = `
-                        <span>Hostname: <span id="idMaquina">${maquina.id_maquina}</span></span>
-                        <span id="regiao">${maquina.funcionario}</span>
-                    `;
+                    maquinaElement.innerHTML += `
+                <a href="dashEspecifica.html">
+                    <div class="containerColTittle">
+                        <span id="funcionario"> ${maquina.funcionario}</span>
+                    <span id="idMaquina"> ${maquina.id_maquina}</span>
+                    </div>
+                </a>
+            `;
 
                     maquinasContainer.appendChild(maquinaElement); // Adiciona a maquinaElement ao container de maquinas
                 });
@@ -268,6 +305,7 @@
 </script>
 
 
+<<<<<<< HEAD
 <script>
 
 window.addEventListener("load", () => {
@@ -467,8 +505,38 @@ window.addEventListener("load", () => {
     }
 </script>
 </script>
+=======
+    const ctxxx = document.getElementById('myChart3');
 
-<script>
+
+    new Chart(ctxxx, {
+        type: 'bar',
+        data: {
+            labels: "",
+            datasets: [{
+                axis: 'y',
+                label: 'Maquina',
+                data: [],
+                backgroundColor: ['rgba(227, 40, 50)', 'rgba(146, 19, 26)', 'rgba(78, 10, 14)'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            scales: {
+                y: {
+                    beginAtZero: true,
+                }
+            }
+        }
+    });
+
+    window.addEventListener("load", () => {
+        tempoInatividade();
+    });
+
+>>>>>>> 936c0c75f81f4d867e63e8203800c974fe6ce91a
+
 
 
     window.addEventListener("load", () => {
@@ -574,6 +642,7 @@ window.addEventListener("load", () => {
             var registro = resposta[i];
             dados.datasets[i].data.push(registro.tempo_inatividade_horas);
         }
+<<<<<<< HEAD
 
         // console.log('----------------------------------------------')
         // console.log('O gráfico será plotado com os respectivos valores:')
@@ -582,6 +651,15 @@ window.addEventListener("load", () => {
         // console.log('Dados:')
         // console.log(dados.datasets)
         // console.log('----------------------------------------------')
+=======
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+>>>>>>> 936c0c75f81f4d867e63e8203800c974fe6ce91a
 
         // Criando estrutura para plotar gráfico - config
         const config = {
@@ -599,15 +677,15 @@ window.addEventListener("load", () => {
         };
 
         // Adicionando gráfico criado em div na tela
-        let myChart = new Chart(
+        let graficoInatividade = new Chart(
             document.getElementById('myChart3'),
 
             config
         );
-        setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, myChart), 2000);
+        setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, graficoInatividade), 2000);
     }
 
-    function atualizarGraficoInatividade(id_empresa, dados, myChart) {
+    function atualizarGraficoInatividade(id_empresa, dados, graficoInatividade) {
 
         fetch(`/dashInicial/tempoInatividadeUltimas/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
@@ -642,10 +720,13 @@ window.addEventListener("load", () => {
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
                     proximaAtualizacao = setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, myChart), 100000);
                 });
+<<<<<<< HEAD
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
                 proximaAtualizacao = setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, myChart), 100000);
+=======
+>>>>>>> 936c0c75f81f4d867e63e8203800c974fe6ce91a
             }
         })
             .catch(function (error) {
@@ -657,7 +738,6 @@ window.addEventListener("load", () => {
     function plotarGraficoProblemas(resposta, id_empresa) {
 
         console.log('iniciando plotagem do gráfico...');
-
         // Criando estrutura para plotar gráfico - labels
         let labels = ['Componentes'];
 
@@ -702,7 +782,6 @@ window.addEventListener("load", () => {
             dados.datasets[2].data.push(registro.total_alerta_disco);
         }
         /*/
-
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
         console.log('Labels:')
