@@ -14,7 +14,7 @@
     <title>Página Inicial</title>
 </head>
 
-<body onload="obterDadosGrafico()" defer>
+<body>
     <!-- PAG MENU -->
     <div class="container">
 
@@ -96,39 +96,24 @@
                 <div class="KPI">
                     <div class="containerKpi">
                         <span>Colaboradores fora do espediente</span>
-                        <div class="caixa" >
+                        <div class="caixa">
                             <span class="info" id="nomeMaquina">Maquina YH - 62023</span>
-<<<<<<< HEAD
-
-=======
                             <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/
                                     ultima captura</span></span>
->>>>>>> 936c0c75f81f4d867e63e8203800c974fe6ce91a
                             <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
                                     h/</span></span>
                         </div>
                         <div class="caixa">
                             <span class="info" id="nomeMaquina">Maquina YH - 72124
                             </span>
-<<<<<<< HEAD
-
-=======
                             <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/
                                     ultima captura</span></span>
->>>>>>> 936c0c75f81f4d867e63e8203800c974fe6ce91a
                             <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
                                     h/</span></span>
                         </div>
                         <div class="caixa">
                             <span class="info" id="nomeMaquina">Maquina YH - 82225
                             </span>
-<<<<<<< HEAD
-
-                            <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
-                                    h/</span></span>
-                        </div>
-                        <div id="caixaForaEspediente" class="caixa"></div>
-=======
                             <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura"> h/
                                     ultima captura</span></span>
                             <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
@@ -142,7 +127,6 @@
                             <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">
                                     h/ ultima captura</span></span>
                         </div>
->>>>>>> 936c0c75f81f4d867e63e8203800c974fe6ce91a
                     </div>
 
                     <!-- <div class="containerKpi2">
@@ -305,7 +289,7 @@
 </script>
 
 
-<<<<<<< HEAD
+
 <script>
 
 window.addEventListener("load", () => {
@@ -342,36 +326,28 @@ window.addEventListener("load", () => {
     }
 
     function plotarGraficoNativosInativos(resposta, id_empresa) {
-
+        console.log(JSON.stringify(resposta))
         console.log('iniciando plotagem do gráfico...');
-
-        // Criando estrutura para plotar gráfico - labels
-        let labels = ["Ativos"];
-
+        
+        let labels = [];
         // Criando estrutura para plotar gráfico - dados
         let dados = {
-            labels: labels,
+            labels: ['Ativos', 'Inativos'],
             datasets: [{
-                label: 'Ativos',
+                label: [],
                 data: [],
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: 'rgba(227, 40, 0)',
                 backgroundColor: 'rgba(227, 40, 50)',
-                tension: 0.1
-            }, {
-                label: 'Inativos',
-                data: [],
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                backgroundColor: 'rgba(146, 19, 26)',
                 tension: 0.1
             }]
         };
 
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
-            dados.datasets[0].data.push(registro.ativos);
-            dados.datasets[1].data.push(registro.inativos);
+            dados.datasets[0].data.push(registro.count_ligadas);
+            dados.datasets[0].data.push(registro.count_desligadas);
+            console.log(resposta)
         }
 
         console.log('----------------------------------------------')
@@ -384,7 +360,7 @@ window.addEventListener("load", () => {
 
         // Criando estrutura para plotar gráfico - config
         const config = {   
-        type: 'doughnut',
+        type: 'pie',
             data: dados,
             options: {
                 scales: {
@@ -428,14 +404,12 @@ window.addEventListener("load", () => {
                         for (i = 0; i < novoRegistro.length; i++) {
                             var registro = novoRegistro[i];
                             // tirando e colocando valores no gráfico
-                            dados.labels.shift(); // apagar o primeiro
-                            dados.labels.push(registro.momento_grafico);// incluir um novo momento
 
                             dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                            dados.datasets[0].data.push(registro.nativos); // incluir uma nova medida de umidade
+                            dados.datasets[0].data.push(registro.count_ligadas); // incluir uma nova medida de umidade
 
-                            dados.datasets[1].data.shift();
-                            dados.datasets[1].data.push(registro.inativos);
+                            dados.datasets[0].data.shift();
+                            dados.datasets[0].data.push(registro.count_desligadas);
                         }
 
                         myChart.update();
@@ -454,9 +428,6 @@ window.addEventListener("load", () => {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
         }
-
-        
-
 </script>
 
 
@@ -504,39 +475,8 @@ window.addEventListener("load", () => {
             });
     }
 </script>
-</script>
-=======
-    const ctxxx = document.getElementById('myChart3');
 
-
-    new Chart(ctxxx, {
-        type: 'bar',
-        data: {
-            labels: "",
-            datasets: [{
-                axis: 'y',
-                label: 'Maquina',
-                data: [],
-                backgroundColor: ['rgba(227, 40, 50)', 'rgba(146, 19, 26)', 'rgba(78, 10, 14)'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            scales: {
-                y: {
-                    beginAtZero: true,
-                }
-            }
-        }
-    });
-
-    window.addEventListener("load", () => {
-        tempoInatividade();
-    });
-
->>>>>>> 936c0c75f81f4d867e63e8203800c974fe6ce91a
-
+<script>
 
 
     window.addEventListener("load", () => {
@@ -642,7 +582,6 @@ window.addEventListener("load", () => {
             var registro = resposta[i];
             dados.datasets[i].data.push(registro.tempo_inatividade_horas);
         }
-<<<<<<< HEAD
 
         // console.log('----------------------------------------------')
         // console.log('O gráfico será plotado com os respectivos valores:')
@@ -651,15 +590,6 @@ window.addEventListener("load", () => {
         // console.log('Dados:')
         // console.log(dados.datasets)
         // console.log('----------------------------------------------')
-=======
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(labels)
-        console.log('Dados:')
-        console.log(dados.datasets)
-        console.log('----------------------------------------------')
->>>>>>> 936c0c75f81f4d867e63e8203800c974fe6ce91a
 
         // Criando estrutura para plotar gráfico - config
         const config = {
@@ -677,15 +607,15 @@ window.addEventListener("load", () => {
         };
 
         // Adicionando gráfico criado em div na tela
-        let graficoInatividade = new Chart(
+        let myChart = new Chart(
             document.getElementById('myChart3'),
 
             config
         );
-        setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, graficoInatividade), 2000);
+        setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, myChart), 2000);
     }
 
-    function atualizarGraficoInatividade(id_empresa, dados, graficoInatividade) {
+    function atualizarGraficoInatividade(id_empresa, dados, myChart) {
 
         fetch(`/dashInicial/tempoInatividadeUltimas/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
@@ -720,13 +650,10 @@ window.addEventListener("load", () => {
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
                     proximaAtualizacao = setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, myChart), 100000);
                 });
-<<<<<<< HEAD
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
                 proximaAtualizacao = setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, myChart), 100000);
-=======
->>>>>>> 936c0c75f81f4d867e63e8203800c974fe6ce91a
             }
         })
             .catch(function (error) {
@@ -738,6 +665,7 @@ window.addEventListener("load", () => {
     function plotarGraficoProblemas(resposta, id_empresa) {
 
         console.log('iniciando plotagem do gráfico...');
+
         // Criando estrutura para plotar gráfico - labels
         let labels = ['Componentes'];
 
@@ -782,6 +710,7 @@ window.addEventListener("load", () => {
             dados.datasets[2].data.push(registro.total_alerta_disco);
         }
         /*/
+
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
         console.log('Labels:')

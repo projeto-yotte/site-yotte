@@ -97,7 +97,7 @@ function cadastrarToken(req, res) {
     }
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrarToken(token, fk_usuario_token)
+        adminModel.cadastrarToken(token, fk_usuario_token)
             .then(
                 function (resultado) {
                     res.json(resultado);
