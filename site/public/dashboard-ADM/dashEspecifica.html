@@ -88,7 +88,7 @@
                 <div class="container-chart">
                     <span>Componentes Principais</span>
                     <div class="chart">
-                        <canvas id="myChart"></canvas>
+                        <canvas id="componentes"></canvas>
                     </div>
                 </div>
 
@@ -113,7 +113,7 @@
                         <span>Relatório de problemas</span>
                         <span class="littleInfo">De acordo com hardware</span>
                         <div class="chart">
-                            <canvas id="myChart2"></canvas>
+                            <canvas id="relatorioProblema"></canvas>
                         </div>
                     </div>
                 </div>
@@ -136,7 +136,7 @@
 
                         <span class="littleInfo">Em horas</span>
                         <div class="chart1">
-                            <canvas id="myChart3"></canvas>
+                            <canvas id="tempInatividade"></canvas>
                         </div>
                     </div>
                 </div>
@@ -150,9 +150,10 @@
 
 <script>
     console.log(sessionStorage.ID_USUARIO)
-    const ctx = document.getElementById('myChart');
+    /*
+    const componentes = document.getElementById('componentes');
 
-    new Chart(ctx, {
+    new Chart(componentes, {
         type: 'bar',
         data: {
             labels: ['Disco', 'Ram', 'Cpu'],
@@ -170,36 +171,36 @@
                 }
             }
         }
-    });
+    });*/
 
-
-    const ctxx = document.getElementById('myChart2');
-
-    new Chart(ctxx, {
-        type: 'bar',
-        data: {
-            labels: ['CPU', 'RAM', 'SO', 'GPU', 'HD', 'SSD', 'REDE'],
-            datasets: [{
-                axis: 'y',
-                label: 'Maquina YH - 62023',
-                data: [10, 5, 13, 9, 3, 15, 2],
-                backgroundColor: ['rgba(227, 40, 50)', 'rgba(146, 19, 26)', 'rgba(78, 10, 14)'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            scales: {
-                y: {
-                    beginAtZero: true,
+    /*
+        const relatorio = document.getElementById('relatorioProblema');
+    
+        new Chart(relatorio, {
+            type: 'bar',
+            data: {
+                labels: ['CPU', 'RAM', 'SO'],
+                datasets: [{
+                    axis: 'y',
+                    label: 'Maquina YH - 62023',
+                    data: [10, 5, 13, 9, 3, 15, 2],
+                    backgroundColor: ['rgba(227, 40, 50)', 'rgba(146, 19, 26)', 'rgba(78, 10, 14)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    }
                 }
             }
-        }
-    });
+        });*/
+/*
+    const inatividade = document.getElementById('tempInatividade');
 
-    const ctxxx = document.getElementById('myChart3');
-
-    new Chart(ctxxx, {
+    new Chart(inatividade, {
         type: 'bar',
         data: {
             labels: [''],
@@ -219,6 +220,271 @@
                 }
             }
         }
+    });*/
+
+
+
+
+    window.addEventListener("load", () => {
+        obterDadosGrafico(sessionStorage.ID_USUARIO);
     });
+
+
+    function obterDadosGrafico(id_usuario) {
+
+        fetch(`/dashEspecifica/componentesPrincipais/${id_usuario}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarComponentesPrincipais(resposta, id_usuario);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+
+
+
+        fetch(`/dashEspecifica/relatorioProblema/${id_usuario}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarRelatorioProblema(resposta, id_usuario);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+
+        fetch(`/dashEspecifica/tempoInatividade/${id_usuario}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    
+                    plotarTempoInatividade(resposta, id_usuario);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+
+    function plotarComponentesPrincipais(resposta, id_usuario) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = ['Máquina YH'];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Disco',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(227, 40, 50)',
+                tension: 0.1
+            }, {
+                label: 'Ram',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(146, 19, 26)',
+                tension: 0.1
+            }, {
+                label: 'Cpu',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(78, 10, 14)',
+                tension: 0.1
+            },]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGraficoProblemas":')
+        //console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'bar',
+            data: dados,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+
+        };
+
+        let componentes = new Chart(
+            document.getElementById('componentes'),
+
+            config
+        );
+        //setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, graficoInatividade), 2000);
+    }
+
+    function plotarRelatorioProblema(resposta, id_usuario) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = ['Disco', 'Ram', 'Cpu'];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+
+            datasets: [{
+                label: 'Máquina',
+                data: [],
+                axis: 'y',
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: ['rgba(227, 40, 50)', 'rgba(146, 19, 26)', 'rgba(78, 10, 14)'],
+                tension: 0.1
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGraficoProblemas":')
+        //console.log(resposta)
+        
+            var registro = resposta[0];
+            dados.datasets[0].data.push(registro.count_alerta_cpu);
+            dados.datasets[0].data.push(registro.count_alerta_hd);
+            dados.datasets[0].data.push(registro.count_alerta_ram);
+        
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'bar',
+            data: dados,
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    }
+                }
+            }
+
+        };
+
+        let relatorio = new Chart(
+            document.getElementById('relatorioProblema'),
+
+            config
+        );
+        //setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, graficoInatividade), 2000);
+    }
+
+    function plotarTempoInatividade(resposta, id_usuario) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = ['Tempo'];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+
+            datasets: [{
+                label: 'Máquina',
+                data: [12],
+                axis: 'y',
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: ['rgba(227, 40, 50)', 'rgba(146, 19, 26)', 'rgba(78, 10, 14)'],
+                tension: 0.1
+            }]
+        };
+
+        //console.log('----------------------------------------------')
+        //console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGraficoProblemas":')
+        //console.log(resposta)
+        
+        dados.datasets[0].data.push(registro.tempo_inatividade_horas);
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'bar',
+            data: dados,
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    }
+                }
+            }
+
+        };
+
+        let inatividade = new Chart(
+            document.getElementById('tempInatividade'),
+
+            config
+        );
+        //setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, graficoInatividade), 2000);
+    }
+
+   
+
 
 </script>
