@@ -10,7 +10,7 @@ router.get("/componentesPrincipais/:id_funcionario", function (req, res) {
 });
 
 
-router.get("/relatorioProblema/:id_usuario", function (req, res) {
+router.get("/relatorioProblema/:id_funcionario", function (req, res) {
     dashEspecificaController.relatorioProblema(req, res);
 });
 

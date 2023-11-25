@@ -18,11 +18,9 @@ function componentesPrincipais(req, res) {
 }
 
 function relatorioProblema(req, res) {
+    var id_funcionario = req.params.id_funcionario;
 
-
-    var id_usuario = req.params.id_usuario;
-
-    dashEspecificaModel.relatorioProblema(id_usuario).then(function (resultado) {
+    dashEspecificaModel.relatorioProblema(id_funcionario).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
