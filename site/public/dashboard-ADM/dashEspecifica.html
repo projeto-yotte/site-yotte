@@ -96,7 +96,7 @@
                     <div class="containerKpi">
                         <span>Uso disco</span>
                         <span class="info" id="valorDisco">2% <span class="info">POR DIA</span></span>
-                        <span>Previsto 100% em <span>X</span> dias.</span>
+                        <span id="diasTotais">Previsto 100% em <span>X</span> dias.</span>
                     </div>
 
                     <div class="containerKpi2">
@@ -139,60 +139,8 @@
 
 <script>
 
-    /*
-        const relatorio = document.getElementById('relatorioProblema');
-    
-        new Chart(relatorio, {
-            type: 'bar',
-            data: {
-                labels: ['CPU', 'RAM', 'SO'],
-                datasets: [{
-                    axis: 'y',
-                    label: 'Maquina YH - 62023',
-                    data: [10, 5, 13, 9, 3, 15, 2],
-                    backgroundColor: ['rgba(227, 40, 50)', 'rgba(146, 19, 26)', 'rgba(78, 10, 14)'],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                indexAxis: 'y',
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                    }
-                }
-            }
-        });*/
-/*
-    const inatividade = document.getElementById('tempInatividade');
-
-    new Chart(inatividade, {
-        type: 'bar',
-        data: {
-            labels: [''],
-            datasets: [{
-                axis: 'y',
-                label: 'Maquina YH - 62023',
-                data: [7],
-                backgroundColor: ['rgba(227, 40, 50)', 'rgba(146, 19, 26)', 'rgba(78, 10, 14)'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            scales: {
-                y: {
-                    beginAtZero: true,
-                }
-            }
-        }
-    });*/
-
-
-
-
     window.addEventListener("load", () => {
-        obterDadosGraficos(sessionStorage.ID_FUNCIONARIO);
+        obterDadosGraficos(sessionStorage.ID_FUNCIONARIO, sessionStorage.ID_MAQUINA);
         obterDadosFuncionario(sessionStorage.ID_FUNCIONARIO);
     });
 
@@ -238,7 +186,7 @@
     }
 
 
-    function obterDadosGraficos(id_funcionario) {
+    function obterDadosGraficos(id_funcionario, id_maquina) {
 
         fetch(`/dashEspecifica/componentesPrincipais/${id_funcionario}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
@@ -283,6 +231,22 @@
                     resposta.reverse();
 
                     plotarTempoInatividade(resposta, id_funcionario);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+
+        fetch(`/dashEspecifica/usoDisco/${id_maquina}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`USO DISCO: ${JSON.stringify(resposta)}`);
+
+                    plotarUsoDisco(resposta, id_maquina);
 
                 });
             } else {
@@ -535,6 +499,55 @@
         setTimeout(() => atualizarGraficoInatividade(id_funcionario, dados, inatividade), 5000);
     }
 
+    function formatarDadosDisco(resposta) {
+        if (!resposta) {
+            // Trata o caso em que a resposta é undefined ou nula
+            return {
+                porcentagemFormatada: 'N/A',
+                diasRestantesFormatados: 'N/A',
+            };
+        }
+
+        const porcentagemDiaria = resposta.porcentagem_uso_diario;
+        const diasRestantes = resposta.dias_restantes;
+
+        if (diasRestantes > 365) {
+            const anosRestantes = Math.floor(diasRestantes / 365);
+            const diasRestantesAposAnos = diasRestantes % 365;
+            
+            return {
+                porcentagemFormatada: `${porcentagemDiaria.toFixed(4)}%`,
+                diasRestantesFormatados: `${anosRestantes} ano${anosRestantes !== 1 ? 's' : ''} e ${diasRestantesAposAnos} dia${diasRestantesAposAnos !== 1 ? 's' : ''}`,
+            };
+        } else {
+            return {
+                porcentagemFormatada: `${porcentagemDiaria.toFixed(4)}%`,
+                diasRestantesFormatados: `${diasRestantes} dia${diasRestantes !== 1 ? 's' : ''}`,
+            };
+        }
+    }
+
+
+    function plotarUsoDisco(resposta, id_maquina) {
+        console.log('iniciando plotagem do disco...');
+
+        const dadosFormatados = formatarDadosDisco(resposta[0]);
+
+        const valorDisco = document.getElementById('valorDisco');
+        valorDisco.innerHTML = `
+            <span class="info" id="valorDisco">${dadosFormatados.porcentagemFormatada} <span class="info">POR DIA</span></span>
+        `;
+
+        const diasTotais = document.getElementById('diasTotais');
+        diasTotais.innerHTML = `
+            <span>Previsto 100% em <span>${dadosFormatados.diasRestantesFormatados}</span>.</span>
+        `;
+
+        setTimeout(() => atualizarUsoDisco(id_maquina), 5000);
+    }
+
+
+
     
 
    /*
@@ -640,6 +653,37 @@
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
-    }
+        }
+
+        function atualizarUsoDisco(id_maquina) {
+            fetch(`/dashEspecifica/usoDisco/${id_maquina}`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (novoRegistro) {
+                        console.log("ATUALIZOU DISCO")
+                        const dadosFormatados = formatarDadosDisco(novoRegistro[0]);
+
+                        const valorDisco = document.getElementById('valorDisco');
+                        valorDisco.innerHTML = `
+                            <span class="info" id="valorDisco">${dadosFormatados.porcentagemFormatada} <span class="info">POR DIA</span></span>
+                        `;
+
+                        const diasTotais = document.getElementById('diasTotais');
+                        diasTotais.innerHTML = `
+                            <span>Previsto 100% em <span>${dadosFormatados.diasRestantesFormatados}</span>.</span>
+                        `;
+
+                        proximaAtualizacao = setTimeout(() => atualizarUsoDisco(id_maquina), 5000);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                    // Define o próximo intervalo de atualização em caso de erro
+                    proximaAtualizacao = setTimeout(() => atualizarUsoDisco(id_maquina), 5000);
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+        }
 
 </script>

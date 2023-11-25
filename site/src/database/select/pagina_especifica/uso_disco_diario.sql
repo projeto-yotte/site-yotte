@@ -1,25 +1,25 @@
 WITH UsoDiario AS (
     SELECT
-        maquina.id_maquina,
-        dados_captura.data_captura,
-        AVG(COALESCE(dados_captura.uso, 0)) AS media_uso_diario,
-        info_componente.total AS capacidade_total
+        c.id_componente,
+        c.nome AS nome_componente,
+        AVG((dc.byte_leitura + dc.byte_escrita) / ic.total) AS media_uso_diario,
+        ic.total AS capacidade_total
     FROM
-        maquina
-    JOIN componente ON maquina.id_maquina = componente.fk_maquina AND componente.nome LIKE '%disco%'
-    JOIN dados_captura ON componente.id_componente = dados_captura.fk_componente
-    JOIN info_componente ON componente.fk_info = info_componente.id_info
+        componente c
+    JOIN dados_captura dc ON c.id_componente = dc.fk_componente
+    JOIN info_componente ic ON c.fk_info = ic.id_info
     WHERE
-        maquina.id_maquina = 1 
-        AND dados_captura.data_captura BETWEEN CURRENT_DATE - INTERVAL 30 DAY AND CURRENT_DATE
+        dc.data_captura >= CURRENT_DATE - INTERVAL 30 DAY -- Ajuste na condição
+        AND c.fk_maquina = 1 -- Substitua 1 pelo ID da máquina desejada
     GROUP BY
-        maquina.id_maquina, dados_captura.data_captura, info_componente.total
+        c.id_componente, c.nome, ic.total
 )
+
 SELECT
-    id_maquina,
+    nome_componente,
     CASE
         WHEN media_uso_diario > 0 AND capacidade_total > 0 THEN
-            ROUND((media_uso_diario / capacidade_total) * 100, 4) 
+            ROUND((media_uso_diario * 100), 4) 
         ELSE
             NULL
     END AS porcentagem_uso_diario,

@@ -14,6 +14,10 @@ router.get("/relatorioProblema/:id_funcionario", function (req, res) {
     dashEspecificaController.relatorioProblema(req, res);
 });
 
+router.get("/usoDisco/:id_maquina", function (req, res) {
+    dashEspecificaController.usoDisco(req, res);
+});
+
 
 
 router.get("/tempoInatividade/:id_usuario", function (req, res) {
