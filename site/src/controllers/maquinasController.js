@@ -3,10 +3,13 @@ var maquinaModel = require("../models/maquinaModel");
 
 
 function listarMaquinas(req, res) {
-    maquinaModel.listarMaquinas()
-        .then(function (maquinas) {
-            if (maquinas.length > 0) {
-                res.status(200).json(maquinas);
+    var id_admin = req.params.id_admin;
+
+    maquinaModel.listarMaquinas(id_admin)
+        .then(function (resultado) {
+
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
             } else {
                 res.status(204).send("Nenhuma máquina encontrada!");
             }

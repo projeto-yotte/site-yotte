@@ -244,57 +244,62 @@
 
 
     window.addEventListener("load", () => {
-        listarMaquinas();
+        listarMaquinas(sessionStorage.ID_USUARIO);
+        obterDadosGraficoInativos();
+        foraDoEspediente();
+        obterDadosGrafico();
     });
 
-    function listarMaquinas() {
-        fetch("/maquina", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-            .then(function (response) {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error('Erro ao buscar maquinas');
-            })
-            .then(function (maquinas) {
-                console.log(maquinas);
-                const maquinasContainer = document.getElementById('listaMaquinas');
 
-                maquinasContainer.innerHTML = ''; // Limpa o conteúdo antes de adicionar as máquinas
+    function listarMaquinas(id_admin) {
+        fetch(`/maquina/maquinas/${id_admin}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Erro ao buscar máquinas');
+        }).then(function (maquinas) {
+            
+            const maquinasContainer = document.getElementById('listaMaquinas');
 
-                maquinas.forEach(maquina => {
-                    const maquinaElement = document.createElement('div');
-                    // maquinaElement.classList.add('listaMaquinas'); 
+            // Limpa o conteúdo antes de adicionar as máquinas
+            maquinasContainer.innerHTML = '';
 
-                    maquinaElement.innerHTML += `
-                <a href="dashEspecifica.html">
-                    <div class="containerColTittle">
-                        <span id="funcionario"> ${maquina.funcionario}</span>
-                    <span id="idMaquina"> ${maquina.id_maquina}</span>
+            maquinas.forEach(maquina => {
+                console.log("maquina: " + maquina.nome_usuario);
+
+                const maquinaElement = document.createElement('div');
+                maquinaElement.innerHTML = `
+                    <div onclick="passarIdFuncionario(${maquina.id_funcionario})">
+                        <div class="containerColTittle">
+                            <span id="${maquina.id_funcionario}">${maquina.funcionario}</span>
+                            <span id="${maquina.id_maquina}">${maquina.ip}</span>
+                        </div>
                     </div>
-                </a>
-            `;
+                `;
 
-                    maquinasContainer.appendChild(maquinaElement); // Adiciona a maquinaElement ao container de maquinas
-                });
-            })
-            .catch(function (error) {
-                console.error('Erro:', error);
+                maquinasContainer.appendChild(maquinaElement); // Adiciona a maquinaElement ao container de maquinas
             });
+        }).catch(function (error) {
+            console.error('Erro ao buscar máquinas:', error);
+        });
     }
+
+
+    function passarIdFuncionario(idFuncionario) {
+        sessionStorage.removeItem('ID_FUNCIONARIO');
+        sessionStorage.setItem('ID_FUNCIONARIO', idFuncionario);
+
+        setTimeout(function () {
+            window.location = './dashEspecifica.html'
+            
+        }, 1000); // apenas para exibir o loading
+    }
+
 </script>
 
 
 
 <script>
-
-window.addEventListener("load", () => {
-        obterDadosGraficoInativos();
-    });
     // const ctx = document.getElementById('myChart');
 
     // new Chart(ctx, {
@@ -436,10 +441,6 @@ window.addEventListener("load", () => {
 
 <script>
 
-    window.addEventListener("load", () => {
-        foraDoEspediente();
-    });
-
     function foraDoEspediente() {
         fetch("/dashInicial/foraDoEspediente", {
             method: "GET",
@@ -478,14 +479,6 @@ window.addEventListener("load", () => {
 </script>
 
 <script>
-
-
-    window.addEventListener("load", () => {
-        obterDadosGrafico();
-    });
-
-
-
 
 
     console.log(sessionStorage.ID_EMPRESA)

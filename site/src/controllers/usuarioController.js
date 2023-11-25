@@ -1,11 +1,4 @@
 var usuarioModel = require("../models/usuarioModel");
-var usuarioModel = require("../models/usuarioModel");
-var usuarioModel = require("../models/usuarioModel");
-var usuarioModel = require("../models/usuarioModel");
-var usuarioModel = require("../models/usuarioModel");
-
-
-
 
 function cadastrarUser(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
@@ -48,7 +41,26 @@ function cadastrarUser(req, res) {
     }
 }
 
+function listarDadosFuncionario(req, res) {
+    var id_funcionario = req.params.id_funcionario;
+
+    usuarioModel.listarDadosFuncionario(id_funcionario)
+        .then(function (resultado) {
+
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhuma máquina encontrada!");
+            }
+        })
+        .catch(function (error) {
+            console.error(error);
+            res.status(500).json({ message: "Erro ao buscar máquinas" });
+        });
+}
+
 
 module.exports = {
-    cadastrarUser
+    cadastrarUser,
+    listarDadosFuncionario
 }

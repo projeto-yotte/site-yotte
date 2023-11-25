@@ -29,7 +29,7 @@
                         <li class="lista destaque">
                             <a href="paginaInicial.html">
                                 <i class="uil uil-create-dashboard destaque"></i>
-                                <span class="lista" id="nomeMaquina">Página inical</span>
+                                <span class="lista">Página inicial</span>
                             </a>
                         </li>
                         <!-- <li class="lista ">
@@ -71,7 +71,7 @@
         <div class="areaDash">
 
             <div class="topDash">
-                <span>Maquina YH - 62023</span>
+                <span id="nomeMaquina">Maquina YH</span>
                 <div class="nomeNome">
                     <a href="../login.html">
                         <!-- <i class="uil uil-signout"></i> -->
@@ -227,7 +227,47 @@
 
     window.addEventListener("load", () => {
         obterDadosGrafico(sessionStorage.ID_USUARIO);
+        obterDadosFuncionario(sessionStorage.ID_FUNCIONARIO);
     });
+
+    
+    function obterDadosFuncionario(id_funcionario) {
+        // Adiciona o fetch para obter informações do funcionário
+        fetch(`/usuarios/listarDadosFuncionario/${id_funcionario}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (infoFuncionario) {
+                    console.log(infoFuncionario)
+
+                    // Armazenar as informações do funcionário no sessionStorage
+                    sessionStorage.NOME_FUNCIONARIO = infoFuncionario[0].nome_funcionario;
+                    sessionStorage.EMAIL_FUNCIONARIO = infoFuncionario[0].email_funcionario;
+                    sessionStorage.AREA_FUNCIONARIO = infoFuncionario[0].area_funcionario;
+                    sessionStorage.CARGO_FUNCIONARIO = infoFuncionario[0].cargo_funcionario;
+
+                    // Armazenar as informações da máquina no sessionStorage
+                    sessionStorage.ID_MAQUINA = infoFuncionario[0].id_maquina;
+                    sessionStorage.IP_MAQUINA = infoFuncionario[0].ip;
+                    sessionStorage.SO_MAQUINA = infoFuncionario[0].so;
+                    sessionStorage.MODELO_MAQUINA = infoFuncionario[0].modelo;
+
+                    plotarDadosFuncionario()
+                });
+            } else {
+                console.error('Nenhuma informação do funcionário encontrada ou erro na API');
+            }
+        }).catch(function (error) {
+            console.error(`Erro na obtenção das informações do funcionário: ${error.message}`);
+        });
+
+        // Restante do código para obter os dados do gráfico...
+    }
+
+    function plotarDadosFuncionario() {
+        // Atualizar o nome do funcionário na sua página
+        const nomeMaquina = document.getElementById('nomeMaquina');
+        nomeMaquina.textContent = sessionStorage.NOME_FUNCIONARIO;
+        nomeMaquina.textContent += ` - ${sessionStorage.ID_MAQUINA}`;
+    }
 
 
     function obterDadosGrafico(id_usuario) {

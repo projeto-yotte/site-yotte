@@ -14,9 +14,34 @@ function cadastrarUser(nome,area, cargo, email , fk_empresa,fk_tipo_usuario) {
     return database.executar(instrucao);
 }
 
+function listarDadosFuncionario(id_funcionario) {
+    var instrucao = `
+        SELECT
+        u.id_usuario as id_funcionario,
+        u.nome as nome_funcionario,
+        u.email as email_funcionario,
+        u.area as area_funcionario,
+        u.cargo as cargo_funcionario,
+        m.id_maquina,
+        m.ip,
+        m.so,
+        m.modelo
+    FROM
+        usuario u
+    JOIN
+        maquina m ON u.id_usuario = m.fk_usuario
+    WHERE
+        m.fk_usuario = ${id_funcionario}
+    LIMIT 1;
+    `;
+
+    return database.executar(instrucao);
+}
+
 
 
 
 module.exports = {
-    cadastrarUser
+    cadastrarUser,
+    listarDadosFuncionario
 };
