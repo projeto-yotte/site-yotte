@@ -6,8 +6,8 @@ FROM (
     SELECT
         maquina.id_maquina,
         COUNT(CASE WHEN componente.nome LIKE '%CPU%' THEN alerta.id_alerta END) AS count_alerta_cpu,
-        COUNT(CASE WHEN componente.nome LIKE 'RAM%' THEN alerta.id_alerta END) AS count_alerta_ram,
-        COUNT(CASE WHEN componente.nome LIKE '%HD%' OR componente.nome LIKE '%SSD%' THEN alerta.id_alerta END) AS count_alerta_disco
+        COUNT(CASE WHEN componente.nome LIKE '%MEMORIA%' THEN alerta.id_alerta END) AS count_alerta_ram,
+        COUNT(CASE WHEN componente.nome LIKE '%DISCO%' OR componente.nome LIKE '%SSD%' THEN alerta.id_alerta END) AS count_alerta_disco
     FROM
         alerta
     JOIN dados_captura ON alerta.fk_dados_captura = dados_captura.id_dados_captura
@@ -17,6 +17,8 @@ FROM (
     JOIN empresa ON usuario.fk_empresa = empresa.id_empresa
     WHERE
         empresa.id_empresa = 2
+        AND MONTH(dados_captura.data_captura) = MONTH(CURRENT_DATE)
+        AND YEAR(dados_captura.data_captura) = YEAR(CURRENT_DATE)
     GROUP BY
         maquina.id_maquina
 ) AS subquery;
