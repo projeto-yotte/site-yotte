@@ -19,10 +19,12 @@ function AtivosInativos(req, res) {
 }
 
 function foraDoEspediente(req, res) {
-    dashInicialModel.foraDoEspediente()
-        .then(function (maquinas) {
-            if (maquinas.length > 0) {
-                res.status(200).json(maquinas);
+    var id_admin = req.params.id_admin;
+
+    dashInicialModel.foraDoEspediente(id_admin)
+        .then(function (response) {
+            if (response.length > 0) {
+                res.status(200).json(response);
             } else {
                 res.status(204).send("Nenhuma máquina encontrada!");
             }

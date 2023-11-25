@@ -7,7 +7,7 @@ router.get("/AtivosInativosUltimas/:id_empresa", function (req, res) {
     dashInicialController.AtivosInativosUltimas(req, res);
 });
 
-router.get("/foraDoEspediente", function (req, res) {
+router.get("/foraDoEspediente/:id_admin", function (req, res) {
     dashInicialController.foraDoEspediente(req, res);
 });
 

@@ -95,10 +95,7 @@ function login() {
                 body: JSON.stringify({
                     emailServer: emailVar,
                     senhaServer: senhaVar,
-                    idEmpresa : sessionStorage.id_empresa
-        
-        
-                    
+                    idEmpresa : sessionStorage.id_empresa            
                 })
             }).then(function (resposta) {
                 console.log("ESTOU NO THEN DO entrar()!")
@@ -108,7 +105,8 @@ function login() {
         
                     resposta.json().then(json => {
                         console.log(json);
-                        sessionStorage.ID_USUARIO = json.id_usuario;
+                        sessionStorage.ID_USUARIO = json.id_admin;
+                        sessionStorage.NOME_ADMIN = json.nome_admin;
                         sessionStorage.ID_EMPRESA = json.fk_empresa;
  
                         setTimeout(function () {

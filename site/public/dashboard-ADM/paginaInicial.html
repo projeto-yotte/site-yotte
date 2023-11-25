@@ -55,10 +55,10 @@
                             </a>
                         </li>
                         <li class="lista">
-                            <a href="" onclick="EncerrarSession()">
+                            <a onclick="encerrarSession()">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <!-- <i class="bi bi-gear"></i> -->
-                                <span class="lista">Sair</span>
+                                <span class="lista" onclick="encerrarSession()">Sair</span>
                             </a>
                         </li>
                     </ul>
@@ -94,7 +94,7 @@
                 </div>
 
                 <div class="KPI">
-                    <div class="containerKpi">
+                    <div class="containerKpi" id="caixaForaEspediente">
                         <span>Colaboradores fora do espediente</span>
                         <div class="caixa">
                             <span class="info" id="nomeMaquina">Maquina YH - 62023</span>
@@ -189,66 +189,21 @@
 </html>
 
 <script>
-    console.log(sessionStorage.ID_USUARIO)
-
-
-
-    // const ctx = document.getElementById('myChart');
-
-    // new Chart(ctx, {
-    //     type: 'bar',
-    //     data: {
-    //         labels: ['Disco', 'Ram', 'Cpu'],
-    //         datasets: [{
-    //             label: '# of Votes',
-    //             data: [60, 60, 30],
-    //             backgroundColor: ['rgba(227, 40, 50)', 'rgba(146, 19, 26)', 'rgba(78, 10, 14)'],
-    //             borderWidth: 1
-    //         }]
-    //     },
-    //     options: {
-    //         scales: {
-    //             y: {
-    //                 beginAtZero: true
-    //             }
-    //         }
-    //     }
-    // });
-
-
     const ctxx = document.getElementById('myChart2');
-
-    // const ctxxx = document.getElementById('myChart3');
-
-    // new Chart(ctxxx, {
-    //     type: 'bar',
-    //     data: {
-    //         labels: ['Maquina YH 212', 'Maquina YH 255', 'Maquina B2B 584'],
-    //         datasets: [{
-    //             axis: 'y',
-    //             label: 'Maquina',
-    //             data: [12, 8, 24],
-    //             backgroundColor: ['rgba(227, 40, 50)', 'rgba(146, 19, 26)', 'rgba(78, 10, 14)'],
-    //             borderWidth: 1
-    //         }]
-    //     },
-    //     options: {
-    //         indexAxis: 'y',
-    //         scales: {
-    //             y: {
-    //                 beginAtZero: true,
-    //             }
-    //         }
-    //     }
-    // });
-
 
     window.addEventListener("load", () => {
         listarMaquinas(sessionStorage.ID_USUARIO);
         obterDadosGraficoInativos();
-        foraDoEspediente();
+        foraDoEspediente(sessionStorage.ID_USUARIO);
         obterDadosGrafico();
+
+        plotarDadosAdmin();
     });
+
+    function plotarDadosAdmin() {
+        const spanNomeAdmin = document.getElementById("loginUsuario");
+        spanNomeAdmin.textContent = sessionStorage.NOME_ADMIN;
+    }
 
 
     function listarMaquinas(id_admin) {
@@ -412,12 +367,12 @@
                     
 
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGraficoNativosInativos(id_empresa, dados, myChart), 20000);
+                    proximaAtualizacao = setTimeout(() => atualizarGraficoNativosInativos(id_empresa, dados, myChart), 5000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGraficoNativosInativos(id_empresa, dados, myChart), 20000);
+                proximaAtualizacao = setTimeout(() => atualizarGraficoNativosInativos(id_empresa, dados, myChart), 5000);
             }
         })
             .catch(function (error) {
@@ -426,46 +381,57 @@
         }
 </script>
 
-
-
-
 <script>
 
-    function foraDoEspediente() {
-        fetch("/dashInicial/foraDoEspediente", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
+function foraDoEspediente(id_admin) {
+    fetch(`/dashInicial/foraDoEspediente/${id_admin}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then(function (response) {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Erro ao buscar maquinas');
         })
-            .then(function (response) {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error('Erro ao buscar maquinas');
-            })
-            .then(function (maquinas) {
-                console.log(maquinas);
-                const maquinasContainer = document.getElementById('caixaForaEspediente');
+        .then(function (maquinas) {
+            console.log(maquinas);
+            const maquinasContainer = document.getElementById('caixaForaEspediente');
 
-                maquinasContainer.innerHTML = ''; // Limpa o conteúdo antes de adicionar as máquinas
+            maquinasContainer.innerHTML = ''; // Limpa o conteúdo antes de adicionar as máquinas
+            maquinasContainer.innerHTML = '<span> Colaboradores Fora Do Expediente </span>';
 
-                maquinas.forEach(maquina => {
-                    const maquinaElement = document.createElement('div');
-                    maquinaElement.classList.add('caixaForaEspediente');
+            maquinas.forEach(maquina => {
+                const maquinaElement = document.createElement('div');
+                maquinaElement.classList.add('caixaForaEspediente');
 
-                    maquinaElement.innerHTML = `
-                        <span>Hostname: <span id="idMaquina">${maquina.id_maquina}</span></span>
-                        <span id="regiao">${maquina.foraDoEspediente}</span>
-                    `;
+                // Formatando a data
+                const ultimaCaptura = new Date(maquina.ultima_captura_dia);
+                const formattedDate = `${ultimaCaptura.getDate()}/${ultimaCaptura.getMonth() + 1}/${ultimaCaptura.getFullYear()}`;
+                const formattedTime = `${ultimaCaptura.getHours()}:${ultimaCaptura.getMinutes()}`;
 
-                    maquinasContainer.appendChild(maquinaElement); // Adiciona a maquinaElement ao container de maquinas
-                });
-            })
-            .catch(function (error) {
-                console.error('Erro:', error);
+                // Convertendo minutos para horas
+                const tempoForaExpedienteHoras = Math.floor(maquina.tempo_fora_expediente_minutos / 60);
+                const tempoForaExpedienteMinutos = maquina.tempo_fora_expediente_minutos % 60;
+
+                maquinaElement.innerHTML = `
+                    <div class="caixa">
+                        <span class="info" id="nomeMaquina">${maquina.nome_usuario} - ${maquina.id_maquina}</span>
+                        <span class="span">Visto por ultimo: <span class="info destaque" id="hora_captura">${formattedDate} ${formattedTime}</span></span>
+                        <span class="span">Horas fora do expediente <span class="info destaque" id="hora_captura">${tempoForaExpedienteHoras}h ${tempoForaExpedienteMinutos}min</span></span>
+                    </div>
+                `;
+
+                maquinasContainer.appendChild(maquinaElement); // Adiciona a maquinaElement ao container de maquinas
             });
+        })
+        .catch(function (error) {
+            console.error('Erro:', error);
+        });
     }
+
 </script>
 
 <script>
@@ -502,7 +468,6 @@ function obterDadosGrafico(id_empresa) {
                 // Processa os dados recebidos e chama a função para plotar o gráfico de tempo de inatividade
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    resposta.reverse();
                     plotarGraficoInatividade(resposta, id_empresa);
                 });
             } else {
@@ -553,7 +518,7 @@ function plotarGraficoInatividade(resposta, id_empresa) {
     // Preenche os dados com valores recebidos
     for (let i = 0; i < resposta.length; i++) {
         let registro = resposta[i];
-        dados.datasets[i].data.shift(registro.tempo_inatividade_horas);
+        dados.datasets[i].data.shift();
         dados.datasets[i].data.push(registro.tempo_inatividade_horas);
     }
 
@@ -573,7 +538,7 @@ function plotarGraficoInatividade(resposta, id_empresa) {
 
     // Criação do gráfico
     let myChart = new Chart(document.getElementById('myChart3'), config);
-    setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, myChart), 2000);
+    setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, myChart), 3000);
 }
 
 // Função para atualizar o gráfico de tempo de inatividade
@@ -582,34 +547,25 @@ function atualizarGraficoInatividade(id_empresa, dados, myChart) {
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
-                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`GRAFICO DE INATIVIDADE: ${JSON.stringify(novoRegistro)}`);
                     console.log('Dados atuais do gráfico:');
                     console.log(dados);
 
                     for (let i = 0; i < novoRegistro.length; i++) {
                         let registro = novoRegistro[i];
+                        dados.datasets[i].data.shift();
                         dados.datasets[i].data.push(registro.tempo_inatividade_horas);
                     }
-
-                    // Atualiza os dados e o gráfico
-                    dados.datasets[0].data.shift();
-                    dados.datasets[0].data.push();
-
-                    dados.datasets[1].data.shift();
-                    dados.datasets[1].data.push(novoRegistro[0].total_alerta_ram);
-
-                    dados.datasets[2].data.shift();
-                    dados.datasets[2].data.push(novoRegistro[0].total_alerta_disco);
 
                     myChart.update();
 
                     // Define o próximo intervalo de atualização
-                    proximaAtualizacao = setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, myChart), 100000);
+                    proximaAtualizacao = setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, myChart), 5000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Define o próximo intervalo de atualização em caso de erro
-                proximaAtualizacao = setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, myChart), 100000);
+                proximaAtualizacao = setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, myChart), 5000);
             }
         })
         .catch(function (error) {
@@ -697,12 +653,12 @@ function atualizarGraficoRelatorioProblemas(id_empresa, dados, myChart) {
                     myChart.update();
 
                     // Define o próximo intervalo de atualização
-                    proximaAtualizacao = setTimeout(() => atualizarGraficoRelatorioProblemas(id_empresa, dados, myChart), 10000);
+                    proximaAtualizacao = setTimeout(() => atualizarGraficoRelatorioProblemas(id_empresa, dados, myChart), 5000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Define o próximo intervalo de atualização em caso de erro
-                proximaAtualizacao = setTimeout(() => atualizarGraficoRelatorioProblemas(id_empresa, dados, myChart), 10000);
+                proximaAtualizacao = setTimeout(() => atualizarGraficoRelatorioProblemas(id_empresa, dados, myChart), 5000);
             }
         })
         .catch(function (error) {
