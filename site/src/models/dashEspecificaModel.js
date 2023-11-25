@@ -1,13 +1,63 @@
 
 var database = require("../database/config")
-function componentesPrincipais(id_usuario) {
-
-    instrucaoSql = ''
+function componentesPrincipais(id_funcionario) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select * from empresa;`;
+        instrucaoSql = `
+        SELECT
+            c.id_componente,
+            c.nome AS nome_componente,
+            dc.uso
+        FROM
+            componente c
+        JOIN (
+            SELECT
+                dc.fk_componente,
+                MAX(dc.data_captura) AS ultima_captura
+            FROM
+                dados_captura dc
+            JOIN
+                componente comp ON dc.fk_componente = comp.id_componente
+            JOIN
+                maquina m ON comp.fk_maquina = m.id_maquina
+            JOIN
+                usuario u ON m.fk_usuario = u.id_usuario
+            WHERE
+                u.id_usuario = ${id_funcionario}
+            GROUP BY
+                dc.fk_componente
+        ) AS ultimas_capturas ON c.id_componente = ultimas_capturas.fk_componente
+        JOIN
+            dados_captura dc ON ultimas_capturas.fk_componente = dc.fk_componente AND ultimas_capturas.ultima_captura = dc.data_captura;;
+        `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucaoSql = `select * from empresa;`;
+        instrucaoSql = `
+        SELECT
+            c.id_componente,
+            c.nome AS nome_componente,
+            dc.uso
+        FROM
+            componente c
+        JOIN (
+            SELECT
+                dc.fk_componente,
+                MAX(dc.data_captura) AS ultima_captura
+            FROM
+                dados_captura dc
+            JOIN
+                componente comp ON dc.fk_componente = comp.id_componente
+            JOIN
+                maquina m ON comp.fk_maquina = m.id_maquina
+            JOIN
+                usuario u ON m.fk_usuario = u.id_usuario
+            WHERE
+                u.id_usuario = ${id_funcionario}
+            GROUP BY
+                dc.fk_componente
+        ) AS ultimas_capturas ON c.id_componente = ultimas_capturas.fk_componente
+        JOIN
+            dados_captura dc ON ultimas_capturas.fk_componente = dc.fk_componente AND ultimas_capturas.ultima_captura = dc.data_captura;;
+        `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return

@@ -5,7 +5,7 @@ var router = express.Router();
 var dashEspecificaController = require("../controllers/dashEspecificaController");
 
 
-router.get("/componentesPrincipais/:id_usuario", function (req, res) {
+router.get("/componentesPrincipais/:id_funcionario", function (req, res) {
     dashEspecificaController.componentesPrincipais(req, res);
 });
 

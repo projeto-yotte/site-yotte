@@ -78,7 +78,7 @@
                     </a>
 
                     <ul class="ul2">
-                        <span class="loginUsuario" id="loginUsuario">Nome</span>
+                        <span class="loginUsuario" id="loginFuncionario">Nome</span>
                     </ul>
                 </div>
 
@@ -149,29 +149,6 @@
 </html>
 
 <script>
-    console.log(sessionStorage.ID_USUARIO)
-    /*
-    const componentes = document.getElementById('componentes');
-
-    new Chart(componentes, {
-        type: 'bar',
-        data: {
-            labels: ['Disco', 'Ram', 'Cpu'],
-            datasets: [{
-                label: 'Maquina YH - 62023',
-                data: [60, 60, 30],
-                backgroundColor: ['rgba(227, 40, 50)', 'rgba(146, 19, 26)', 'rgba(78, 10, 14)'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });*/
 
     /*
         const relatorio = document.getElementById('relatorioProblema');
@@ -226,11 +203,10 @@
 
 
     window.addEventListener("load", () => {
-        obterDadosGrafico(sessionStorage.ID_USUARIO);
+        obterDadosGraficos(sessionStorage.ID_FUNCIONARIO);
         obterDadosFuncionario(sessionStorage.ID_FUNCIONARIO);
     });
 
-    
     function obterDadosFuncionario(id_funcionario) {
         // Adiciona o fetch para obter informações do funcionário
         fetch(`/usuarios/listarDadosFuncionario/${id_funcionario}`, { cache: 'no-store' }).then(function (response) {
@@ -267,18 +243,21 @@
         const nomeMaquina = document.getElementById('nomeMaquina');
         nomeMaquina.textContent = sessionStorage.NOME_FUNCIONARIO;
         nomeMaquina.textContent += ` - ${sessionStorage.ID_MAQUINA}`;
+
+        const spanNomeFuncionario = document.getElementById("loginFuncionario");
+        spanNomeFuncionario.textContent = sessionStorage.NOME_ADMIN;
     }
 
 
-    function obterDadosGrafico(id_usuario) {
+    function obterDadosGraficos(id_funcionario) {
 
-        fetch(`/dashEspecifica/componentesPrincipais/${id_usuario}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/dashEspecifica/componentesPrincipais/${id_funcionario}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    // console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
 
-                    plotarComponentesPrincipais(resposta, id_usuario);
+                    plotarComponentesPrincipais(resposta, id_funcionario);
 
                 });
             } else {
@@ -291,7 +270,7 @@
 
 
 
-
+/*
         fetch(`/dashEspecifica/relatorioProblema/${id_usuario}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
@@ -327,12 +306,13 @@
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
+
+        */
     }
 
 
 
 
-
     /*
     ==========================================================================================
     ==========================================================================================
@@ -353,32 +333,32 @@
     ==========================================================================================
     */
 
-    function plotarComponentesPrincipais(resposta, id_usuario) {
+    function plotarComponentesPrincipais(resposta, id_funcionario) {
 
         console.log('iniciando plotagem do gráfico...');
 
         // Criando estrutura para plotar gráfico - labels
-        let labels = ['Máquina YH'];
+        let labels = [`${sessionStorage.NOME_FUNCIONARIO} - ${sessionStorage.ID_MAQUINA}`];
 
         // Criando estrutura para plotar gráfico - dados
         let dados = {
             labels: labels,
             datasets: [{
-                label: 'Disco',
+                label: 'Memoria',
                 data: [],
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
                 backgroundColor: 'rgba(227, 40, 50)',
                 tension: 0.1
             }, {
-                label: 'Ram',
+                label: 'Cpu',
                 data: [],
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
                 backgroundColor: 'rgba(146, 19, 26)',
                 tension: 0.1
             }, {
-                label: 'Cpu',
+                label: 'Disco',
                 data: [],
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
@@ -388,8 +368,8 @@
         };
 
         console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGraficoProblemas":')
-        //console.log(resposta)
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarComponentesPrincipais":')
+        console.log(resposta)
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
 
@@ -400,6 +380,13 @@
         console.log('Dados:')
         console.log(dados.datasets)
         console.log('----------------------------------------------')
+
+        for (let i = 0; i < resposta.length; i++) {
+            resposta.reverse();
+            let registro = resposta[i];
+            dados.datasets[i].data.shift();
+            dados.datasets[i].data.push(registro.uso);
+        }
 
         // Criando estrutura para plotar gráfico - config
         const config = {
@@ -412,7 +399,6 @@
                     }
                 }
             }
-
         };
 
         let componentes = new Chart(
@@ -420,22 +406,22 @@
 
             config
         );
-        //setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, graficoInatividade), 2000);
+        setTimeout(() => atualizarGraficoComponentes(id_funcionario, dados, componentes), 2000);
     }
 
-    function plotarRelatorioProblema(resposta, id_usuario) {
+    function plotarRelatorioProblema(resposta, id_funcionario) {
 
         console.log('iniciando plotagem do gráfico...');
 
         // Criando estrutura para plotar gráfico - labels
-        let labels = ['Disco', 'Ram', 'Cpu'];
+        let labels = ['Cpu', 'Memoria', 'Disco'];
 
         // Criando estrutura para plotar gráfico - dados
         let dados = {
             labels: labels,
 
             datasets: [{
-                label: 'Máquina',
+                label: `${sessionStorage.NOME_FUNCIONARIO} - ${sessionStorage.ID_MAQUINA}`,
                 data: [],
                 axis: 'y',
                 fill: false,
@@ -447,12 +433,13 @@
 
         console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGraficoProblemas":')
-        //console.log(resposta)
+        console.log(resposta)
         
-            var registro = resposta[0];
-            dados.datasets[0].data.push(registro.count_alerta_cpu);
-            dados.datasets[0].data.push(registro.count_alerta_hd);
-            dados.datasets[0].data.push(registro.count_alerta_ram);
+            var registro = resposta;
+            dados.datasets[0].data.push(registro.uso);
+            dados.datasets[1].data.push(registro.uso);
+            dados.datasets[2].data.push(registro.uso);
+            
         
         // Inserindo valores recebidos em estrutura para plotar o gráfico
 
@@ -484,10 +471,10 @@
 
             config
         );
-        //setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, graficoInatividade), 2000);
+        setTimeout(() => atualizarGraficoInatividade(id_empresa, dados, graficoInatividade), 2000);
     }
 
-    function plotarTempoInatividade(resposta, id_usuario) {
+    function plotarTempoInatividade(resposta, id_funcionario) {
 
         console.log('iniciando plotagem do gráfico...');
 
@@ -561,6 +548,38 @@
 
     // ainda não está pronto
 
+    function atualizarGraficoComponentes(id_funcionario, dados, chartComponentes) {
+        fetch(`/dashEspecifica/componentesPrincipais/${id_funcionario}`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (novoRegistro) {
+                        console.log(`Relatório Problemas: ${JSON.stringify(novoRegistro)}`);
+                        console.log('Dados atuais do gráfico:');
+                        console.log(dados);
 
+                        dados.datasets[0].data.shift();
+                        dados.datasets[0].data.push(novoRegistro[0].uso);
+
+                        dados.datasets[1].data.shift();
+                        dados.datasets[1].data.push(novoRegistro[1].uso);
+
+                        dados.datasets[2].data.shift();
+                        dados.datasets[2].data.push(novoRegistro[2].uso);
+
+                        chartComponentes.update();
+
+                        // Define o próximo intervalo de atualização
+                        proximaAtualizacao = setTimeout(() => atualizarGraficoComponentes(id_funcionario, dados, chartComponentes), 5000);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                    // Define o próximo intervalo de atualização em caso de erro
+                    proximaAtualizacao = setTimeout(() => atualizarGraficoComponentes(id_funcionario, dados, chartComponentes), 5000);
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
 
 </script>
