@@ -100,11 +100,17 @@
                     </div>
 
                     <div class="containerKpi2">
-                        <span>Janelas usuários</span>
-                        <span>Goolgle </span>
-                        <span id="infoJanela1">xx Tempo Primeiro Plano</span>
-                        <span id="infoJanela2">xx Tempo Segundo Plano</span>
-                        <span id="qtdProcessos" class="qtdProcessos">10 <span class="qtdProcessos">Janelas</span></span>
+                        <div class="topKpi2">
+                            <span>Janelas usuários</span>
+                            <span>Goolgle </span>
+                        </div>
+                        <div class="infoJanela">
+                            <span id="infoJanela1">xx Tempo Primeiro Plano</span>
+                        </div>
+                        <div class="infoJanela">
+                            <span id="infoJanela2">xx Tempo Segundo Plano</span>
+                        </div>
+                        
                     </div>
                 </div>
 
@@ -237,9 +243,9 @@
                 console.error('Nenhum dado encontrado ou erro na API');
             }
         })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
 
         fetch(`/dashEspecifica/usoDisco/${id_maquina}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
@@ -253,9 +259,9 @@
                 console.error('Nenhum dado encontrado ou erro na API');
             }
         })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
     }
 
 
@@ -387,7 +393,7 @@
                 tension: 0.1
             },
             {
-            label: `Disco`,
+                label: `Disco`,
                 data: [],
                 axis: 'y',
                 fill: false,
@@ -400,13 +406,13 @@
         console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGraficoProblemas":')
         console.log(resposta)
-        
-            var registro = resposta;
-            dados.datasets[0].data.push(registro[0].count_alerta_ram == null ? 0 : registro[0].count_alerta_ram);
-            dados.datasets[1].data.push(registro[0].count_alerta_cpu == null ? 0 : registro[0].count_alerta_cpu);
-            dados.datasets[2].data.push(registro[0].count_alerta_hd == null ? 0 : registro[0].count_alerta_hd);
-            
-        
+
+        var registro = resposta;
+        dados.datasets[0].data.push(registro[0].count_alerta_ram == null ? 0 : registro[0].count_alerta_ram);
+        dados.datasets[1].data.push(registro[0].count_alerta_cpu == null ? 0 : registro[0].count_alerta_cpu);
+        dados.datasets[2].data.push(registro[0].count_alerta_hd == null ? 0 : registro[0].count_alerta_hd);
+
+
         // Inserindo valores recebidos em estrutura para plotar o gráfico
 
         console.log('----------------------------------------------')
@@ -464,7 +470,7 @@
         //console.log('----------------------------------------------')
         //console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGraficoProblemas":')
         //console.log(resposta)
-        
+
         dados.datasets[0].data.push(resposta[0].tempo_inatividade_horas);
         // Inserindo valores recebidos em estrutura para plotar o gráfico
 
@@ -481,13 +487,13 @@
             type: 'bar',
             data: dados,
             options: {
-            scales: {
-                y: {
-                    reverse: true,
-                    beginAtZero: true
+                scales: {
+                    y: {
+                        reverse: true,
+                        beginAtZero: true
+                    }
                 }
             }
-        }
 
         };
 
@@ -514,7 +520,7 @@
         if (diasRestantes > 365) {
             const anosRestantes = Math.floor(diasRestantes / 365);
             const diasRestantesAposAnos = diasRestantes % 365;
-            
+
             return {
                 porcentagemFormatada: `${porcentagemDiaria.toFixed(4)}%`,
                 diasRestantesFormatados: `${anosRestantes} ano${anosRestantes !== 1 ? 's' : ''} e ${diasRestantesAposAnos} dia${diasRestantesAposAnos !== 1 ? 's' : ''}`,
@@ -548,17 +554,17 @@
 
 
 
-    
 
-   /*
-    ==========================================================================================
-    ==========================================================================================
-    ==========================================================================================
-                                    ATUALIZAÇÃO DE GRÁFICO
-    ==========================================================================================
-    ==========================================================================================
-    ==========================================================================================
-    */
+
+    /*
+     ==========================================================================================
+     ==========================================================================================
+     ==========================================================================================
+                                     ATUALIZAÇÃO DE GRÁFICO
+     ==========================================================================================
+     ==========================================================================================
+     ==========================================================================================
+     */
 
     // ainda não está pronto
 
@@ -653,10 +659,10 @@
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
-        }
+    }
 
-        function atualizarUsoDisco(id_maquina) {
-            fetch(`/dashEspecifica/usoDisco/${id_maquina}`, { cache: 'no-store' })
+    function atualizarUsoDisco(id_maquina) {
+        fetch(`/dashEspecifica/usoDisco/${id_maquina}`, { cache: 'no-store' })
             .then(function (response) {
                 if (response.ok) {
                     response.json().then(function (novoRegistro) {
@@ -684,6 +690,6 @@
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
-        }
+    }
 
 </script>
