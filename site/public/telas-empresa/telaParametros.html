@@ -15,9 +15,6 @@
     <link rel="stylesheet" href="../css/telaParametros.css">
     <title>Parâmetros de Alertas</title>
 </head>
-<style>
-
-</style>
 
 <body>
     <div class="tudao">
@@ -48,9 +45,11 @@
                         Editar dados da Empresa
                     </button> <br> <br>
                     <button class="botao-menu" onclick="window.location = 'telaParametros.html'">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
-                            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
-                          </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-bell" viewBox="0 0 16 16">
+                            <path
+                                d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6" />
+                        </svg>
                         Editar parâmetros de alertas
                     </button> <br> <br>
                     <button class="botao-menu" onclick="encerrarSession()">
@@ -91,48 +90,8 @@
                 <button onclick="editarParametros()" class="button_tela">Ajustar parâmetros</button>
             </div>
         </div>
-
-        <dialog id="modal-add-adm" close>
-            <div class="corpo">
-                <div class="container-modal">
-                    <div class="back">
-                        <a id="FecharModal">
-                            <span id="FecharModal">
-                                ↤
-                            </span>
-                        </a>
-                    </div>
-                    <div class="top-logo">
-                        <img class="logo" src="../assets/img/logoCopia.png" alt="">
-                    </div>
-                    <div class="info-input">
-
-                        <div>
-                            <input id="input_senhaEmpresa" class="input" placeholder="Nova senha" type="password">
-                        </div>
-
-                        <div>
-                            <input id="input_confirmarSenhaEmpresa" class="input" placeholder="Confirmar senha"
-                                type="password">
-                        </div>
-                        <div class="eye">
-                            <i class="bi bi-eye-fill" onclick="mostrarOcultarSenha()" id="mostrarSenha"></i>
-                        </div>
-                    </div>
-                    <div class="button-logar">
-                        <button onclick="editarSenha()" class="button-login">
-                            Alterar senha
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </dialog>
-
     </div>
-
-
 </body>
-
 </html>
 
 <script>
@@ -202,123 +161,4 @@
                 console.log(`#ERRO: ${resposta}`);
             });
     }
-
-
-    function ativarInput() {
-        for (var i = 0; i < inputs.length; i++) {
-            inputs[i].style.border = "#000000 solid 1px";
-            inputs[i].disabled = false;
-            inputs[i].style.backgroundColor = "#ffffff"
-            console.log(inputs[i].value); // seleciona todas as input com a class do inputs
-        }
-
-        div_Dados.innerHTML = "<button onclick='editarDados()'>Salvar </button>"
-    }
-
-    function editarSenha() {
-        var senhaEmpresa = input_senhaEmpresa.value;
-        var confirmar = input_confirmarSenhaEmpresa.value;
-        if (senhaEmpresa == confirmar) {
-            fetch(`../empresa/editarSenhaEmpresa/${sessionStorage.getItem("ID_EMPRESA")}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-
-                    novaSenhaServer: senhaEmpresa,
-
-
-                })
-            }).then(function (resposta) {
-
-                if (resposta.ok) {
-                    window.location = 'dadosEmpresa.html';
-
-                } else if (resposta.status == 404) {
-                    window.alert("Deu 404!");
-                } else {
-                    throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-                }
-            }).catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-        } else {
-            window.alert("Senha não coincidem")
-        }
-
-
-    }
-
-    function editarDados() {
-        fetch(`../empresa/editarEmpresa/${sessionStorage.getItem("ID_EMPRESA")}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-
-                nomeEmpresaServer: input_nome.value,
-                nomeFantasiaServer: input_nomeFantasia.value,
-                cpnjServer: input_cnpj.value,
-                emailServer: input_email.value
-
-            })
-        }).then(function (resposta) {
-
-            if (resposta.ok) {
-                window.location = 'dadosEmpresa.html';
-
-            } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
-            } else {
-                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-    }
-
-    fetch(`../empresa/dadosDaEmpresa/${sessionStorage.getItem("ID_EMPRESA")}`).then(function (resposta) {
-        if (resposta.ok) {
-
-            if (resposta.status == 204) {
-                alert("Nenhum resultado encontrado.");
-            }
-
-            resposta.json().then(function (resposta) {
-                console.log("Dados recebidos: ", JSON.stringify(resposta));
-                console.log(resposta);
-
-                var empresa = resposta[0];
-
-                if (resposta.nome != "") {
-                    input_nome.value = empresa.nome;
-                }
-                input_nomeFantasia.value = empresa.nome_fantasia;
-
-                input_cnpj.value = empresa.cnpj;
-
-                input_email.value = empresa.email;
-
-                input_senha.value = "**************";
-
-
-                inputs = document.getElementsByClassName(`inputDados`);
-
-                for (var i = 0; i < inputs.length; i++) {
-                    inputs[i].style.border = "#000000 solid 1px";
-                    inputs[i].disabled = true;
-                    inputs[i].style.backgroundColor = "#dddddd"
-                    console.log(inputs[i].value); // seleciona todas as input com a class do inputs
-                }
-
-            });
-        } else {
-            throw ('Houve um erro na API!');
-        }
-    }).catch(function (resposta) {
-        console.error(resposta);
-    });
-
 </script>
