@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/x.css">
+    <link rel="stylesheet" href="../css/area_controle.css">
+    <link rel="icon" href="../assets/img/favicon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script src="../js/cadastroADM.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="../css/visaoGeral.css">
+    <link rel="stylesheet" href="../css/telaParametros.css">
+    <title>Parâmetros de Alertas</title>
+</head>
+<style>
+
+</style>
+
+<body>
+    <div class="tudao">
+        <div class="menu">
+            <div class="header">
+                <div class="caixa_img">
+                    <img class="logo" src="../assets/img/logo-navbar.png" alt="">
+                </div>
+            </div>
+            <div class="caixa-esquerda">
+                <div class="esquerda">
+                    <button class="botao-menu" onclick="window.location = 'area_controle.html'">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-person-add" viewBox="0 0 16 16">
+                            <path
+                                d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+                            <path
+                                d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z" />
+                        </svg>
+                        Cadastrar novo Admin
+                    </button> <br> <br>
+                    <button class="botao-menu" onclick="window.location = 'dadosEmpresa.html'">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-person" viewBox="0 0 16 16">
+                            <path
+                                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
+                        </svg>
+                        Editar dados da Empresa
+                    </button> <br> <br>
+                    <button class="botao-menu" onclick="window.location = 'telaParametros.html'">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
+                          </svg>
+                        Editar parâmetros de alertas
+                    </button> <br> <br>
+                    <button class="botao-menu" onclick="encerrarSession()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z" />
+                            <path fill-rule="evenodd"
+                                d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
+                        </svg>
+                        Sair
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="direita">
+            <h1>Ajustar parâmetros dos alertas</h1>
+
+            <div class="campos_input">
+                <span>CPU (Processador)</span>
+                <input type="number" id="inputFreq" class="inputParametros" placeholder="Frequência (%)" min="0"
+                    max="100"> <br>
+                <input type="number" id="inputUsoCPU" class="inputParametros" placeholder="Uso da CPU (%)" min="0"
+                    max="100"> <br>
+                <span>Disco</span>
+                <input type="number" id="inputEscritaDisco" class="inputParametros" placeholder="Escritas" min="0"
+                    max="100"> <br>
+                <input type="number" id="inputUsoDisco" class="inputParametros"
+                    placeholder="Total de uso do Disco (%) min=" 0" max="100""><br>
+                <span>Memória</span>
+                <input type=" number" id="inputRAM" class="inputParametros" placeholder="RAM Total (%)" min="0"
+                    max="100"><br>
+                <input type="number" id="inputUsoMemoria" class="inputParametros" placeholder="Memória em uso (%)"
+                    min="0" max="100"><br>
+            </div>
+
+            <div id="caixa_button">
+                <button onclick="editarParametros()" class="button_tela">Ajustar parâmetros</button>
+            </div>
+        </div>
+
+        <dialog id="modal-add-adm" close>
+            <div class="corpo">
+                <div class="container-modal">
+                    <div class="back">
+                        <a id="FecharModal">
+                            <span id="FecharModal">
+                                ↤
+                            </span>
+                        </a>
+                    </div>
+                    <div class="top-logo">
+                        <img class="logo" src="../assets/img/logoCopia.png" alt="">
+                    </div>
+                    <div class="info-input">
+
+                        <div>
+                            <input id="input_senhaEmpresa" class="input" placeholder="Nova senha" type="password">
+                        </div>
+
+                        <div>
+                            <input id="input_confirmarSenhaEmpresa" class="input" placeholder="Confirmar senha"
+                                type="password">
+                        </div>
+                        <div class="eye">
+                            <i class="bi bi-eye-fill" onclick="mostrarOcultarSenha()" id="mostrarSenha"></i>
+                        </div>
+                    </div>
+                    <div class="button-logar">
+                        <button onclick="editarSenha()" class="button-login">
+                            Alterar senha
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </dialog>
+
+    </div>
+
+
+</body>
+
+</html>
+
+<script>
+
+    function editarParametros() {
+        verificarParametro();
+        enviarParametros();
+    }
+
+    function verificarParametro() {
+        const inputFreq = parseFloat(document.getElementById('inputFreq').value);
+        const inputUsoCPU = parseFloat(document.getElementById('inputUsoCPU').value);
+        const inputEscritaDisco = parseFloat(document.getElementById('inputEscritaDisco').value);
+        const inputUsoDisco = parseFloat(document.getElementById('inputUsoDisco').value);
+        const inputRAM = parseFloat(document.getElementById('inputRAM').value);
+        const inputUsoMemoria = parseFloat(document.getElementById('inputUsoMemoria').value);
+
+        if (
+            inputFreq >= 0 && inputFreq <= 100 &&
+            inputUsoCPU >= 0 && inputUsoCPU <= 100 &&
+            inputEscritaDisco >= 0 && inputEscritaDisco <= 100 &&
+            inputUsoDisco >= 0 && inputUsoDisco <= 100 &&
+            inputRAM >= 0 && inputRAM <= 100 &&
+            inputUsoMemoria >= 0 && inputUsoMemoria <= 100
+        ) {
+            alert('Parâmetros ajustados');
+            enviarParametros();
+        } else {
+            alert('Parâmetros inválidos! Por favor, insira valores entre 0 a 100');
+        }
+    }
+
+    function enviarParametros() {
+        const dados = {
+            inputFreq,
+            inputUsoCPU,
+            inputEscritaDisco,
+            inputUsoDisco,
+            inputRAM,
+            inputUsoMemoria,
+        };
+
+        fetch(`../empresa/parametroEmpresa/${sessionStorage.getItem("ID_EMPRESA")}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                frequenciaServer: inputFreq,
+                usoDoCpuServer: inputUsoCPU,
+                escritasDiscoServer: inputEscritaDisco,
+                usoDoDiscoServer: inputUsoDisco,
+                RamTotalServer: inputRAM,
+                usoDaMemoriaServer: inputUsoMemoria,
+            }),
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    window.location = 'telaParametros.html';
+                } else if (resposta.status == 404) {
+                    window.alert("Erro 404");
+                } else {
+                    throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+
+    function ativarInput() {
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].style.border = "#000000 solid 1px";
+            inputs[i].disabled = false;
+            inputs[i].style.backgroundColor = "#ffffff"
+            console.log(inputs[i].value); // seleciona todas as input com a class do inputs
+        }
+
+        div_Dados.innerHTML = "<button onclick='editarDados()'>Salvar </button>"
+    }
+
+    function editarSenha() {
+        var senhaEmpresa = input_senhaEmpresa.value;
+        var confirmar = input_confirmarSenhaEmpresa.value;
+        if (senhaEmpresa == confirmar) {
+            fetch(`../empresa/editarSenhaEmpresa/${sessionStorage.getItem("ID_EMPRESA")}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+
+                    novaSenhaServer: senhaEmpresa,
+
+
+                })
+            }).then(function (resposta) {
+
+                if (resposta.ok) {
+                    window.location = 'dadosEmpresa.html';
+
+                } else if (resposta.status == 404) {
+                    window.alert("Deu 404!");
+                } else {
+                    throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+        } else {
+            window.alert("Senha não coincidem")
+        }
+
+
+    }
+
+    function editarDados() {
+        fetch(`../empresa/editarEmpresa/${sessionStorage.getItem("ID_EMPRESA")}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+
+                nomeEmpresaServer: input_nome.value,
+                nomeFantasiaServer: input_nomeFantasia.value,
+                cpnjServer: input_cnpj.value,
+                emailServer: input_email.value
+
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.location = 'dadosEmpresa.html';
+
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+    fetch(`../empresa/dadosDaEmpresa/${sessionStorage.getItem("ID_EMPRESA")}`).then(function (resposta) {
+        if (resposta.ok) {
+
+            if (resposta.status == 204) {
+                alert("Nenhum resultado encontrado.");
+            }
+
+            resposta.json().then(function (resposta) {
+                console.log("Dados recebidos: ", JSON.stringify(resposta));
+                console.log(resposta);
+
+                var empresa = resposta[0];
+
+                if (resposta.nome != "") {
+                    input_nome.value = empresa.nome;
+                }
+                input_nomeFantasia.value = empresa.nome_fantasia;
+
+                input_cnpj.value = empresa.cnpj;
+
+                input_email.value = empresa.email;
+
+                input_senha.value = "**************";
+
+
+                inputs = document.getElementsByClassName(`inputDados`);
+
+                for (var i = 0; i < inputs.length; i++) {
+                    inputs[i].style.border = "#000000 solid 1px";
+                    inputs[i].disabled = true;
+                    inputs[i].style.backgroundColor = "#dddddd"
+                    console.log(inputs[i].value); // seleciona todas as input com a class do inputs
+                }
+
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
+
+</script>
