@@ -6,15 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/x.css">
+    <link rel="stylesheet" href="../css/area_controle.css">
     <link rel="icon" href="../assets/img/favicon.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <script src="../js/cadastroADM.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="../css/visaoGeral.css">
+    <link rel="stylesheet" href="../css/dadosEmpresa.css">
     <title>Dados da empresa</title>
 </head>
 <style>
-    
+
 </style>
 
 <body>
@@ -59,15 +61,22 @@
             </div>
         </div>
         <div class="direita">
-            <h1>Dados da empresa</h1>
-            Nome: <input type="text" id="input_nome" class="inputDados"> <br>
-            Nome fantasia:<input type="text" id="input_nomeFantasia" class="inputDados"><br>
-            CNPJ: <input type="text" id="input_cnpj" class="inputDados"><br>
-            Email: <input type="text" id="input_email" class="inputDados"><br>
-            Senha: <input type="password" id="input_senha" disabled> <br>
+            <div class="tittleEmpresaDados">
+                <h1>Dados da empresa</h1>
+            </div>
 
-            <div id="div_Dados"><button onclick="ativarInput()">Editar</button> <button onclick="butaoAdm()">Trocar
-                    Senha</button></div>
+            <div class="campos_input">
+                Nome: <input type="text" id="input_nome" class="inputDados"> <br>
+                Nome fantasia:<input type="text" id="input_nomeFantasia" class="inputDados"><br>
+                CNPJ: <input type="text" id="input_cnpj" class="inputDados"><br>
+                Email: <input type="text" id="input_email" class="inputDados"><br>
+                Senha: <input type="password" id="input_senha" disabled> <br>
+            </div>
+
+            <div id="caixa_button">
+                <button onclick="ativarInput()" class="button_tela">Editar</button>
+                <button onclick="butaoAdm()" class="button_tela">Trocar Senha</button>
+            </div>
         </div>
 
 
@@ -91,7 +100,8 @@
                         </div>
 
                         <div>
-                            <input id="input_confirmarSenhaEmpresa" class="input" placeholder="Confirmar senha" type="password">
+                            <input id="input_confirmarSenhaEmpresa" class="input" placeholder="Confirmar senha"
+                                type="password">
                         </div>
                         <div class="eye">
                             <i class="bi bi-eye-fill" onclick="mostrarOcultarSenha()" id="mostrarSenha"></i>
@@ -135,9 +145,9 @@
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    
+
                     novaSenhaServer: senhaEmpresa,
-                    
+
 
                 })
             }).then(function (resposta) {
@@ -153,7 +163,7 @@
             }).catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
             });
-        }else{
+        } else {
             window.alert("Senha não coincidem")
         }
 
