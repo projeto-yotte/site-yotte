@@ -39,10 +39,9 @@ function dadosDaEmpresa(id_empresa) {
 
 function listarUsuarios(id_empresa) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", id_empresa)
-    var instrucao = `
-        
-                    SELECT * FROM empresa JOIN usuario	WHERE
-                    id_empresa = fk_empresa and id_empresa = ${id_empresa};
+    var instrucao = `    
+        SELECT  usuario.nome, area, cargo FROM usuario JOIN empresa on id_empresa = fk_empresa JOIN tipo_usuario on id_tipo_usuario = fk_tipo_usuario WHERE
+        id_empresa = ${id_empresa} and id_tipo_usuario = 2;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
