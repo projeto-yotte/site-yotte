@@ -33,6 +33,7 @@ function testeAdm() {
 
 
 function excluirAdm(id_usuario) {
+    console.log("ID do usuário a ser excluído:", id_usuario);
     Swal.fire({
         title: 'Deletar Admin',
         text: "Certeza que deseja deletar esse Admin?",
@@ -52,6 +53,11 @@ function excluirAdm(id_usuario) {
               }).then(function (resposta) {
           
                 if (resposta.ok) {  
+                    Swal.fire(
+                        'Deletado!',
+                        'Usuário Admin deletado com sucesso!',
+                        'success'
+                )
                   window.location = "area_controle.html"
                 } else if (resposta.status == 404) {
                   window.alert("Deu 404!");
@@ -62,11 +68,7 @@ function excluirAdm(id_usuario) {
                 console.log(`#ERRO: ${resposta}`);
               });
             
-          Swal.fire(
-            'Deletado!',
-            'Usuário Admin deletado com sucesso!',
-            'success'
-          )
+                
         }
       })
 }

@@ -109,9 +109,9 @@ function listarUsuario(req, res) {
 
 
 function deletarUsuario(req, res) {
-    var id_Usuario = req.params.id_Usuario;
+    var id_usuario = req.params.id_usuario;
 
-    empresaModel.deletarUsuario(id_Usuario)
+    empresaModel.deletarUsuario(id_usuario)
         .then(
             function (resultado) {
                 res.json(resultado);
