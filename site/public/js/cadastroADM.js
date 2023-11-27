@@ -53,11 +53,6 @@ function excluirAdm(id_usuario) {
               }).then(function (resposta) {
           
                 if (resposta.ok) {  
-                    Swal.fire(
-                        'Deletado!',
-                        'Usuário Admin deletado com sucesso!',
-                        'success'
-                )
                   window.location = "area_controle.html"
                 } else if (resposta.status == 404) {
                   window.alert("Deu 404!");
@@ -68,7 +63,11 @@ function excluirAdm(id_usuario) {
                 console.log(`#ERRO: ${resposta}`);
               });
             
-                
+              Swal.fire(
+                'Deletado!',
+                'Usuário Admin deletado com sucesso!',
+                'success'
+        )
         }
       })
 }
