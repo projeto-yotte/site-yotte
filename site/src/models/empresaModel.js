@@ -40,18 +40,18 @@ function dadosDaEmpresa(id_empresa) {
 function listarUsuarios(id_empresa) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", id_empresa)
     var instrucao = `    
-        SELECT  usuario.nome, area, cargo FROM usuario JOIN empresa on id_empresa = fk_empresa JOIN tipo_usuario on id_tipo_usuario = fk_tipo_usuario WHERE
+        SELECT  id_usuario,usuario.nome, area, cargo FROM usuario JOIN empresa on id_empresa = fk_empresa JOIN tipo_usuario on id_tipo_usuario = fk_tipo_usuario WHERE
         id_empresa = ${id_empresa} and id_tipo_usuario = 2;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
-function deletarUsuario(id_Usuario) {
-    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", id_Usuario);
+function deletarUsuario(id_usuario) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", id_usuario);
     var instrucao = `
     
-        DELETE FROM usuario WHERE id_Usuario = ${id_Usuario};
+        DELETE FROM usuario WHERE id_usuario = ${id_usuario};
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

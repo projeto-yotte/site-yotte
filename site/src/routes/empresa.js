@@ -21,7 +21,7 @@ router.get("/listarUsuarios/:id_empresa", function (req, res) {
 });
 
 
-router.delete("/deletarUsuario/:id_Usuario", function (req, res) {
+router.delete("/deletarUsuario/:id_usuario", function (req, res) {
     empresaController.deletarUsuario(req, res);
 });
 

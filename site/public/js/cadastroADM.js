@@ -33,6 +33,7 @@ function testeAdm() {
 
 
 function excluirAdm(id_usuario) {
+    console.log("ID do usuário a ser excluído:", id_usuario);
     Swal.fire({
         title: 'Deletar Admin',
         text: "Certeza que deseja deletar esse Admin?",
@@ -62,11 +63,11 @@ function excluirAdm(id_usuario) {
                 console.log(`#ERRO: ${resposta}`);
               });
             
-          Swal.fire(
-            'Deletado!',
-            'Usuário Admin deletado com sucesso!',
-            'success'
-          )
+              Swal.fire(
+                'Deletado!',
+                'Usuário Admin deletado com sucesso!',
+                'success'
+        )
         }
       })
 }
