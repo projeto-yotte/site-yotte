@@ -11,6 +11,7 @@
     <script src="../js/cadastroADM.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="../css/visaoGeral.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <title>Área de Controle</title>
 </head>
 
@@ -77,8 +78,11 @@
             <div class="caixa-h2-adm">
                 <h2>Lista de usuários Admin</h2>
             </div>
-            <div>
-                <input type="text" placeholder="a" id="pesquisar_input"> <button onclick="pesquisarAdmin()">Buscar</button>
+            <div class="caixa-search">
+                <div class="form_search">
+                    <input type="search" id="pesquisar_input">
+                    <button onclick="pesquisarAdmin()" class="fa fa-search"></button>
+                </div>
             </div>
 
             <div class="tabela-adms">
