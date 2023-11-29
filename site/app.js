@@ -17,6 +17,7 @@ var adminRouter = require("./src/routes/admin");
 var dashInicialRouter = require("./src/routes/dashInicial");
 var dashEspecificaRouter = require("./src/routes/dashEspecifica");
 var maquinaRouter = require("./src/routes/maquina")
+var alertaRouter = require("./src/routes/alertas")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -31,7 +32,8 @@ app.use("/empresa", empresaRouter);
 app.use("/admin", adminRouter);
 app.use("/dashInicial", dashInicialRouter);
 app.use("/dashEspecifica", dashEspecificaRouter);
-app.use("/maquina", maquinaRouter)
+app.use("/maquina", maquinaRouter);
+app.use("/alertas", alertaRouter);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
