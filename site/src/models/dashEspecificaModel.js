@@ -4,59 +4,101 @@ function componentesPrincipais(id_funcionario) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
-        SELECT
-            c.id_componente,
-            c.nome AS nome_componente,
-            dc.uso
-        FROM
-            componente c
-        JOIN (
+        WITH Porcentagens AS (
             SELECT
-                dc.fk_componente,
-                MAX(dc.data_captura) AS ultima_captura
+              componente.nome,
+              ROUND(
+                CASE
+                  WHEN componente.nome = 'cpu' THEN dados_captura.uso / 100 * 100
+                  WHEN componente.nome IN ('disco', 'memoria') THEN dados_captura.uso / info_componente.total * 100
+                  ELSE 0 -- Adicione condições adicionais conforme necessário
+                END, 2
+              ) AS porcentagem,
+              uso,
+              total,
+              id_usuario,
+              dados_captura.data_captura
             FROM
-                dados_captura dc
-            JOIN
-                componente comp ON dc.fk_componente = comp.id_componente
-            JOIN
-                maquina m ON comp.fk_maquina = m.id_maquina
-            JOIN
-                usuario u ON m.fk_usuario = u.id_usuario
+              dados_captura
+              JOIN componente ON dados_captura.fk_componente = componente.id_componente
+              JOIN info_componente ON info_componente.id_info = componente.fk_info
+              JOIN maquina ON componente.id_componente = maquina.id_maquina
+              JOIN usuario ON usuario.id_usuario = maquina.fk_usuario
             WHERE
-                u.id_usuario = ${id_funcionario}
-            GROUP BY
-                dc.fk_componente
-        ) AS ultimas_capturas ON c.id_componente = ultimas_capturas.fk_componente
-        JOIN
-            dados_captura dc ON ultimas_capturas.fk_componente = dc.fk_componente AND ultimas_capturas.ultima_captura = dc.data_captura;
+              (
+                (componente.nome = 'cpu' AND dados_captura.uso IS NOT NULL)
+                OR
+                (componente.nome IN ('disco', 'memoria') AND dados_captura.uso IS NOT NULL)
+              )
+              AND dados_captura.data_captura >= CURDATE() - INTERVAL 10 DAY
+              AND usuario.id_usuario = ${id_funcionario}
+          ),
+          PorcentagensOrdenadas AS (
+            SELECT
+              nome,
+              porcentagem,
+              uso,
+              total,
+              id_usuario,
+              data_captura,
+              ROW_NUMBER() OVER (PARTITION BY nome ORDER BY data_captura DESC) AS row_num
+            FROM
+              Porcentagens
+          )
+          SELECT *
+          FROM
+            PorcentagensOrdenadas
+          WHERE
+            row_num = 1;
         `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
-        SELECT
-            c.id_componente,
-            c.nome AS nome_componente,
-            dc.uso
-        FROM
-            componente c
-        JOIN (
+        WITH Porcentagens AS (
             SELECT
-                dc.fk_componente,
-                MAX(dc.data_captura) AS ultima_captura
+              componente.nome,
+              ROUND(
+                CASE
+                  WHEN componente.nome = 'cpu' THEN dados_captura.uso / 100 * 100
+                  WHEN componente.nome IN ('disco', 'memoria') THEN dados_captura.uso / info_componente.total * 100
+                  ELSE 0 -- Adicione condições adicionais conforme necessário
+                END, 2
+              ) AS porcentagem,
+              uso,
+              total,
+              id_usuario,
+              dados_captura.data_captura
             FROM
-                dados_captura dc
-            JOIN
-                componente comp ON dc.fk_componente = comp.id_componente
-            JOIN
-                maquina m ON comp.fk_maquina = m.id_maquina
-            JOIN
-                usuario u ON m.fk_usuario = u.id_usuario
+              dados_captura
+              JOIN componente ON dados_captura.fk_componente = componente.id_componente
+              JOIN info_componente ON info_componente.id_info = componente.fk_info
+              JOIN maquina ON componente.id_componente = maquina.id_maquina
+              JOIN usuario ON usuario.id_usuario = maquina.fk_usuario
             WHERE
-                u.id_usuario = ${id_funcionario}
-            GROUP BY
-                dc.fk_componente
-        ) AS ultimas_capturas ON c.id_componente = ultimas_capturas.fk_componente
-        JOIN
-            dados_captura dc ON ultimas_capturas.fk_componente = dc.fk_componente AND ultimas_capturas.ultima_captura = dc.data_captura;;
+              (
+                (componente.nome = 'cpu' AND dados_captura.uso IS NOT NULL)
+                OR
+                (componente.nome IN ('disco', 'memoria') AND dados_captura.uso IS NOT NULL)
+              )
+              AND dados_captura.data_captura >= CURDATE() - INTERVAL 10 DAY
+              AND usuario.id_usuario = ${id_funcionario}
+          ),
+          PorcentagensOrdenadas AS (
+            SELECT
+              nome,
+              porcentagem,
+              uso,
+              total,
+              id_usuario,
+              data_captura,
+              ROW_NUMBER() OVER (PARTITION BY nome ORDER BY data_captura DESC) AS row_num
+            FROM
+              Porcentagens
+          )
+          SELECT *
+          FROM
+            PorcentagensOrdenadas
+          WHERE
+            row_num = 1;
         `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
