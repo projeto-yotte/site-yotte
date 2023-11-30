@@ -402,3 +402,198 @@ GROUP BY
 select * from usuario;
 
 select * from maquina;
+
+
+WITH DiferencaCapturas AS (
+    SELECT
+        id_maquina,
+        data_captura,
+        empresa.nome as nomeEmpresa,
+        usuario.nome as nomeUsuario,
+        id_usuario,
+        empresa.id_empresa,
+        LAG(data_captura) OVER (PARTITION BY id_maquina ORDER BY data_captura) AS data_captura_anterior,
+        desligada
+    FROM dados_captura
+    JOIN componente ON dados_captura.fk_componente = componente.id_componente
+    JOIN maquina ON componente.fk_maquina = maquina.id_maquina
+    JOIN usuario on maquina.fk_usuario = usuario.id_usuario
+    JOIN empresa on usuario.fk_empresa = empresa.id_empresa
+    WHERE data_captura >= CURRENT_DATE - INTERVAL 7 DAY
+)
+SELECT
+    id_maquina,
+    TIMESTAMPDIFF(HOUR, MAX(data_captura_anterior), MIN(data_captura)) AS tempo_inatividade_horas
+FROM DiferencaCapturas
+WHERE id_empresa = 1
+AND id_usuario = 2
+GROUP BY id_maquina
+ORDER BY tempo_inatividade_horas ASC;
+
+SELECT * FROM maquina;
+
+SELECT componente.nome,uso,leituras, data_captura FROM dados_captura join componente on id_componente = fk_componente JOIN maquina on fk_maquina = id_maquina
+                    JOIN usuario on id_usuario = fk_usuario WHERE  email like "lira@.com.com";
+                    
+
+SELECT
+    maquina.id_maquina,
+    COUNT(CASE WHEN componente.nome like '%CPU%' THEN alerta.id_alerta END) AS count_alerta_cpu,
+    COUNT(CASE WHEN componente.nome like 'RAM%' THEN alerta.id_alerta END) AS count_alerta_ram,
+    COUNT(CASE WHEN componente.nome like '%HD%' OR '%SSD' THEN alerta.id_alerta END) AS count_alerta_disco
+FROM
+    alerta
+JOIN dados_captura ON alerta.fk_dados_captura = dados_captura.id_dados_captura
+JOIN componente ON dados_captura.fk_componente = componente.id_componente
+JOIN maquina ON componente.fk_maquina = maquina.id_maquina
+JOIN usuario ON maquina.fk_usuario = usuario.id_usuario
+JOIN empresa ON usuario.fk_empresa = empresa.id_empresa
+WHERE
+    empresa.id_empresa = 2
+GROUP BY
+    id_maquina;
+    
+    
+    WITH DiferencaCapturas AS (
+    SELECT
+        id_maquina,
+        data_captura,
+        empresa.nome as nomeEmpresa,
+        usuario.nome as nomeUsuario,
+        empresa.id_empresa,
+        LAG(data_captura) OVER (PARTITION BY id_maquina ORDER BY data_captura) AS data_captura_anterior,
+        desligada
+    FROM dados_captura
+    JOIN componente ON dados_captura.fk_componente = componente.id_componente
+    JOIN maquina ON componente.fk_maquina = maquina.id_maquina
+    JOIN usuario on maquina.fk_usuario = usuario.id_usuario
+    JOIN empresa on usuario.fk_empresa = empresa.id_empresa
+    WHERE data_captura >= CURRENT_DATE - INTERVAL 7 DAY
+)
+SELECT
+    id_maquina,
+    TIMESTAMPDIFF(HOUR, MAX(data_captura_anterior), MIN(data_captura)) AS tempo_inatividade_horas
+FROM DiferencaCapturas
+WHERE id_empresa = 2
+GROUP BY id_maquina
+ORDER BY tempo_inatividade_horas ASC
+LIMIT 3;
+
+SELECT
+    maquina.id_maquina,
+    usuario.nome,
+    COUNT(CASE WHEN componente.nome = 'CPU' THEN alerta.id_alerta END) AS count_alerta_cpu,
+    COUNT(CASE WHEN componente.nome= 'RAM' THEN alerta.id_alerta END) AS count_alerta_ram,
+    COUNT(CASE WHEN componente.nome = 'HD' THEN alerta.id_alerta END) AS count_alerta_hd
+FROM
+    alerta
+JOIN dados_captura ON alerta.fk_dados_captura = dados_captura.id_dados_captura
+JOIN componente ON dados_captura.fk_componente = componente.id_componente
+JOIN maquina ON componente.fk_maquina = maquina.id_maquina
+JOIN usuario ON maquina.fk_usuario = usuario.id_usuario
+JOIN empresa ON usuario.fk_empresa = empresa.id_empresa
+WHERE
+    empresa.id_empresa = 2
+AND usuario.id_usuario = 6
+GROUP BY
+    id_maquina, nome;
+    
+    
+
+SELECT
+    maquina.id_maquina,
+    COUNT(CASE WHEN componente.nome like '%CPU%' THEN alerta.id_alerta END) AS count_alerta_cpu,
+    COUNT(CASE WHEN componente.nome like 'RAM%' THEN alerta.id_alerta END) AS count_alerta_ram,
+    COUNT(CASE WHEN componente.nome like '%HD%' OR '%SSD' THEN alerta.id_alerta END) AS count_alerta_disco
+FROM
+    alerta
+JOIN dados_captura ON alerta.fk_dados_captura = dados_captura.id_dados_captura
+JOIN componente ON dados_captura.fk_componente = componente.id_componente
+JOIN maquina ON componente.fk_maquina = maquina.id_maquina
+JOIN usuario ON maquina.fk_usuario = usuario.id_usuario
+JOIN empresa ON usuario.fk_empresa = empresa.id_empresa
+WHERE
+    empresa.id_empresa = 2
+GROUP BY
+    id_maquina;
+    
+    
+    
+    SELECT
+    SUM(count_alerta_cpu) AS total_alerta_cpu,
+    SUM(count_alerta_ram) AS total_alerta_ram,
+    SUM(count_alerta_disco) AS total_alerta_disco
+FROM (
+    SELECT
+        maquina.id_maquina,
+        empresa.id_empresa,
+        COUNT(CASE WHEN componente.nome LIKE '%CPU%' THEN alerta.id_alerta END) AS count_alerta_cpu,
+        COUNT(CASE WHEN componente.nome LIKE 'RAM%' THEN alerta.id_alerta END) AS count_alerta_ram,
+        COUNT(CASE WHEN componente.nome LIKE '%HD%' OR componente.nome LIKE '%SSD%' THEN alerta.id_alerta END) AS count_alerta_disco
+    FROM
+        alerta
+    JOIN dados_captura ON alerta.fk_dados_captura = dados_captura.id_dados_captura
+    JOIN componente ON dados_captura.fk_componente = componente.id_componente
+    JOIN maquina ON componente.fk_maquina = maquina.id_maquina
+    JOIN usuario ON maquina.fk_usuario = usuario.id_usuario
+    JOIN empresa ON usuario.fk_empresa = empresa.id_empresa
+    WHERE
+        empresa.id_empresa = 2
+    GROUP BY
+        maquina.id_maquina
+) AS subquery;
+
+
+
+
+SELECT
+  COUNT(CASE WHEN desligada = 0 THEN 1 END) AS count_ligadas,
+  COUNT(CASE WHEN desligada = 1 THEN 1 END) AS count_desligadas
+FROM (
+  SELECT
+    maquina.id_maquina,
+    MAX(dados_captura.desligada) AS desligada
+  FROM dados_captura
+    JOIN componente ON dados_captura.fk_componente = componente.id_componente
+    JOIN maquina ON componente.fk_maquina = maquina.id_maquina
+    JOIN usuario ON maquina.fk_usuario = usuario.id_usuario
+    JOIN empresa on usuario.fk_empresa = empresa.id_empresa
+    AND id_empresa = 1
+  GROUP BY maquina.id_maquina
+  ORDER BY maquina.id_maquina DESC
+) AS maquinas;
+
+
+
+WITH DiferencaCapturas AS (
+    SELECT
+        id_maquina,
+        data_captura,
+        empresa.nome as nomeEmpresa,
+        usuario.nome as nomeUsuario,
+        empresa.id_empresa,
+        LAG(data_captura) OVER (PARTITION BY id_maquina ORDER BY data_captura) AS data_captura_anterior,
+        desligada
+    FROM dados_captura
+    JOIN componente ON dados_captura.fk_componente = componente.id_componente
+    JOIN maquina ON componente.fk_maquina = maquina.id_maquina
+    JOIN usuario on maquina.fk_usuario = usuario.id_usuario
+    JOIN empresa on usuario.fk_empresa = empresa.id_empresa
+    WHERE data_captura >= CURRENT_DATE - INTERVAL 7 DAY
+)
+SELECT
+    id_maquina,
+    TIMESTAMPDIFF(HOUR, MAX(data_captura_anterior), MIN(data_captura)) AS tempo_inatividade_horas
+FROM DiferencaCapturas
+WHERE id_empresa = 1
+GROUP BY id_maquina
+ORDER BY tempo_inatividade_horas ASC
+LIMIT 3;
+
+SELECT * FROM parametro_componente;
+
+SELECT * FROM tipo_usuario;
+ SELECT usuario.nome, area, cargo FROM usuario JOIN empresa on id_empresa = fk_empresa JOIN tipo_usuario on id_tipo_usuario = fk_tipo_usuario WHERE
+                      id_empresa = 1 and id_tipo_usuario = 2;
+                      
+                      SELECT fk_tipo_usuario FROM usuario WHERE email = 'jessica11@gmail.com' AND senha = 'Senha@19US';
