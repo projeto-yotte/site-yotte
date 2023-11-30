@@ -28,7 +28,7 @@ function componentesPrincipais(id_funcionario) {
                 dc.fk_componente
         ) AS ultimas_capturas ON c.id_componente = ultimas_capturas.fk_componente
         JOIN
-            dados_captura dc ON ultimas_capturas.fk_componente = dc.fk_componente AND ultimas_capturas.ultima_captura = dc.data_captura;;
+            dados_captura dc ON ultimas_capturas.fk_componente = dc.fk_componente AND ultimas_capturas.ultima_captura = dc.data_captura;
         `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
