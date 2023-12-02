@@ -114,7 +114,7 @@ CREATE TABLE processo (
 
 CREATE TABLE alerta (
 id_alerta INT PRIMARY KEY AUTO_INCREMENT,
-descricao VARCHAR(90),
+descricao VARCHAR(250),
 fk_dados_captura INT,
 	FOREIGN KEY (fk_dados_captura) REFERENCES dados_captura(id_dados_captura)
 );
@@ -128,8 +128,8 @@ CREATE TRIGGER verifica_alerta
 AFTER INSERT ON dados_captura
 FOR EACH ROW
 BEGIN
-	DECLARE componente_nome VARCHAR(45);
-    DECLARE componente_uso bigint;
+    DECLARE componente_nome VARCHAR(45);
+    DECLARE componente_uso BIGINT;
     DECLARE porcentagem_uso DECIMAL(5, 2);
     DECLARE parametro_componente VARCHAR(20);
 
@@ -150,10 +150,20 @@ BEGIN
     -- Verifica se a porcentagem está fora dos limites
     IF porcentagem_uso < (SELECT valor_minimo FROM parametro_componente pc JOIN componente c ON pc.fk_componente = c.id_componente WHERE pc.fk_componente = c.id_componente LIMIT 1) OR
        porcentagem_uso > (SELECT valor_maximo FROM parametro_componente pc JOIN componente c ON pc.fk_componente = c.id_componente WHERE pc.fk_componente = c.id_componente LIMIT 1) THEN
-       
-        -- Insere um alerta na tabela
-		INSERT INTO alerta (descricao, fk_dados_captura)
-        VALUES (CONCAT('Uso do componente fora dos limites: ', componente_nome), NEW.id_dados_captura);
+
+        -- Verifica se já foi inserido um alerta para este componente na última hora
+        IF NOT EXISTS (
+                SELECT 1
+                FROM alerta a
+                JOIN dados_captura dc
+                ON a.fk_dados_captura = dc.id_dados_captura
+                WHERE a.fk_dados_captura = NEW.id_dados_captura
+                  AND dc.data_captura >= NOW() - INTERVAL 1 HOUR
+            ) THEN
+            -- Insere um alerta na tabela
+            INSERT INTO alerta (descricao, fk_dados_captura)
+            VALUES (CONCAT('Uso do componente fora dos limites: ', componente_nome), NEW.id_dados_captura);
+        END IF;
     END IF;
 END //
 
@@ -186,8 +196,19 @@ BEGIN
 
     -- Se estiver fora do horário expediente, insere um alerta na tabela
     IF horario_logado_fora THEN
-        INSERT INTO alerta (descricao, fk_dados_captura)
-        VALUES (CONCAT('Usuário ', usuario_nome, ' logou fora do expediente na máquina ', id_maquina, '. Tempo de atividade: ', TIMESTAMPDIFF(MINUTE, primeira_captura_dia, ultima_captura_dia), ' minutos.'), NEW.id_dados_captura);
+        -- Verifica se já foi inserido um alerta para este componente na última hora
+        IF NOT EXISTS (
+                SELECT 1
+                FROM alerta a
+                JOIN dados_captura dc
+                ON a.fk_dados_captura = dc.id_dados_captura
+                WHERE a.fk_dados_captura = NEW.id_dados_captura
+                  AND dc.data_captura >= NOW() - INTERVAL 1 HOUR
+            ) THEN
+            -- Insere um alerta na tabela
+            INSERT INTO alerta (descricao, fk_dados_captura)
+            VALUES (CONCAT('Usuário ', usuario_nome, ' logou fora do expediente na máquina ', id_maquina, '. Tempo de atividade: ', TIMESTAMPDIFF(MINUTE, primeira_captura_dia, ultima_captura_dia), ' minutos.'), NEW.id_dados_captura);
+        END IF;
     END IF;
 END //
 
