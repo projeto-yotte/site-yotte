@@ -24,4 +24,8 @@ router.get("/tempoInatividade/:id_usuario", function (req, res) {
     dashEspecificaController.tempoInatividade(req, res);
 });
 
+router.get("/tempoJanela/:id_maquina", function (req, res) {
+    dashEspecificaController.tempoJanela(req, res);
+});
+
 module.exports = router;

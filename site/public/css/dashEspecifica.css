@@ -227,3 +227,17 @@
     height: 160px;
     margin: 0 0 0 10px;
 }
+
+#containerJanelas {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#containerJanelas .cardJanela {
+    border-radius: 10px;
+    margin: 10px 0;
+    border: 1px solid #fff;
+    background-color: #0F0F0F;
+    padding: 5px;
+}

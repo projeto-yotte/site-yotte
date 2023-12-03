@@ -128,10 +128,14 @@ function editarSenhaEmpresa(idEmpresa, novaSenha ) {
 
 function parametroEmpresa(idEmpresa, parametro, desc) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", idEmpresa, parametro, desc)
-    var instrucao = `
-    SELECT * FROM usuario WHERE fk_empresa = ${idEmpresa} ORDER BY ${parametro} ${desc};
+    var instrucao = ``;
 
-    `;
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        var instrucao = `SELECT * FROM usuario WHERE fk_empresa = ${idEmpresa} ORDER BY ${parametro} ${desc};`;
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        var instrucao = `SELECT * FROM usuario WHERE fk_empresa = ${idEmpresa} ORDER BY ${parametro} ${desc};`;
+    }
+
     console.log("Executando a instrução SQL: \n" + instrucao);
 
     return database.executar(instrucao);
@@ -140,10 +144,14 @@ function parametroEmpresa(idEmpresa, parametro, desc) {
 
 function pesquisarAdmin(pesquisar, idEmpresa) {
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
-    var instrucao = `
+    var instrucao = ``;
     
-    select * from usuario WHERE nome LIKE '${pesquisar}' || email LIKE '${pesquisar}' || area LIKE '${pesquisar}' || cargo LIKE '${pesquisar}' && fk_empresa = ${idEmpresa};
-    `;
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        var instrucao = `select * from usuario WHERE nome LIKE '${pesquisar}' || email LIKE '${pesquisar}' || area LIKE '${pesquisar}' || cargo LIKE '${pesquisar}' && fk_empresa = ${idEmpresa};`;
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        var instrucao = `select * from usuario WHERE nome LIKE '${pesquisar}' || email LIKE '${pesquisar}' || area LIKE '${pesquisar}' || cargo LIKE '${pesquisar}' && fk_empresa = ${idEmpresa};`;
+    }
+    
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
