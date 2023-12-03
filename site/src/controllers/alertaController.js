@@ -2,8 +2,9 @@ var alertaModel = require("../models/alertaModel");
 
 function listar(req, res) {
     var id_admin = req.params.id_admin;
+    var id_empresa = req.params.id_empresa;
 
-    alertaModel.listar(id_admin).then(function (resposta) {
+    alertaModel.listar(id_admin, id_empresa).then(function (resposta) {
         if (resposta.length > 0) {
             res.status(200).json(resposta);
             console.log(JSON.stringify(resposta))

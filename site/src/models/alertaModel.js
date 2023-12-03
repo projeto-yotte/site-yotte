@@ -1,6 +1,6 @@
 var database = require("../database/config");
 
-function listar() {
+function listar(id_admin, id_empresa) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         var instrucao = `

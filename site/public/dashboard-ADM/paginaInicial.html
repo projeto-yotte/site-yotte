@@ -235,7 +235,7 @@
 
 
     function listarMaquinas(id_admin) {
-        fetch(`/maquina/maquinas/${id_admin}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/maquina/maquinas/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 return response.json();
             }
@@ -707,9 +707,10 @@
 
     // divToastStack.style.display = 'none';
     var id_admin = sessionStorage.ID_USUARIO;
+    var id_empresa = sessionStorage.ID_EMPRESA;
 
-    function buscarAlertas() {
-        fetch(`/alertas/listar/${id_admin}`, {
+    function buscarAlertas(id_admin, id_empresa) {
+        fetch(`/alertas/listar/${sessionStorage.ID_USUARIO}/${sessionStorage.ID_EMPRESA}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
