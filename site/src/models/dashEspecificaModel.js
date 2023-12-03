@@ -116,22 +116,23 @@ function relatorioProblema(id_funcionario) {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
         SELECT
-            maquina.id_maquina,
-            usuario.nome,
-            COUNT(CASE WHEN componente.nome = 'CPU' THEN alerta.id_alerta END) AS count_alerta_cpu,
-            COUNT(CASE WHEN componente.nome= 'RAM' THEN alerta.id_alerta END) AS count_alerta_ram,
-            COUNT(CASE WHEN componente.nome = 'HD' THEN alerta.id_alerta END) AS count_alerta_hd
-        FROM
-            alerta
-        JOIN dados_captura ON alerta.fk_dados_captura = dados_captura.id_dados_captura
-        JOIN componente ON dados_captura.fk_componente = componente.id_componente
-        JOIN maquina ON componente.fk_maquina = maquina.id_maquina
-        JOIN usuario ON maquina.fk_usuario = usuario.id_usuario
-        JOIN empresa ON usuario.fk_empresa = empresa.id_empresa
-        WHERE
-            usuario.id_usuario = ${id_funcionario}
-        GROUP BY
-            id_maquina, nome;
+    maquina.id_maquina,
+    usuario.nome,
+    COUNT(CASE WHEN componente.nome = 'CPU' THEN alerta.id_alerta END) AS count_alerta_cpu,
+    COUNT(CASE WHEN componente.nome = 'RAM' THEN alerta.id_alerta END) AS count_alerta_ram,
+    COUNT(CASE WHEN componente.nome = 'HD' THEN alerta.id_alerta END) AS count_alerta_hd
+FROM
+    alerta
+JOIN dados_captura ON alerta.fk_dados_captura = dados_captura.id_dados_captura
+JOIN componente ON dados_captura.fk_componente = componente.id_componente
+JOIN maquina ON componente.fk_maquina = maquina.id_maquina
+JOIN usuario ON maquina.fk_usuario = usuario.id_usuario
+JOIN empresa ON usuario.fk_empresa = empresa.id_empresa
+WHERE
+    usuario.id_usuario = @id_funcionario -- Use parâmetros para evitar SQL injection
+GROUP BY
+    maquina.id_maquina, usuario.nome;
+
     `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
@@ -179,12 +180,12 @@ function usoDisco(id_maquina) {
             JOIN dados_captura dc ON c.id_componente = dc.fk_componente
             JOIN info_componente ic ON c.fk_info = ic.id_info
             WHERE
-                dc.data_captura >= CURRENT_DATE - INTERVAL 30 DAY -- Ajuste na condição
-                AND c.fk_maquina = 1 -- Substitua 1 pelo ID da máquina desejada
+                dc.data_captura >= DATEADD(DAY, -30, GETDATE()) -- Ajuste na condição
+                AND c.fk_maquina = ${id_maquina}
             GROUP BY
                 c.id_componente, c.nome, ic.total
         )
-
+        
         SELECT
             nome_componente,
             CASE
@@ -195,14 +196,14 @@ function usoDisco(id_maquina) {
             END AS porcentagem_uso_diario,
             CASE
                 WHEN media_uso_diario > 0 AND capacidade_total > 0 THEN
-                    CAST((capacidade_total / media_uso_diario) AS SIGNED)
+                    CAST((capacidade_total / media_uso_diario) AS INT)
                 ELSE
                     NULL
             END AS dias_restantes
         FROM
             UsoDiario
         WHERE
-            media_uso_diario > 0;
+            media_uso_diario > 0;              
 
     `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
@@ -219,7 +220,7 @@ function usoDisco(id_maquina) {
             JOIN info_componente ic ON c.fk_info = ic.id_info
             WHERE
                 dc.data_captura >= CURRENT_DATE - INTERVAL 30 DAY -- Ajuste na condição
-                AND c.fk_maquina = ${id_maquina} -- Substitua 1 pelo ID da máquina desejada
+                AND c.fk_maquina = ${id_maquina}
             GROUP BY
                 c.id_componente, c.nome, ic.total
         )
@@ -262,8 +263,8 @@ function tempoInatividade(id_usuario) {
             SELECT
                 id_maquina,
                 data_captura,
-                empresa.nome as nomeEmpresa,
-                usuario.nome as nomeUsuario,
+                empresa.nome AS nomeEmpresa,
+                usuario.nome AS nomeUsuario,
                 id_usuario,
                 empresa.id_empresa,
                 LAG(data_captura) OVER (PARTITION BY id_maquina ORDER BY data_captura) AS data_captura_anterior,
@@ -271,17 +272,18 @@ function tempoInatividade(id_usuario) {
             FROM dados_captura
             JOIN componente ON dados_captura.fk_componente = componente.id_componente
             JOIN maquina ON componente.fk_maquina = maquina.id_maquina
-            JOIN usuario on maquina.fk_usuario = usuario.id_usuario
-            JOIN empresa on usuario.fk_empresa = empresa.id_empresa
-            WHERE data_captura >= CURRENT_DATE - INTERVAL 7 DAY
+            JOIN usuario ON maquina.fk_usuario = usuario.id_usuario
+            JOIN empresa ON usuario.fk_empresa = empresa.id_empresa
+            WHERE data_captura >= DATEADD(DAY, -7, GETDATE()) 
         )
         SELECT
             id_maquina,
-            TIMESTAMPDIFF(HOUR, MAX(data_captura_anterior), MIN(data_captura)) AS tempo_inatividade_horas
+            DATEDIFF(HOUR, MAX(data_captura_anterior), MIN(data_captura)) AS tempo_inatividade_horas
         FROM DiferencaCapturas
-        WHERE id_usuario = 1
+        WHERE id_usuario = ${id_usuario}
         GROUP BY id_maquina
-        ORDER BY tempo_inatividade_horas ASC;`;
+        ORDER BY tempo_inatividade_horas ASC;
+`;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `WITH DiferencaCapturas AS (
             SELECT
