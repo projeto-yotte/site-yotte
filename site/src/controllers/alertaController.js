@@ -1,9 +1,12 @@
 var alertaModel = require("../models/alertaModel");
 
 function listar(req, res) {
-    alertaModel.listar().then(function (resposta) {
+    var id_admin = req.params.id_admin;
+
+    alertaModel.listar(id_admin).then(function (resposta) {
         if (resposta.length > 0) {
             res.status(200).json(resposta);
+            console.log(JSON.stringify(resposta))
         } else {
             res.status(204).send("Nenhuma resposta encontrado!")
         }

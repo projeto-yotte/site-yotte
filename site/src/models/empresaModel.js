@@ -25,9 +25,9 @@ function cadastrar(nome,cnpj, email, senha) {
     var instrucao = ``;
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        var instrucao = `INSERT INTO empresa (nome_fantasia, cnpj, email, senha) VALUES ('${nome}', '${cnpj}', '${email}', '${senha} ');`;
+        var instrucao = `INSERT INTO empresa (nome, cnpj, email, senha) VALUES ('${nome}', '${cnpj}', '${email}', '${senha} ');`;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        var instrucao = `INSERT INTO empresa (nome_fantasia, cnpj, email, senha) VALUES ('${nome}', '${cnpj}', '${email}', '${senha} ');`;
+        var instrucao = `INSERT INTO empresa (nome, cnpj, email, senha) VALUES ('${nome}', '${cnpj}', '${email}', '${senha} ');`;
     }
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
