@@ -1,22 +1,23 @@
-process.env.AMBIENTE_PROCESSO = "desenvolvimento";
-// process.env.AMBIENTE_PROCESSO = "producao";
+// process.env.AMBIENTE_PROCESSO = "desenvolvimento";
+process.env.AMBIENTE_PROCESSO = "producao";
 
 var express = require("express");
 var cors = require("cors");
 var path = require("path");
-var PORTA = process.env.AMBIENTE_PROCESSO == "desenvolvimento" ? 3333 : 8080;
+var PORTA = process.env.AMBIENTE_PROCESSO == "desenvolvimento" ? 80 : 3333;
 
 var app = express();
 
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
-var avisosRouter = require("./src/routes/avisos");
-var medidasRouter = require("./src/routes/medidas");
-var empresasRouter = require("./src/routes/empresas");
-var responsaveisRouter = require('./src/routes/responsaveis')
-var setoresRouter = require('./src/routes/setores')
-var mercadosRouter = require('./src/routes/mercados')
-var alertasRouter = require('./src/routes/alertas')
+
+
+var empresaRouter = require("./src/routes/empresa");
+var adminRouter = require("./src/routes/admin");
+var dashInicialRouter = require("./src/routes/dashInicial");
+var dashEspecificaRouter = require("./src/routes/dashEspecifica");
+var maquinaRouter = require("./src/routes/maquina")
+var alertaRouter = require("./src/routes/alertas")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -26,13 +27,13 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
-app.use("/avisos", avisosRouter);
-app.use("/medidas", medidasRouter);
-app.use('/empresas', empresasRouter)
-app.use('/responsaveis', responsaveisRouter)
-app.use('/setores', setoresRouter)
-app.use('/mercados', mercadosRouter)
-app.use('/alertas', alertasRouter)
+
+app.use("/empresa", empresaRouter);
+app.use("/admin", adminRouter);
+app.use("/dashInicial", dashInicialRouter);
+app.use("/dashEspecifica", dashEspecificaRouter);
+app.use("/maquina", maquinaRouter);
+app.use("/alertas", alertaRouter);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
