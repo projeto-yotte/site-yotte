@@ -16,7 +16,7 @@ function AtivosInativos(id_empresa) {
         JOIN maquina m ON c.fk_maquina = m.id_maquina
         JOIN usuario u ON m.fk_usuario = u.id_usuario
         JOIN empresa e ON u.fk_empresa = e.id_empresa
-            AND e.id_empresa = ${id_empresa}
+            AND e.id_empresa = @id_empresa -- Substitua @id_empresa pelo valor desejado
         GROUP BY m.id_maquina
     ) AS maquinas;`;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
