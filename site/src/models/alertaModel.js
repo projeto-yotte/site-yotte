@@ -46,7 +46,7 @@ WHERE
                 alerta ON dados_captura.id_dados_captura = alerta.fk_dados_captura
             JOIN 
                 empresa ON funcionario.fk_empresa = id_empresa
-                WHERE admin.id_usuario = 1 AND id_empresa = 1;
+                WHERE admin.id_usuario = ${id_admin} AND id_empresa = ${id_empresa};
                 `;
     }
 

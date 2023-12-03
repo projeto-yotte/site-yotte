@@ -704,11 +704,12 @@
         const divToast = document.getElementById(`id-toast${id}`);
         divToast.remove();
     }
-    
+
     // divToastStack.style.display = 'none';
+    var id_admin = sessionStorage.ID_USUARIO;
 
     function buscarAlertas() {
-        fetch(`/alertas/listar/${sessionStorage.ID_USUARIO}`, {
+        fetch(`/alertas/listar/${id_admin}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
