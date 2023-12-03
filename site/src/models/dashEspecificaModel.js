@@ -129,7 +129,7 @@ JOIN maquina ON componente.fk_maquina = maquina.id_maquina
 JOIN usuario ON maquina.fk_usuario = usuario.id_usuario
 JOIN empresa ON usuario.fk_empresa = empresa.id_empresa
 WHERE
-    usuario.id_usuario = @id_funcionario -- Use parâmetros para evitar SQL injection
+    usuario.id_usuario = ${id_funcionario}
 GROUP BY
     maquina.id_maquina, usuario.nome;
 
