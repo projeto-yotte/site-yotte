@@ -118,9 +118,9 @@ function relatorioProblema(id_funcionario) {
         SELECT
     maquina.id_maquina,
     usuario.nome,
-    COUNT(CASE WHEN componente.nome = 'CPU' THEN alerta.id_alerta END) AS count_alerta_cpu,
-    COUNT(CASE WHEN componente.nome = 'RAM' THEN alerta.id_alerta END) AS count_alerta_ram,
-    COUNT(CASE WHEN componente.nome = 'HD' THEN alerta.id_alerta END) AS count_alerta_hd
+    COUNT(CASE WHEN componente.nome = 'cpu' THEN alerta.id_alerta END) AS qtd_alertas_cpu,
+    COUNT(CASE WHEN componente.nome = 'memoria' THEN alerta.id_alerta END) AS qtd_alertas_memoria,
+    COUNT(CASE WHEN componente.nome = 'disco' THEN alerta.id_alerta END) AS qtd_alertas_disco
 FROM
     alerta
 JOIN dados_captura ON alerta.fk_dados_captura = dados_captura.id_dados_captura
@@ -180,7 +180,7 @@ function usoDisco(id_maquina) {
             JOIN dados_captura dc ON c.id_componente = dc.fk_componente
             JOIN info_componente ic ON c.fk_info = ic.id_info
             WHERE
-                dc.data_captura >= DATEADD(DAY, -30, GETDATE()) -- Ajuste na condição
+                dc.data_captura >= DATEADD(DAY, -30, GETDATE())
                 AND c.fk_maquina = ${id_maquina}
             GROUP BY
                 c.id_componente, c.nome, ic.total
