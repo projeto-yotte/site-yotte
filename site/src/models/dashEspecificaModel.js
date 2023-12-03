@@ -6,50 +6,50 @@ function componentesPrincipais(id_funcionario) {
         instrucaoSql = `
         WITH Porcentagens AS (
             SELECT
-              componente.nome,
-              ROUND(
-                CASE
-                  WHEN componente.nome = 'cpu' THEN dados_captura.uso / 100 * 100
-                  WHEN componente.nome IN ('disco', 'memoria') THEN dados_captura.uso / info_componente.total * 100
-                  ELSE 0 -- Adicione condições adicionais conforme necessário
-                END, 2
-              ) AS porcentagem,
-              uso,
-              total,
-              id_usuario,
-              dados_captura.data_captura
+                componente.nome,
+                ROUND(
+                    CASE
+                        WHEN componente.nome = 'cpu' THEN dados_captura.uso / 100 * 100
+                        WHEN componente.nome IN ('disco', 'memoria') THEN dados_captura.uso / info_componente.total * 100
+                        ELSE 0 
+                    END, 2
+                ) AS porcentagem,
+                dados_captura.uso,
+                info_componente.total,
+                usuario.id_usuario,
+                dados_captura.data_captura
             FROM
-              dados_captura
-              JOIN componente ON dados_captura.fk_componente = componente.id_componente
-              JOIN info_componente ON info_componente.id_info = componente.fk_info
-              JOIN maquina ON componente.id_componente = maquina.id_maquina
-              JOIN usuario ON usuario.id_usuario = maquina.fk_usuario
+                dados_captura
+                JOIN componente ON dados_captura.fk_componente = componente.id_componente
+                JOIN info_componente ON info_componente.id_info = componente.fk_info
+                JOIN maquina ON componente.id_componente = maquina.id_maquina
+                JOIN usuario ON usuario.id_usuario = maquina.fk_usuario
             WHERE
-              (
-                (componente.nome = 'cpu' AND dados_captura.uso IS NOT NULL)
-                OR
-                (componente.nome IN ('disco', 'memoria') AND dados_captura.uso IS NOT NULL)
-              )
-              AND dados_captura.data_captura >= CURDATE() - INTERVAL 10 DAY
-              AND usuario.id_usuario = ${id_funcionario}
-          ),
-          PorcentagensOrdenadas AS (
+                (
+                    (componente.nome = 'cpu' AND dados_captura.uso IS NOT NULL)
+                    OR
+                    (componente.nome IN ('disco', 'memoria') AND dados_captura.uso IS NOT NULL)
+                )
+                AND dados_captura.data_captura >= DATEADD(DAY, -10, GETDATE())
+                AND usuario.id_usuario = ${id_funcionario}
+        ),
+        PorcentagensOrdenadas AS (
             SELECT
-              nome,
-              porcentagem,
-              uso,
-              total,
-              id_usuario,
-              data_captura,
-              ROW_NUMBER() OVER (PARTITION BY nome ORDER BY data_captura DESC) AS row_num
+                nome,
+                porcentagem,
+                uso,
+                total,
+                id_usuario,
+                data_captura,
+                ROW_NUMBER() OVER (PARTITION BY nome ORDER BY data_captura DESC) AS row_num
             FROM
-              Porcentagens
-          )
-          SELECT *
-          FROM
+                Porcentagens
+        )
+        SELECT *
+        FROM
             PorcentagensOrdenadas
-          WHERE
-            row_num = 1;
+        WHERE
+            row_num = 1;              
         `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `

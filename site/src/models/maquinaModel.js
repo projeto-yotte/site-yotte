@@ -22,8 +22,9 @@ function listarMaquinas(id_admin) {
         dados_captura ON componente.id_componente = dados_captura.fk_componente
     LEFT JOIN 
         alerta ON dados_captura.id_dados_captura = alerta.fk_dados_captura
-    WHERE admin.id_usuario =  ${id_admin} 
-    GROUP BY maquina.id_maquina, maquina.ip, funcionario.nome, funcionario.id_usuario;`;
+    WHERE admin.id_usuario = ${id_admin}
+    GROUP BY maquina.id_maquina, maquina.ip, funcionario.nome, funcionario.id_usuario;
+    `;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `SELECT
